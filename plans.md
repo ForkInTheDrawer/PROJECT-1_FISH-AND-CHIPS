@@ -1,12 +1,34 @@
 # PROJECT IDEAS:
-"Fish n Chips"
+
+## IMPORTANT:
+WHEN SAVING YOUR PROJECT TO GITHUB:
+* DO THESE STEPS:
+1. Save file 
+(via ctrl + s)
+2. Go to Source Control 
+(3rd icon on the left)
+3. Press "+" Button (named "Stage Changes")
+4. Add a Message (NOTE: PUT THE CHANGES U ADDED.)
+5. Press Commit
+6. Click the "push" icon on the graph.
+
+7. NOTE: If importing type these in terminal:
+
+* git status
+* git pull
 
 
--Cast your rod, wait for it to catch a fish.
--Sell raw fishes to gain Coins
--Sell Cooked Fishes to gain CHIPS
--Use the coins to upgrade your rod
--Use CHIPS to buy 
+
+
+
+# "Fish n Chips"
+
+
+- Cast your rod, wait for it to catch a fish.
+- Sell raw fishes to gain Coins
+- Sell Cooked Fishes to gain CHIPS
+- Use the coins to upgrade your rod
+- Use CHIPS to buy 
 
 
 
