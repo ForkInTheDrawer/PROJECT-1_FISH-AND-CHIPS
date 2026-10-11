@@ -1,84 +1,47 @@
-#PROJECT GAME: Fish N Chips
+"""Fish N Chips - game entry point."""
 
 import pygame
-import sys
 
-#screen Dimensions:
-width = 1200
-height = 800
-    #NOTE: CHANGE THE VERSION NUMBER ONCE YOU UPDATE!!!
-game_version = "1.0.0"
+# Screen dimensions. Update the version number when you release a new version.
+WIDTH = 1200
+HEIGHT = 800
+GAME_VERSION = "1.0.1"
+FPS = 60
 
-
-#This starts the program (program starter)
-pygame.init()
+BACKGROUND_COLOR = (30, 144, 255)
 
 
-#Game Screen window.
-window_screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption(f"Fish N Chips {game_version}")
+def main():
+    pygame.init()
 
-#Setting up the Loop Area:
-game_running = True
-is_fullscreen = False
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption(f"Fish N Chips {GAME_VERSION}")
+    clock = pygame.time.Clock()
 
+    running = True
+    is_fullscreen = False
 
-#ACTUAL GAME AREA:
-while game_running:
-    #trigger checker for events
-    for event in pygame.event.get():
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-        #NOTE: EXIT BUTTON!!!
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                elif event.key == pygame.K_f:
+                    is_fullscreen = not is_fullscreen
+                    if is_fullscreen:
+                        screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+                    else:
+                        screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-        if event.type == pygame.QUIT:
-            game_running = False
+        screen.fill(BACKGROUND_COLOR)
+        pygame.display.flip()
+        clock.tick(FPS)
 
-
-#KEYBOARD INPUTS AREA:
-
-        if event.type == pygame.KEYDOWN:
-            if event.key ==pygame.K_f:
-                is_fullscreen = not is_fullscreen
-
-                if is_fullscreen:
-
-print("Hello.")
-
-
-
+    pygame.quit()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    window_screen.fill((30,144,255))
-
-    pygame.display.flip()
-
-pygame.quit()
-
-
-        
-
-
+if __name__ == "__main__":
+    main()
