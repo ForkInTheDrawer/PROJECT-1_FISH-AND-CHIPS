@@ -1,47 +1,68 @@
-"""Fish N Chips - game entry point."""
+"GAME NAME: Fish n Chips"
 
 import pygame
-
-# Screen dimensions. Update the version number when you release a new version.
+#Screen Dimensions + update version Number when you release a new version!
 WIDTH = 1200
 HEIGHT = 800
 GAME_VERSION = "1.0.1"
-FPS = 60
+FPS = 30
 
-BACKGROUND_COLOR = (30, 144, 255)
+MENU_BACKGROUND_COLOR = (30,144,255)
+
+
 
 
 def main():
     pygame.init()
 
+
+    #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption(f"Fish N Chips {GAME_VERSION}")
+    pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}")
+
     clock = pygame.time.Clock()
 
-    running = True
+    game_running = True
     is_fullscreen = False
 
-    while running:
+
+    #NOTE: Main Game Loop
+    while game_running:
+
         for event in pygame.event.get():
+            #NOTE: When Game is quitted
             if event.type == pygame.QUIT:
-                running = False
+                game_running = False
+
+
+
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                elif event.key == pygame.K_f:
-                    is_fullscreen = not is_fullscreen
-                    if is_fullscreen:
-                        screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
-                    else:
-                        screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-        screen.fill(BACKGROUND_COLOR)
+                #NOTE: When Escape key is pressed
+                if event.key == pygame.K_ESCAPE:
+                    game_running = False
+
+
+
+        screen.fill(MENU_BACKGROUND_COLOR)
         pygame.display.flip()
         clock.tick(FPS)
 
-    pygame.quit()
+
+
+
+
+pygame.quit()
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
     main()
+            
