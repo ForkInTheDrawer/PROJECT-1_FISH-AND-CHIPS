@@ -61,30 +61,30 @@ def main():
                     game_running = False
 
 
-            #NOTE: DIRECTIONAL MOVEMENT (w/ auto walk):
-            keys = pygame.key.get_pressed()
+        #NOTE: DIRECTIONAL MOVEMENT (w/ auto walk):
+        keys = pygame.key.get_pressed()
 
-            if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
+        if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
  
-                current_tick = pygame.time.get_ticks()
+            current_tick = pygame.time.get_ticks()
 
-                if movement_time == 0 or current_tick - movement_time >= 100:
-                    if keys[pygame.K_a]:
-                        player.x -= 5
+            if movement_time == 0 or current_tick - movement_time >= 100:
+                if keys[pygame.K_a]:
+                    player.x -= 5
 
-                    elif keys[pygame.K_d]:
-                        player.x += 5
+                elif keys[pygame.K_d]:
+                    player.x += 5
 
-                    elif keys[pygame.K_w]:
-                        player.y -= 5
+                elif keys[pygame.K_w]:
+                    player.y -= 5
 
-                    elif keys[pygame.K_s]:
-                        player.y += 5
+                elif keys[pygame.K_s]:
+                    player.y += 5
 
-                movement_time = current_tick
+            movement_time = current_tick
 
-            else:
-                movement_time = 0
+        else:
+            movement_time = 0
 
 
 
