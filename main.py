@@ -32,7 +32,7 @@ def main():
     #NOTE: CHARACTER INFORMATION:
     player = pygame.Rect(200,200,10,50)
     
-    player_speed = 200 #pixels per second
+    player_speed = 100 #pixels per second
 
     player_pos = pygame.Vector2(player.topleft)
 
@@ -51,17 +51,7 @@ def main():
     #NOTE: Main Game Loop
     while game_running:
 
-       #NOTE: PLAYER BORDER
-        player_pos.x = max(
-        fish_island.left, 
-        min(player_pos.x,fish_island.right - player.width))
-        player_pos.y = max(
-        fish_island.top,
-        min(player_pos.y, fish_island.bottom - player.height))
 
-        player.topleft = (round(player_pos.x), round(player_pos.y))
-        
-        
         #NOTE: Event Handling System
 
         for event in pygame.event.get():
@@ -95,32 +85,56 @@ def main():
         if direction.length_squared() > 0:
             direction.normalize_ip()
 
-        player_pos += direction * player_speed * dt #calculates the player's position based on the direction, speed, and delta time
-        player.topleft = (round(player_pos.x), round(player_pos.y)) #updates the player's position on the screen
+        player_pos += direction * player_speed * dt
+
+        player_pos.x =max(
+            fish_island.left,
+            min(player_pos.x , fish_island.right - player.width)
+
+        )
+
+        player_pos.y = max(
+            fish_island.top,
+            min(player_pos.y , fish_island.bottom - player.height)
+
+        )
 
         
 
 
 
-
+    #NOTE: RENDERING!!!
 
         #NOTE: WATER BACKGROUND
         screen.fill(MENU_BACKGROUND_COLOR) 
        
+        #NOTE: CAMERA OFFSET
+        camera_offset_x = (
+            player_pos.x + player.width /2 - WIDTH / 2
+        )
 
+        camera_offset_y = (
+            player_pos.y + player.height /2 - HEIGHT /2
+        )
 
+        #NOTE: ISLAND MOVEMENT (By camera)
+        island_screen_rect = fish_island.move(
+            round(-camera_offset_x),
+            round(-camera_offset_y)
+        )
 
         #NOTE:ISLAND BACKGROUND
         island_color = (70, 160, 75)  # RGB color format
-        pygame.draw.rect(screen, island_color, fish_island)
+        pygame.draw.rect(screen, island_color, island_screen_rect)
+
+
        
-        #NOTE: Player
+        #NOTE: Player center.
+        player.center =  (WIDTH //2 , HEIGHT //2)
         player_color = (255, 0, 0)
         pygame.draw.rect(screen, player_color, player)
-
+        
         pygame.display.flip()
-        clock.tick(FPS)
-
 
 
 
