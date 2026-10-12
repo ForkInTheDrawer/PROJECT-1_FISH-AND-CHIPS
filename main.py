@@ -5,11 +5,9 @@ import pygame
 WIDTH = 1200
 HEIGHT = 800
 GAME_VERSION = "1.0.1"
-FPS = 30
 
-MENU_BACKGROUND_COLOR = (30,144,255)
-
-
+dt = 0
+FPS = 120
 
 
 def main():
@@ -22,19 +20,28 @@ def main():
 
 
     #NOTE: it makes the game run at a constant speed, regardless of the computer's performance
-    clock = pygame.time.Clock()
+  
+    MENU_BACKGROUND_COLOR = (30,144,255)
+
 
     game_running = True
     is_fullscreen = False
-
-#-----------------------------------
-    #NOTE: CHARACTER SECTION:
-    player = pygame.Rect(100,100,10,50)
-    movement_time = 0
-
     
+#-----------------------------------
+    #NOTE: CHARACTER INFORMATION:
+    player = pygame.Rect(200,200,10,50)
+    movement_time = draw
+    player_speed = 200 #pixels per second
+    player_pos = pygame.Vector2(player.topleft)
 
+    #NOTE: ISLAND INFORMATION:
+    fish_island = pygame.Rect(400, 400, 300, 300) 
 
+    #NOTE: PLAYER BORDER
+    player_pos.x = max(fish_island.left, min(player_pos.x,fish_island.right - player.width))
+    player_pos.y = max(fish_island.top, min(player_pos.y, fish_island.bottom - player.height))
+
+    player.topleft = (round(player_pos.x), round(player_pos.y))
 
 
 
@@ -42,6 +49,10 @@ def main():
 #-----------------------------------
     #NOTE: Main Game Loop
     while game_running:
+
+        clock = pygame.time.Clock()
+        global dt
+        dt = clock.tick(FPS) / 1000  # Delta time in seconds.
 
         #NOTE: Event Handling System
 
@@ -69,39 +80,26 @@ def main():
         #NOTE: DIRECTIONAL MOVEMENT SYSTEM:
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
- 
-            current_tick = pygame.time.get_ticks()
+        direction = pygame.Vector2(
+            keys[pygame.K_d] - keys[pygame.K_a], #X axis
+            keys[pygame.K_s] - keys[pygame.K_w] #Y Axis
+        )
+        if direction.length_squared() > 0:
+            direction.normalize_ip()
 
+        player_pos += direction * player_speed * dt #calculates the player's position based on the direction, speed, and delta time
+        player.topleft = (round(player_pos.x), round(player_pos.y)) #updates the player's position on the screen
 
-            #NOTE: This is a movement timer, it makes the player move at a constant speed.
-            if movement_time == 0 or current_tick - movement_time >= 100:
-                if keys[pygame.K_a]:
-                    player.x -= 5
-
-                elif keys[pygame.K_d]:
-                    player.x += 5
-
-                elif keys[pygame.K_w]:
-                    player.y -= 5
-
-                elif keys[pygame.K_s]:
-                    player.y += 5
-
-                movement_time = current_tick
-
-        else:
-            movement_time = 0
+        
 
 
 
-
-        screen.fill(MENU_BACKGROUND_COLOR)
-
-
+        #NOTE: WATER BACKGROUND
+        screen.fill(MENU_BACKGROUND_COLOR) 
         pygame.draw.rect(screen, (255, 0, 0), player)
 
-
+        #NOTE:ISLAND BACKGROUND
+        pygame.draw.rect(screen, (70,160,75), fish_island)
 
 
         pygame.display.flip()
