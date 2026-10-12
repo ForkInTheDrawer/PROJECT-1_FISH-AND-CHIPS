@@ -39,7 +39,7 @@ def main():
     player_pos = pygame.Vector2(player.topleft)
 
     #NOTE: ISLAND INFORMATION:
-    island_size = (500, 500)
+    island_size = (600, 700)
     island_pos = pygame.Vector2((WIDTH - island_size[0]) / 2, (HEIGHT - island_size[1]) / 2)
     fish_island = pygame.Rect(island_pos, island_size) 
 
