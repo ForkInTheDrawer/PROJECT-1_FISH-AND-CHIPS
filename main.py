@@ -1,6 +1,7 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
+import sys 
 #Screen Dimensions + update version Number when you release a new version!
 WIDTH = 1200
 HEIGHT = 800
