@@ -43,6 +43,27 @@ def main():
     island_pos = pygame.Vector2((WIDTH - island_size[0]) / 2, (HEIGHT - island_size[1]) / 2)
     fish_island = pygame.Rect(island_pos, island_size) 
 
+        #NOTE: ISLAND TERRAIN:
+
+    #NOTE: ROCK FORMATION + LOCATION:
+    gray_stone = pygame.Rect(
+        fish_island.left + 70,
+        fish_island.bottom - 150,
+        80 ,
+        60
+    )
+
+    #NOTE: Placeholder Store Info + Location:
+
+    vendor_store = pygame.rect(
+        fish_island.left  + 30 ,
+        fish_island.top - 100 ,
+        50 ,
+        80
+    )
+
+
+
     #NOTE: CAMERA INFORMATION:
     player.center = fish_island.center
     player_pos = pygame.Vector2(player.topleft)
@@ -130,6 +151,24 @@ def main():
         island_color = (70, 160, 75)  # RGB color format
         pygame.draw.rect(screen, island_color, island_screen_rect)
 
+            #NOTE: TERRAIN:
+        
+        #NOTE: ROCK FORMATION:
+        gray_stone_screen_rect = gray_stone.move(
+            round(-camera_offset_x),
+            round(-camera_offset_y)
+        )
+        stone_color = (110,110,110)
+        pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
+
+        #NOTE: Vendor Store Formation:
+        vendor_store_screen_rect = vendor_store.move(
+            round(-camera_offset_x) ,
+            round(-camera_offset_y)
+        )
+
+        vendor_base_color = (121, 92, 52)
+        pygame.draw.rect(screen, vendor_base_color, vendor_store_screen_rect)
 
        
         #NOTE: Player center.
