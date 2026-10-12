@@ -10,9 +10,9 @@ HEIGHT = 800
 GAME_VERSION = "1.0.1"
 
 
-FPS = 120
+FPS = 60
 clock = pygame.time.Clock()
-dt = clock.tick(FPS) / 1000  # Delta time in seconds.
+
 
 def main():
     pygame.init()
@@ -34,7 +34,7 @@ def main():
     #NOTE: CHARACTER INFORMATION:
     player = pygame.Rect(200,200,10,50)
     
-    player_speed = 50 #Measured in pixels per second
+    player_speed = 200 #Measured in pixels per second
 
     player_pos = pygame.Vector2(player.topleft)
 
@@ -52,6 +52,7 @@ def main():
 #-----------------------------------
     #NOTE: Main Game Loop
     while game_running:
+        dt = clock.tick(FPS) / 1000
 
 
         #NOTE: Event Handling System
