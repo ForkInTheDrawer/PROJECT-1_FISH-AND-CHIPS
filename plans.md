@@ -45,3 +45,26 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 CHIPS
 
 Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
+
+
+
+## PLANNING BOARD:
+
+1. Make an Island 
+    * Player cant go outside of it
+    * 
+
+2. Camera work
+    * Player must be in the middle of the screen at ALL times
+
+
+3. Player GUI:
+    * Cash (placeholder will be a button)
+
+4. MAP GENERATION
+    * Split map into chunks
+    * 1 chunk = 50 x 50 Pixels
+    * height map noise terrain generation
+
+5. OOP (Object Oriented PRogramming)
+    * For whole project

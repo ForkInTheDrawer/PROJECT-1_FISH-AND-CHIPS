@@ -33,6 +33,7 @@ def main():
     player = pygame.Rect(200,200,10,50)
     
     player_speed = 200 #pixels per second
+
     player_pos = pygame.Vector2(player.topleft)
 
     #NOTE: ISLAND INFORMATION:
@@ -40,8 +41,9 @@ def main():
     island_pos = pygame.Vector2((WIDTH - island_size[0]) / 2, (HEIGHT - island_size[1]) / 2)
     fish_island = pygame.Rect(island_pos, island_size) 
 
-    
-
+    #NOTE: CAMERA INFORMATION:
+    player.center = fish_island.center
+    player_pos = pygame.Vector2(player.topleft)
 
 
 
@@ -100,9 +102,13 @@ def main():
 
 
 
+
+
         #NOTE: WATER BACKGROUND
         screen.fill(MENU_BACKGROUND_COLOR) 
        
+
+
 
         #NOTE:ISLAND BACKGROUND
         island_color = (70, 160, 75)  # RGB color format
