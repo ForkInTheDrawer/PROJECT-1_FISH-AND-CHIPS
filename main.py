@@ -1,8 +1,10 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
-import sys 
-#Screen Dimensions + update version Number when you release a new version!
+import sys  #NOTE: USE LATER ONCE WE MAKE ASSETS
+
+
+#Screen Dimensions + update version Number when you release a new version
 WIDTH = 1200
 HEIGHT = 800
 GAME_VERSION = "1.0.1"
@@ -27,13 +29,12 @@ def main():
 
 
     game_running = True
-    is_fullscreen = False
     
 #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
     player = pygame.Rect(200,200,10,50)
     
-    player_speed = 100 #pixels per second
+    player_speed = 50 #Measured in pixels per second
 
     player_pos = pygame.Vector2(player.topleft)
 
