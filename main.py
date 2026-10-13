@@ -53,14 +53,33 @@ def main():
         60
     )
 
-    #NOTE: Placeholder Store Info + Location:
-
-    vendor_store = pygame.rect(
+    #NOTE: Store Info + Location:
+            # vendor store is where you sell sell fish to get money
+    vendor_store = pygame.Rect(
         fish_island.left  + 30 ,
-        fish_island.top - 100 ,
-        50 ,
-        80
+        fish_island.top + 200 ,
+        100 ,
+        180
     )
+
+            #Fishing supplies Shop is where you upgrade ur gear
+    
+    fishing_shop = pygame.Rect(
+        fish_island.centerx - 100, 
+        fish_island.top + 20,
+        180 ,
+        100
+    )
+
+
+    #NOTE: Dock Location + Size 
+    dock = pygame.Rect(
+        fish_island.right ,
+        fish_island.top + 100 ,
+        300,
+        120
+    )
+
 
 
 
@@ -109,6 +128,9 @@ def main():
         if direction.length_squared() > 0:
             direction.normalize_ip()
 
+
+
+        #NOTE: CLAMPING
         player_pos += direction * player_speed * dt
 
         player_pos.x =max(
@@ -169,6 +191,31 @@ def main():
 
         vendor_base_color = (121, 92, 52)
         pygame.draw.rect(screen, vendor_base_color, vendor_store_screen_rect)
+
+        #NOTE: Fishing shop FOrmation:
+        fishing_shop_screen_rect = fishing_shop.move(
+            round(-camera_offset_x) ,
+            round(-camera_offset_y)
+        )
+        fishing_shop_color = (156, 133, 100)
+        pygame.draw.rect(screen, fishing_shop_color , fishing_shop_screen_rect)
+
+
+
+
+        #NOTE: Dock Formation:
+        dock_screen_rect = dock.move(
+            round(-camera_offset_x) ,
+            round(-camera_offset_y)
+        )
+        dock_color = (158, 112, 79)
+        pygame.draw.rect(screen, dock_color , dock_screen_rect)
+
+
+
+
+
+
 
        
         #NOTE: Player center.
