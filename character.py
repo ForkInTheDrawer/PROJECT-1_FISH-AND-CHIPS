@@ -1,4 +1,4 @@
-class character:
+class player:
     def __init__(self, name_val, gender_val, cash_val, chips_val, luck_val):
         self.name = name_val
         self.gender = gender_val
@@ -17,5 +17,7 @@ class character:
         
         print(f"{self.name}")
         
-person_a = character("Ivan", "M", 100, 0, 1)
-person_b = character("John", "M", 92, 0, 1)
+person_a = player("Ivan", "M", 100, 0, 1)
+
+
+

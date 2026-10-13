@@ -33,7 +33,7 @@ def main():
 #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
     player = pygame.Rect(
-        200,200,10,20
+        200,200,30,50
         )
     
     player_speed = 200 #Measured in pixels per second
@@ -81,6 +81,21 @@ def main():
         100
     )
 
+       #NOTE: MOVEMENT + COLLISION:
+
+    def is_walkable(x,y):
+        player_center = (
+        round(x +player.width /2) ,
+        round(y + player.height /2)
+        )
+
+        return(
+            fish_island.collidepoint(player_center)
+            or
+            dock.collidepoint(player_center)
+        )
+
+
 
     #NOTE: Dock Location + Size 
     dock = pygame.Rect(
@@ -122,10 +137,7 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     game_running = False
 
-
-
-
-
+    #----------------------------------------#
 
 
         #NOTE: DIRECTIONAL MOVEMENT SYSTEM:
@@ -138,21 +150,6 @@ def main():
         if direction.length_squared() > 0:
             direction.normalize_ip()
 
-
-
-        #NOTE: MOVEMENT + COLLISION:
-
-        def is_walkable(x,y):
-            player_center = (
-            round(x +player.width /2) ,
-            round(y + player.height /2)
-            )
-
-            return(
-                fish_island.collidepoint(player_center)
-                or
-                dock.collidepoint(player_center)
-            )
 
         #NOTE: Horizontal Movement Checker:
         old_x = player_pos.x
@@ -170,6 +167,12 @@ def main():
         if not is_walkable(player_pos.x , player_pos.y):
             player_pos.y = old_y
 
+
+
+
+
+
+ 
 
     #NOTE: RENDERING!!!
 
@@ -194,6 +197,8 @@ def main():
         #NOTE:ISLAND BACKGROUND
         island_color = (70, 160, 75)  # RGB color format
         pygame.draw.rect(screen, island_color, island_screen_rect)
+
+
 
             #NOTE: TERRAIN:
         
