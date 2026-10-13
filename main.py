@@ -133,9 +133,31 @@ def main():
         #NOTE: CLAMPING
         player_pos += direction * player_speed * dt
 
+
+            #NOTE: Next Player Position checker
+        
+        next_playerposition = pygame.Rect(
+            round(player_pos.x),
+            round(player_pos.y),
+            player.width,
+            player.height
+        )
+
+
+            #NOTE: Allow movement checker
+        if fish_island.colliderect(next_playerposition) or dock.collidedict(next_playerposition):
+            pass
+        else:
+            player_pos -= direction * player_speed * dt
+
+
+
+
+
+
         player_pos.x =max(
             fish_island.left,
-            min(player_pos.x , fish_island.right - player.width)
+            min(player_pos.x , dock.right - player.width)
 
         )
 
