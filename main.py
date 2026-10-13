@@ -145,7 +145,9 @@ def main():
 
         )
 
-        
+
+            #NOTE: Walkable Area
+        walkable_area = fish_island.union(dock)
 
 
 
