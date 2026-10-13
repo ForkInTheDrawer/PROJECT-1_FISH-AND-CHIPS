@@ -32,16 +32,26 @@ def main():
     
 #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
-    player = pygame.Rect(200,200,10,50)
+    player = pygame.Rect(
+        200,200,10,20
+        )
     
     player_speed = 200 #Measured in pixels per second
 
     player_pos = pygame.Vector2(player.topleft)
 
     #NOTE: ISLAND INFORMATION:
-    island_size = (600, 700)
-    island_pos = pygame.Vector2((WIDTH - island_size[0]) / 2, (HEIGHT - island_size[1]) / 2)
-    fish_island = pygame.Rect(island_pos, island_size) 
+    island_size = (800, 900)
+
+    island_pos = pygame.Vector2(
+        (WIDTH - island_size[0]) / 2,
+          (HEIGHT - island_size[1]) / 2
+          )
+    
+    fish_island = pygame.Rect(
+        island_pos, 
+        island_size
+        ) 
 
         #NOTE: ISLAND TERRAIN:
 
@@ -130,47 +140,35 @@ def main():
 
 
 
-        #NOTE: CLAMPING
-        player_pos += direction * player_speed * dt
+        #NOTE: MOVEMENT + COLLISION:
 
+        def is_walkable(x,y):
+            player_center = (
+            round(x +player.width /2) ,
+            round(y + player.height /2)
+            )
 
-            #NOTE: Next Player Position checker
-        
-        next_playerposition = pygame.Rect(
-            round(player_pos.x),
-            round(player_pos.y),
-            player.width,
-            player.height
-        )
+            return(
+                fish_island.collidepoint(player_center)
+                or
+                dock.collidepoint(player_center)
+            )
 
+        #NOTE: Horizontal Movement Checker:
+        old_x = player_pos.x
+        player_pos.x += direction.x * player_speed *dt
 
-            #NOTE: Allow movement checker
-        if fish_island.colliderect(next_playerposition) or dock.collidedict(next_playerposition):
-            pass
-        else:
-            player_pos -= direction * player_speed * dt
-
-
-
+        if not is_walkable(player_pos.x , player_pos.y):
+            player_pos.x = old_x
 
 
 
-        player_pos.x =max(
-            fish_island.left,
-            min(player_pos.x , dock.right - player.width)
+        #NOTE: Vertical Movement Checker:
+        old_y = player_pos.y
+        player_pos.y += direction.y * player_speed *dt
 
-        )
-
-        player_pos.y = max(
-            fish_island.top,
-            min(player_pos.y , fish_island.bottom - player.height)
-
-        )
-
-
-            #NOTE: Walkable Area
-        walkable_area = fish_island.union(dock)
-
+        if not is_walkable(player_pos.x , player_pos.y):
+            player_pos.y = old_y
 
 
     #NOTE: RENDERING!!!
