@@ -1,11 +1,18 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
-import sys  #NOTE: USE LATER ONCE WE MAKE ASSETS
+
+
+#Imports from other files
 from classes import character
 from function import collisions
+from classes import proximity_detector
 
-# print("Hellow World")
+
+
+
+
+
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -111,6 +118,17 @@ def main():
         400,
         150
     )
+
+    #NOTE: Interact Detector:
+
+        #FISHING DETECTOR
+
+    fishing_proximity = proximity_detector.proximity(
+        dock.center ,
+        (250,0) ,
+        "'E' Fish" ,
+        pygame.K_e
+    ) 
 
 
 
