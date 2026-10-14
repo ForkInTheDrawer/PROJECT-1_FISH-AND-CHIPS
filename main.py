@@ -183,6 +183,8 @@ def main():
                 #NOTE: When Escape key is pressed
                 if event.key == pygame.K_ESCAPE:
                     game_running = False
+                
+
 
     #----------------------------------------#
 
