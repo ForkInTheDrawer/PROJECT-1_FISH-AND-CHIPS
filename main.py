@@ -5,7 +5,7 @@ import sys  #NOTE: USE LATER ONCE WE MAKE ASSETS
 from classes import character
 from function import collisions
 
-
+# print("Hellow World")
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -21,7 +21,8 @@ clock = pygame.time.Clock()
 def main():
     pygame.init()
 
-    player_a = character.player("Ivan", "M", 100, 0, 1)
+
+
 
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -113,25 +114,28 @@ def main():
 
 
 
-
-    #NOTE: CAMERA INFORMATION:
-    player.center = fish_island.center
-    player_pos = pygame.Vector2(player.topleft)
-
 #--------------------------------------------
 
        
 
-    #NOTE: LOCATIONS AND INFO 
-    walkable_area = [
+    #NOTE: LOCATIONS AND INFO (for collisions)
+
+    walkable_area = [ #NOTE: Only place where u can move
         fish_island,
         dock
     ]
-    obstacles = [
+    obstacles = [ #NOTE: These are the walls / hitbox of objects
         fishing_shop,
         vendor_store ,
         gray_stone
     ]
+
+#-------------------------------------------#
+
+   #NOTE: CAMERA INFORMATION:
+    player.center = fish_island.center
+    player_pos = pygame.Vector2(player.topleft)
+
 
         #NOTE: MOVEMENT + COLLISION:
     if not collisions.is_walkable(
@@ -267,6 +271,9 @@ def main():
 
 
 
+
+
+
        
         #NOTE: Player center.
         player.center =  (WIDTH //2 , HEIGHT //2)
@@ -282,6 +289,7 @@ def main():
         trunk_color = (101, 75, 66)
         pygame.draw.rect(screen, trunk_color , tree_trunk_screen_rect)
 
+
         
         #NOTE: ROCK FORMATION:
         gray_stone_screen_rect = gray_stone.move(
@@ -296,10 +304,6 @@ def main():
 
         
         pygame.display.flip()
-
-
-
-    
     pygame.quit()
 
 

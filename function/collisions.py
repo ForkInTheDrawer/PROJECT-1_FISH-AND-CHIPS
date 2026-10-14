@@ -4,9 +4,9 @@ import pygame
 #NOTE: This is for the collision system:
 # Note: This has
 
-# collides_with_any --> 
+# collides_with_any --> check if "obstacles" hits player hitbox.
 
-#is_walkable --> checks if 
+#is_walkable --> checks player position to determine hitbox.
 
 
 
