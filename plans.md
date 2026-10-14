@@ -26,18 +26,18 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 
 ## Upgrades
 - Rod material: durability and weight capacity
-- Line material: weight tolerance
-- Bait / hook: luck
+- Line material: weight tolerance + line distance
+- Bait / hook: luck + bigger bait, bigger fish
 - Reel: reeling speed
-- Handle: durability
+- Handle: Luck
 
 ## Planning board
 
-### 1. Island
+### 1. Island (DONE)
 - [ ] Make an island.
 - [ ] Keep the player inside its world-space boundaries.
 
-### 2. Camera
+### 2. Camera (DONE)
 - [ ] Keep the player in the middle of the screen.
 - [ ] Make sure the world (island, water, and later objects) moves relative to the camera.
 
@@ -52,6 +52,11 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 ### 5. Object-oriented programming (OOP)
 - [ ] Learn classes, attributes, methods, and how objects work together.
 - [ ] Keep the player’s in-game stats separate from movement/rendering code where practical.
+
+### 6. CHARACTER:
+- [] 
+
+
 
 ---
 

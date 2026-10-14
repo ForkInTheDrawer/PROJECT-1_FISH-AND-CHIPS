@@ -2,6 +2,10 @@
 
 import pygame
 import sys  #NOTE: USE LATER ONCE WE MAKE ASSETS
+from classes import character
+from function import collisions
+
+
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -17,6 +21,7 @@ clock = pygame.time.Clock()
 def main():
     pygame.init()
 
+    player_a = character.player("Ivan", "M", 100, 0, 1)
 
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -29,6 +34,8 @@ def main():
 
 
     game_running = True
+
+
     
 #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
@@ -59,8 +66,16 @@ def main():
     gray_stone = pygame.Rect(
         fish_island.left + 70,
         fish_island.bottom - 150,
-        80 ,
-        60
+        100 ,
+        80
+    )
+
+    #NOTE: Tree
+    tree = pygame.Rect(
+        fish_island.right - 70 ,
+        fish_island.bottom  - 300 ,
+        40,
+        250
     )
 
     #NOTE: Store Info + Location:
@@ -81,28 +96,19 @@ def main():
         100
     )
 
-       #NOTE: MOVEMENT + COLLISION:
 
-    def is_walkable(x,y):
-        player_center = (
-        round(x +player.width /2) ,
-        round(y + player.height /2)
-        )
 
-        return(
-            fish_island.collidepoint(player_center)
-            or
-            dock.collidepoint(player_center)
-        )
 
+        
+    
 
 
     #NOTE: Dock Location + Size 
     dock = pygame.Rect(
         fish_island.right ,
         fish_island.top + 100 ,
-        300,
-        120
+        400,
+        150
     )
 
 
@@ -112,6 +118,29 @@ def main():
     player.center = fish_island.center
     player_pos = pygame.Vector2(player.topleft)
 
+#--------------------------------------------
+
+       
+
+    #NOTE: LOCATIONS AND INFO 
+    walkable_area = [
+        fish_island,
+        dock
+    ]
+    obstacles = [
+        fishing_shop,
+        vendor_store ,
+        gray_stone
+    ]
+
+        #NOTE: MOVEMENT + COLLISION:
+    if not collisions.is_walkable(
+        (player_pos.x, player_pos.y),
+        player,
+        walkable_area ,
+        obstacles
+        ):
+        player_pos.x = old_x
 
 
 #-----------------------------------
@@ -155,7 +184,7 @@ def main():
         old_x = player_pos.x
         player_pos.x += direction.x * player_speed *dt
 
-        if not is_walkable(player_pos.x , player_pos.y):
+        if not collisions.is_walkable((player_pos.x , player_pos.y),player, walkable_area, obstacles):
             player_pos.x = old_x
 
 
@@ -164,7 +193,7 @@ def main():
         old_y = player_pos.y
         player_pos.y += direction.y * player_speed *dt
 
-        if not is_walkable(player_pos.x , player_pos.y):
+        if not collisions.is_walkable((player_pos.x , player_pos.y),player, walkable_area, obstacles):
             player_pos.y = old_y
 
 
@@ -202,13 +231,7 @@ def main():
 
             #NOTE: TERRAIN:
         
-        #NOTE: ROCK FORMATION:
-        gray_stone_screen_rect = gray_stone.move(
-            round(-camera_offset_x),
-            round(-camera_offset_y)
-        )
-        stone_color = (110,110,110)
-        pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
+
 
         #NOTE: Vendor Store Formation:
         vendor_store_screen_rect = vendor_store.move(
@@ -249,6 +272,28 @@ def main():
         player.center =  (WIDTH //2 , HEIGHT //2)
         player_color = (255, 0, 0)
         pygame.draw.rect(screen, player_color, player)
+
+
+        #NOTE: TREE FORMATION:
+        tree_trunk_screen_rect = tree.move(
+            round(-camera_offset_x),
+            round(-camera_offset_y)
+        )
+        trunk_color = (101, 75, 66)
+        pygame.draw.rect(screen, trunk_color , tree_trunk_screen_rect)
+
+        
+        #NOTE: ROCK FORMATION:
+        gray_stone_screen_rect = gray_stone.move(
+            round(-camera_offset_x),
+            round(-camera_offset_y)
+        )
+        stone_color = (110,110,110)
+        pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
+
+
+
+
         
         pygame.display.flip()
 

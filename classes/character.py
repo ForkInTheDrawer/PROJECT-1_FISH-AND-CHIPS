@@ -17,7 +17,9 @@ class player:
         
         print(f"{self.name}")
         
-person_a = player("Ivan", "M", 100, 0, 1)
+# person_a = player("Ivan", "M", 100, 0, 1)
 
 
 
+# class obstacles:
+#     def __init__(self, hitbox, shape)
