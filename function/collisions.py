@@ -32,6 +32,13 @@ def is_walkable(coordinates,  player, walkable_area, obstacle):
         inside_border = any(
              area.contains(player_hitbox)
              for area in walkable_area
+        ) or(
+           player_hitbox.left >= walkable_area[0].left
+           and player_hitbox.right <= walkable_area[1].right
+           and player_hitbox.top >= walkable_area[1].top
+           and player_hitbox.bottom <= walkable_area[1].bottom
+           and player_hitbox.colliderect(walkable_area[0])
+           and player_hitbox.colliderect(walkable_area[1]) 
         )
 
         touching_obstacle = collides_with_any(player_hitbox, obstacle)
