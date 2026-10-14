@@ -1,3 +1,6 @@
+
+
+
 import pygame
 
 class proximity:
@@ -10,6 +13,8 @@ class proximity:
         self.ObjectName = Object_Name
         self.kb = keybind
 
+
+
     def is_in_range(self, player_rect):
         #Distance from placer center to interaction point.
 
@@ -19,6 +24,8 @@ class proximity:
         distance = player_center.distance_to(target_position)
 
         return self.min_distance <= distance <= self.max_distance
+
+
 
     def triggered_event(self, event, player_rect):
 
@@ -31,3 +38,4 @@ class proximity:
 
 
 fishing_proximity = proximity((0,0),(10,0), "Fish", "fishingrod!!", pygame.key.key_code("space"))
+shop_proximity = proximity( (0,0), (10,20), "'E' Buy Gear" , None , pygame.key.key_code("e"))

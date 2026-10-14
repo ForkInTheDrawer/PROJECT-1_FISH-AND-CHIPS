@@ -11,14 +11,10 @@ from classes import proximity_detector
 
 
 
-
-
-
-
 #Screen Dimensions + update version Number when you release a new version
 WIDTH = 1200
 HEIGHT = 800
-GAME_VERSION = "1.0.1"
+GAME_VERSION = "1.0.1 ALPHA"
 
 
 FPS = 60
@@ -45,7 +41,7 @@ def main():
 
 
     
-#-----------------------------------
+ #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
     player = pygame.Rect(
         200,200,30,50
@@ -132,7 +128,7 @@ def main():
 
 
 
-#--------------------------------------------
+ #--------------------------------------------
 
        
 
@@ -148,7 +144,7 @@ def main():
         gray_stone
     ]
 
-#-------------------------------------------#
+ #-------------------------------------------#
 
    #NOTE: CAMERA INFORMATION:
     player.center = fish_island.center
@@ -165,7 +161,7 @@ def main():
         player_pos.x = old_x
 
 
-#-----------------------------------
+ #-----------------------------------
     #NOTE: Main Game Loop
     while game_running:
         dt = clock.tick(FPS) / 1000
@@ -331,7 +327,7 @@ def main():
 
 
 
-
+#eewan ko kung para saan 'to
 if __name__ == "__main__":
     main()
             
