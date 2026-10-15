@@ -4,11 +4,11 @@ import pygame
 
 
 #Imports from other files
-from classes import character
+
 from function import collisions
 from classes import proximity_detector
-
-
+from classes import gui
+from classes import character
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -29,6 +29,17 @@ def main():
 
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+    test_rect = gui.gui(
+        (450 , 690
+         ),
+        (300,50),
+        (255,255,255),
+        False,
+        3
+
+    )
+
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}")
 
 
@@ -123,6 +134,7 @@ def main():
         dock.center ,
         (250,0) ,
         "'E' Fish" ,
+        None ,
         pygame.K_e
     ) 
 
@@ -221,7 +233,7 @@ def main():
 
 
 
- 
+     #----------------------------------------#
 
     #NOTE: RENDERING!!!
 
@@ -314,6 +326,11 @@ def main():
         )
         stone_color = (110,110,110)
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
+
+        #NOTE: TEST_RECT (TO BE REMOVED)
+        test_rect.draw(screen)
+
+
 
 
 
