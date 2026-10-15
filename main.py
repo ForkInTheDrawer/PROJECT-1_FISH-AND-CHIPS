@@ -31,9 +31,8 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     test_rect = gui.gui(
-        (450 , 690
-         ),
-        (300,50),
+        (350 , 575),
+        (500,100),
         (255,255,255),
         False,
         3
