@@ -2,36 +2,45 @@ import pygame
 
 default_config = {
     "proximity prompt": {
-        "size" : (10,10) ,
-        "position" : (30,30),
+        "size" : (500,100) ,
+        "position" : (350 , 575),
         
     },
 }
 
 
-class gui():
-    def __init__(self, pos: tuple, size: tuple, fill_color, border=False ,border_width=2):
+class GUI():
+    def __init__(self, position, size, fill_color):
         
-        self.size = size
-        self.fill_color = fill_color
-        self.pos = pos
-        self.border = border
-        self.border_width = border_width
+       self.rect = pygame.Rect(position, size)
+       self.fill_color = fill_color
        
-        if border is True:
-            self.border_width = border_width
-        
 
     def draw(self, screen):
-        prompt = pygame.Rect(self.pos , self.size)
-        pygame.draw.rect(screen, self.fill_color, prompt)
+        pygame.draw.rect(screen,self.fill_color, self.rect)
+
+    @classmethod
+
+    def proximity_prompt(
+        cls,
+        action,
+        position=(350, 575),
+        size=(500, 100),
+        key=pygame.K_e,
+    ):
+        return ProximityPrompt(action, position, size, key)
 
 
+class ProximityPrompt(GUI):
+    def __init__(self, action, position, size, key):
+        super().__init__(position, size, (30,30,30))
+        self.key = key
+        self.font = pygame.font.Font(None, 32)
+        self.label = f"Press {pygame.key.name(key).upper()} to {action}"
 
-    def proxi_prompt(self, keybind_icon=pygame.K_e):
-        proximity = pygame.Rect(default_config["proximity prompt"]["position"], default_config["proximity prompt"]["size"])
-
-
-
+    def draw(self, screen):
+        super().draw(screen)
+        text = self.font.render(self.label, True, (255, 255 ,255))
+        screen.blit(text, text.get_rect(center=self.rect.center))
 
 

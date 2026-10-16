@@ -30,14 +30,15 @@ def main():
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    test_rect = gui.gui(
-        (350 , 575),
-        (500,100),
-        (255,255,255),
-        False,
-        3
+    # test_rect = gui.gui(
+    #     (350 , 575),
+    #     (500,100),
+    #     (255,255,255),
+    #     False,
+    #     3
+    # )
 
-    )
+    prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
 
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}")
 
@@ -160,7 +161,13 @@ def main():
    #NOTE: CAMERA INFORMATION:
     player.center = fish_island.center
     player_pos = pygame.Vector2(player.topleft)
+    player_world_rect = pygame.Rect(
+        round(player_pos.x),
+        round(player_pos.y),
+        player.width,
+        player.height,
 
+    )
 
         #NOTE: MOVEMENT + COLLISION:
     if not collisions.is_walkable(
@@ -194,7 +201,15 @@ def main():
                 #NOTE: When Escape key is pressed
                 if event.key == pygame.K_ESCAPE:
                     game_running = False
-                
+
+
+            #NOTE: PROXIMITY SENSOR (FOR FISHING)    
+            elif fishing_proximity.triggered_event(
+                event,
+                player_world_rect
+            ):
+                #fish function
+                print("start fishing")
 
 
     #----------------------------------------#
@@ -226,6 +241,16 @@ def main():
 
         if not collisions.is_walkable((player_pos.x , player_pos.y),player, walkable_area, obstacles):
             player_pos.y = old_y
+
+
+        player_world_rect.topleft =(
+            round(player_pos.x ),
+            round(player_pos.y)
+        )
+
+
+
+
 
 
 
@@ -327,8 +352,9 @@ def main():
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
 
         #NOTE: TEST_RECT (TO BE REMOVED)
-        test_rect.draw(screen)
-
+        #test_rect.draw(screen)
+        if fishing_proximity.is_in_range(player_world_rect):
+            prompt.draw(screen)
 
 
 
