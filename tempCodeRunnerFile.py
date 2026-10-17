@@ -1,1 +1,1 @@
-fishing_proximity
+player.center

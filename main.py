@@ -176,7 +176,8 @@ def main():
         walkable_area ,
         obstacles
         ):
-        player_pos.x = old_x
+        player_pos.topleft = fish_island.topleft
+        player.center = fish_island.center
 
 
  #-----------------------------------
@@ -203,13 +204,13 @@ def main():
                     game_running = False
 
 
-            #NOTE: PROXIMITY SENSOR (FOR FISHING)    
-            elif(
-                event.type == pygame.KEYDOWN
-                and event.key == pygame.K_e
-                and dock.colliderect(player_world_rect)
-            ):
-                print('Start Fishing Appeared.')
+                #NOTE: PROXIMITY SENSOR (FOR FISHING NEAR DOCK)    
+                elif(
+                    event.type == pygame.KEYDOWN
+                    and event.key == pygame.K_e
+                    and dock.colliderect(player_world_rect)
+                ):
+                    print('Fishing Event Started!')
 
 
 
