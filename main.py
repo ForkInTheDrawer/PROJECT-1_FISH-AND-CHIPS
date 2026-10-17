@@ -204,11 +204,13 @@ def main():
                     game_running = False
 
 
+
                 #NOTE: PROXIMITY SENSOR (FOR FISHING NEAR DOCK)    
                 elif(
-                    event.type == pygame.KEYDOWN
-                    and event.key == pygame.K_e
-                    and dock.colliderect(player_world_rect)
+                    event.key == pygame.K_e
+                    and
+                    dock.colliderect(player_world_rect)
+               
                 ):
                     print('Fishing Event Started!')
 
@@ -230,7 +232,7 @@ def main():
 
 
         #NOTE: Horizontal Movement Checker:
-        old_x = player_pos.x
+        old_x = player_pos.x #note that old_x is just the current x position of the player pos, along with the old_y but for y axis 
         player_pos.x += direction.x * player_speed *dt
 
         if not collisions.is_walkable((player_pos.x , player_pos.y),player, walkable_area, obstacles):
@@ -355,7 +357,7 @@ def main():
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
 
         #NOTE: TEST_RECT (GUI FOR FISHING)
-        #test_rect.draw(screen)
+        
         if dock.colliderect(player_world_rect):
             prompt.draw(screen)
 
