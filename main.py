@@ -204,12 +204,14 @@ def main():
 
 
             #NOTE: PROXIMITY SENSOR (FOR FISHING)    
-            elif fishing_proximity.triggered_event(
-                event,
-                player_world_rect
+            elif(
+                event.type == pygame.KEYDOWN
+                and event.key == pygame.K_e
+                and dock.colliderect(player_world_rect)
             ):
-                #fish function
-                print("start fishing")
+                print('Start Fishing Appeared.')
+
+
 
 
     #----------------------------------------#
@@ -351,9 +353,9 @@ def main():
         stone_color = (110,110,110)
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
 
-        #NOTE: TEST_RECT (TO BE REMOVED)
+        #NOTE: TEST_RECT (GUI FOR FISHING)
         #test_rect.draw(screen)
-        if fishing_proximity.is_in_range(player_world_rect):
+        if dock.colliderect(player_world_rect):
             prompt.draw(screen)
 
 
