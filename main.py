@@ -1,7 +1,7 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
-import random
+
 
 
 #Imports from other files
@@ -131,9 +131,7 @@ def main():
         pygame.K_e
     ) 
         #FISHING STATE:
-    is_fishing = False
-    fishing_start = 0
-    fishing_duration = 0
+    fishing_system = fishing.Fishing()
 
 
 
@@ -213,11 +211,12 @@ def main():
                     dock.colliderect(player_world_rect)
                
                 ):
+                     fishing_system.start()
                     
-                    is_fishing = True
-                    fishing_start = pygame.time.get_ticks()
-                    fishing_duration = random.uniform(1,5)
-                    print('Fishing Event Started! Catch time:' , round(fishing_duration, 1), 'seconds.')
+                     if fishing_system.update():
+                        print('You Caught A Fish!')
+
+                
 
 
 
