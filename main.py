@@ -213,8 +213,8 @@ def main():
                 ):
                      fishing_system.start()
                     
-                     if fishing_system.update():
-                        print('You Caught A Fish!')
+            if fishing_system.update():
+                print('You Caught A Fish!')
 
                 
 
