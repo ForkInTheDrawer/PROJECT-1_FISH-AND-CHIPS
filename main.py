@@ -1,6 +1,7 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
+import random
 
 
 #Imports from other files
@@ -9,6 +10,7 @@ from function import collisions
 from classes import proximity_detector
 from classes import gui
 from classes import character
+from classes import fishing
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -30,15 +32,6 @@ def main():
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    # test_rect = gui.gui(
-    #     (350 , 575),
-    #     (500,100),
-    #     (255,255,255),
-    #     False,
-    #     3
-    # )
-
-    prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
 
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}")
 
@@ -137,8 +130,16 @@ def main():
         None ,
         pygame.K_e
     ) 
+        #FISHING STATE:
+    is_fishing = False
+    fishing_start = 0
+    fishing_duration = 0
 
 
+
+    #NOTE: Prompts:
+
+    fishing_prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
 
  #--------------------------------------------
 
@@ -212,7 +213,11 @@ def main():
                     dock.colliderect(player_world_rect)
                
                 ):
-                    print('Fishing Event Started!')
+                    
+                    is_fishing = True
+                    fishing_start = pygame.time.get_ticks()
+                    fishing_duration = random.uniform(1,5)
+                    print('Fishing Event Started! Catch time:' , round(fishing_duration, 1), 'seconds.')
 
 
 
@@ -356,10 +361,11 @@ def main():
         stone_color = (110,110,110)
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
 
-        #NOTE: TEST_RECT (GUI FOR FISHING)
+        #NOTE: GUIS
         
+             # FISHING PROMPT:
         if dock.colliderect(player_world_rect):
-            prompt.draw(screen)
+            fishing_prompt.draw(screen)
 
 
 
