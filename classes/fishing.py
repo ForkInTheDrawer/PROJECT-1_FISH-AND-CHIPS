@@ -15,12 +15,12 @@ class Fishing:
 
         self.is_fishing = True
         self.start_time = pygame.time.get_ticks()
-        self.duration = random.uniform(1,4)
+        self.duration = random.uniform(0.6,2)
 
         print("Fishing Started! Catch Time:" , round(self.duration, 1) , "seconds.")
 
     def update(self):
-        
+
         if not self.is_fishing:
             return False
 

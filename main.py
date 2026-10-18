@@ -213,6 +213,7 @@ def main():
                 ):
                      fishing_system.start()
                     
+            print("loop running...")
             if fishing_system.update():
                 print('You Caught A Fish!')
 
