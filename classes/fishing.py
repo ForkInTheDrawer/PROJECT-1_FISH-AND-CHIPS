@@ -1,5 +1,6 @@
 import random
 import pygame
+import time
 
 
 class Fishing:
@@ -15,7 +16,14 @@ class Fishing:
 
         self.is_fishing = True
         self.start_time = pygame.time.get_ticks()
-        self.duration = random.uniform(0.6,2)
+        self.duration = random.uniform(2,6)
+
+        time.sleep(0.2)
+
+        print('Casting...')
+
+        time.sleep(2.5)
+
 
         print("Fishing Started! Catch Time:" , round(self.duration, 1) , "seconds.")
 
