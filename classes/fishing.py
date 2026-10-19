@@ -4,12 +4,30 @@ import pygame
 
 
 class Fishing:
-    def __init__(self):
+    def __init__(self, fish_data):
+        self.fish_data = fish_data
+        
         self.is_fishing = False
         self.is_casting = False
         self.start_time = 0
         self.duration = 0
         self.cast_time_prompt = 0
+
+
+    def choose_fish(self):
+        name = random.choice(list(self.fish_data))
+        details = self.fish_data[name]
+
+        caught_fish = {
+            "name": name,
+            "type": random.choice(details["Type"]),
+            "mutation": random.choice(details["Mutation"])
+        }
+
+        for color in ("Color_1", "Color_2"): #IF COLORS ARE ALLOWED
+            if color in details:
+                caught_fish[color.upper()] = random.choice(details[color])
+        return caught_fish
 
 
     def start(self):
