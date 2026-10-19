@@ -23,8 +23,7 @@ class GUI():
 
     def proximity_prompt(
         cls,
-        action,
-        position=(350, 575),
+        action, position=(350, 575),
         size=(500, 100),
         key=pygame.K_e,
     ):
@@ -32,7 +31,9 @@ class GUI():
 
 
 class ProximityPrompt(GUI):
+
     def __init__(self, action, position, size, key):
+
         super().__init__(position, size, (30,30,30))
         self.key = key
         self.font = pygame.font.Font(None, 32)

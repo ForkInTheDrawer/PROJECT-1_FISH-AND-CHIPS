@@ -1,24 +1,126 @@
 {
+
     "FISH": {
-        "Cod": {
+            "Cod": {
+                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+                "Mutation": ["Colorful", "Healthy", "Meaty", "Malnourished"]
+            },
+            "Tilapia": {
+                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+                "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+            },
+
+            "Anchovy":{
+                "Type" : ["Common", "Endangered", "Silver", "Diamond"],
+                "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"]
+            },
+            "Grouper":{
+                "Type" :  ["Common", "Endangered", "Silver", "Diamond", "Spotted"],
+                "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"],
+                "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
+                "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"]
+            },
+            "Pufferfish": {
+                "Type" :  ["Common", "Endangered", "Silver", "Toxic"],
+                "Mutation" : ["Puffed", "Healthy", "Radioactive", "Friendly"],
+                "Poison" : [0,5]
+            },
+            "Flying Fish":{
+                "Type" :  ["Common", "Endangered", "Silver", "Rare"],
+                "Mutation" : ["Wings", "Healthy", "Meaty", "Wingless"]
+            },
+            "Lapu Lapu":{
+                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+                "Mutation": ["Red", "Healthy", "Meaty", "Malnourished"]  
+            },
+            "Salmon":{
             "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+                "Mutation": ["Healthy", "Meaty", "Malnourished"]  
+            },
+            "Milkfish":{
+            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation": ["Healthy", "Meaty", "Malnourished"]     
+            },
+            "Mackarel Tuna":{
+            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation": ["Healthy", "Meaty", "Malnourished"]    
+            },
+            "Round Scad": {},
+            "Yellow Fin Tuna": {},
+
+
+
+
+            "Squid":{
+            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation": ["Healthy", "Meaty", "Inky"]   
+            },
+            "Octopus":{
+            "Type":  ["Common", "Endangered"],
+            "Mutation": ["Healthy", "Meaty", "Smart"]  
+            },
+            "Great White Shark":{
+            "Type":  ["Common","Rare", "APEX"],
+            "Mutation": ["Violent", "Docile", "GIANT", "Heavy"] 
+            },
+            "Shrimp": {
+                "Type":["Common", "Rare", "Endangered", "Silver"],
+                "Mutation": ["Burnt", "Healthy", "Sickly", "GIANT", "Tiny"]
+            }
+
+
         },
-        "Tilapia": {
-            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+  
+
+    "SCRAP":{
+            "Worn Boot":{
+                "PRICE": 3
+            },
+            "Plastic Bottle":{
+                "PRICE": 3
+            },
+            "Seaweed":{
+                "PRICE": 1
+            },
+            "Broken Bag":{
+                "PRICE": 2
+            },
+            "Stick":{
+                "PRICE": 1
+            },
+            "Skull":{
+                "PRICE": 10
+            },
+            "Map":{
+                "PRICE": 15
+            },
+            "Broken Laptop":{
+                "PRICE": 15
+            },
+            "Broken Phone":{
+                "PRICE": 4
+            },
+            "Soaked Book":{
+                "PRICE": 2
+            },
+            "Worn Tire":{
+                "PRICE": 3
+            }
+
+
         },
 
-        "Anchovy":{
-            "Type" : ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"]
-        },
-        "Spotted Grouper":{
-            "Type" :  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"],
-            "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
-            "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"]
+    "STONES":{
+        "Atlas Gem":{},
+        "Rad Gemstone":{},
+        "Polished Ruby":{},
+        "Wisteria Pearl":{},
+        "Kneadough Gem":{},
+        "Alturist Stone":{},
+        "Tablet of Convex":{}
+        
+
         }
 
-    }
 }
+

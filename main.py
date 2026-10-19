@@ -1,7 +1,7 @@
 "GAME NAME: Fish n Chips"
 
 import pygame
-
+import json
 
 
 #Imports from other files
@@ -11,6 +11,7 @@ from classes import proximity_detector
 from classes import gui
 from classes import character
 from classes import fishing
+from pathlib import Path
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -23,10 +24,19 @@ FPS = 60
 clock = pygame.time.Clock()
 
 
+fish_dictionary = None
+
+
+
+
+
 def main():
     pygame.init()
 
-
+    fish_path = Path(__file__).resolve().parent / "fishies.json"
+    with fish_path.open(encoding="utf-8") as file:
+        fish_dictionary = json.load(file)["FISH"]
+    fishing_system = fishing.Fishing(fish_dictionary)
 
 
     #NOTE: Windows + Game version
@@ -131,7 +141,6 @@ def main():
         pygame.K_e
     ) 
         #FISHING STATE:
-    fishing_system = fishing.Fishing()
 
 
 
