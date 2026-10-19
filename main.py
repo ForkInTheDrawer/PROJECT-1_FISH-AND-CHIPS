@@ -224,7 +224,9 @@ def main():
                     
         
         if fishing_system.update():
-            print('You Caught A Fish!')
+            caught_fish = fishing_system.choose_fish()
+
+            print(f"You caught: {caught_fish}!")
 
                 
 

@@ -2,70 +2,81 @@
 
     "FISH": {
             "Cod": {
-                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-                "Mutation": ["Colorful", "Healthy", "Meaty", "Malnourished"]
+                "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             },
             "Tilapia": {
-                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-                "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+                "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             },
 
             "Anchovy":{
-                "Type" : ["Common", "Endangered", "Silver", "Diamond"],
-                "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"]
+                "Type" : ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             },
             "Grouper":{
-                "Type" :  ["Common", "Endangered", "Silver", "Diamond", "Spotted"],
-                "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"],
+                "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
                 "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"]
             },
             "Pufferfish": {
-                "Type" :  ["Common", "Endangered", "Silver", "Toxic"],
-                "Mutation" : ["Puffed", "Healthy", "Radioactive", "Friendly"],
+                "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Poison" : [0,5]
             },
             "Flying Fish":{
-                "Type" :  ["Common", "Endangered", "Silver", "Rare"],
-                "Mutation" : ["Wings", "Healthy", "Meaty", "Wingless"]
+                "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             },
             "Lapu Lapu":{
-                "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-                "Mutation": ["Red", "Healthy", "Meaty", "Malnourished"]  
+                "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]  
             },
             "Salmon":{
-            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-                "Mutation": ["Healthy", "Meaty", "Malnourished"]  
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] 
             },
             "Milkfish":{
-            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation": ["Healthy", "Meaty", "Malnourished"]     
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]    
             },
             "Mackarel Tuna":{
-            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation": ["Healthy", "Meaty", "Malnourished"]    
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]   
             },
-            "Round Scad": {},
-            "Yellow Fin Tuna": {},
+            "Round Scad": {
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]  
+            },
+            "Yellow Fin Tuna": {
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]   
+            },
 
 
 
 
             "Squid":{
-            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
-            "Mutation": ["Healthy", "Meaty", "Inky"]   
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]  
             },
             "Octopus":{
-            "Type":  ["Common", "Endangered"],
-            "Mutation": ["Healthy", "Meaty", "Smart"]  
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             },
             "Great White Shark":{
-            "Type":  ["Common","Rare", "APEX"],
-            "Mutation": ["Violent", "Docile", "GIANT", "Heavy"] 
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
+            },
+            "Collosal Squid":{
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
+
             },
             "Shrimp": {
-                "Type":["Common", "Rare", "Endangered", "Silver"],
-                "Mutation": ["Burnt", "Healthy", "Sickly", "GIANT", "Tiny"]
+                "Type":["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"]
             }
 
 
