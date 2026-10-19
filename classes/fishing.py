@@ -35,7 +35,7 @@ class Fishing:
             print("Casting Bait...")
 
             self.cast_time_prompt = current_time + 2500
-            self.is_casting = "waiting"
+            self.is_casting = True
 
 
         #2.5 Seconds before fishing starts
@@ -64,5 +64,21 @@ class Fishing:
 
 
         return False
+
+
+#NOTE: THIS IS FOR THE FISHES!!!!!!!!
+
+
+
+class fish_rarity():
+    def __init__ (self, rarity, price, weight):
+        self.rarity = rarity
+        self.price = price
+        self.weight = weight
+
+
+    
+
+        #Placeholder for fish types
 
 
