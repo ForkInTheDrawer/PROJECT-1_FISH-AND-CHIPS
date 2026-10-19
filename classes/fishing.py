@@ -35,14 +35,14 @@ class Fishing:
             print("Casting Bait...")
 
             self.cast_time_prompt = current_time + 2500
-            self.is_casting = True
+            self.is_casting = "waiting"
 
 
         #2.5 Seconds before fishing starts
 
         elif self.is_casting == "waiting" and current_time >= self.cast_time_prompt:
 
-            self.casting = False
+            self.is_casting = False
             self.is_fishing = True
             self.start_time = current_time
             self.duration = random.uniform(2,4)
