@@ -184,7 +184,7 @@ def main():
         walkable_area ,
         obstacles
         ):
-        player_pos.topleft = fish_island.topleft
+        player_pos.update(fish_island.topleft)
         player.center = fish_island.center
 
 

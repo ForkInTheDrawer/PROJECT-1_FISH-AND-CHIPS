@@ -34,8 +34,9 @@ class Fishing:
             "mutation": random.choice(details["Mutation"])
         }
 
-        for color in details: #CHECKS IF FISH HAS COLOR STATS
-            caught_fish[color.upper()] = random.choice(details[color])
+        for color in ("Color_1",  "Color_2"):
+            if color in details:
+                caught_fish[color.upper()] = random.choice(details[color])
 
         return caught_fish
 

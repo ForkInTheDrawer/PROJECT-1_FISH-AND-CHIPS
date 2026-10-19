@@ -1,100 +1,109 @@
 {
 
     "FISH": {
-            "Cod": {
+            "Pensie Cod": {
                 "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [30]
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 30
             },
             "Tilapia": {
                 "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [30]
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 30
             },
 
-            "Anchovy":{
+            "Pensie Anchovy":{
                 "Type" : ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [30]
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 30
             },
-            "Grouper":{
+            "Chomp Grouper":{
                 "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
                 "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"],
-                "Weight": [23]
+                "Weight": 23
             },
-            "Pufferfish": {
+            "Eastanian Pufferfish": {
                 "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [20]
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 15
             },
-            "Flying Fish":{
+            "Eastanian Flying Fish":{
                 "Type" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [25]
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 25
             },
-            "Lapu Lapu":{
+            "Lapu-Lapu":{
                 "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
-                "Weight": [28] 
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
+                "Weight": 28
             },
-            "Salmon":{
+            "Redwood Salmon":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
-            "Weight": [20]
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
+            "Weight": 20
             },
-            "Milkfish":{
+            "Eastern Milkfish":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
-            "Weight": [20]   
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
+            "Weight": 20 
             },
             "Mackarel Tuna":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [25]   
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 25  
             },
             "Round Scad": {
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [20]  
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 20  
             },
             "Yellow Fin Tuna": {
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [10]   
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 10   
             },
 
 
 
 
-            "Squid":{
+            "Redwood Squid":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [15]  
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 15  
+
             },
-            "Octopus":{
+            "Lemon Shark": {
+                "Type":["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+                "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+                "Weight": 7
+            },
+            "Pensie Octopus":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [10]
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 10
             },
             "Great White Shark":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [10]
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 3
             },
             "Collosal Squid":{
             "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-            "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": [5]
-
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 3
             },
-            "Shrimp": {
-                "Type":["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
-                "Mutation": ["Healthy", "Meaty","Malnourished","Colorful","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": [15]
+            "Blue Sleeper Ray":{
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 10
+            },
+            "Redwood Crab":{
+            "Type":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","None","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 15
             }
-
 
         },
   
