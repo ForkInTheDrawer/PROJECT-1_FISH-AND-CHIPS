@@ -30,11 +30,11 @@ class Fishing:
         current_time = pygame.time.get_ticks()
 
         #Wait for 0.2 Seconds before printing casting (FOR ANIMATION)
-        if self.is_casting and current_time >= self.cast_time_prompt:
+        if self.is_casting is True and current_time >= self.cast_time_prompt:
 
             print("Casting Bait...")
 
-            self.cast_time_prompt = current_time + 2500
+            self.cast_time_prompt = current_time + 1500
             self.is_casting = "waiting"
 
 
@@ -52,6 +52,8 @@ class Fishing:
                   "seconds."
                   )
 
+    
+
 
         #Check if fish is caught:
 
@@ -64,6 +66,9 @@ class Fishing:
 
 
         return False
+
+
+
 
 
 #NOTE: THIS IS FOR THE FISHES!!!!!!!!

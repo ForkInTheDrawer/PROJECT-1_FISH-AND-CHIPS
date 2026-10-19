@@ -364,7 +364,11 @@ def main():
         #NOTE: GUIS
         
              # FISHING PROMPT:
-        if dock.colliderect(player_world_rect):
+        if (
+            dock.colliderect(player_world_rect)
+            and not fishing_system.is_casting
+            and not fishing_system.is_fishing
+        ):
             fishing_prompt.draw(screen)
 
 

@@ -1,0 +1,24 @@
+{
+    "FISH": {
+        "Cod": {
+            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+        },
+        "Tilapia": {
+            "Type":  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation": ["Burnt", "Healthy", "Meaty", "Malnourished"]
+        },
+
+        "Anchovy":{
+            "Type" : ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"]
+        },
+        "Spotted Grouper":{
+            "Type" :  ["Common", "Endangered", "Silver", "Diamond"],
+            "Mutation" : ["tiny", "Healthy", "Meaty", "GIANT"],
+            "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
+            "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"]
+        }
+
+    }
+}
