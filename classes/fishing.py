@@ -28,10 +28,70 @@ class Fishing:
             k=1
         )[0]
         details = self.fish_data[name]
+
+
+    #--------------------------RARITIES--------------
+        type_names = [
+            "Common",
+            "Rare",
+            "Epic",
+            "Legendary",
+            "Endangered",
+            "APEX",
+            "SECRET"
+        ]
+        type_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
+        fish_type = random.choices(
+            type_names,
+            weights=type_weights,
+            k=1
+        )[0]
+
+
+        mutation_weights = {
+            "Healthy":30,
+            "Meaty": 20,
+            "Malnourished": 20,
+            "Colorful": 10,
+            "tiny": 5,
+            "GIANT":5,
+            "Radioactive": 0.5,
+            "Void" : 0.5,
+            "Inky":50,
+            "Heavy" :40,
+            "Burnt":10,
+            "Transparent": 2,
+            "Gold":15
+        }
+
+
+        available_mutations = [
+            mutation for mutation in details["Mutation"]
+            if mutation in mutation_weights
+        ]
+
+        caught_mutations = []
+
+        #FIRST MUTATION = 40%
+
+        if random.random() < 0.40 and available_mutations: 
+            mutation = random.choices(
+                available_mutations,
+                weights = [mutation_weights[m] for m in available_mutations],
+                k = 1
+            )
+            caught_mutations.append(mutation)
+            available_mutations = [
+                m for m in available_mutations
+                if m != mutation
+            ]
+
+
+    #-------------------RNG SYSTEM
         caught_fish = {
             "name": name,
-            "type": random.choice(details["Type"]),
-            "mutation": random.choice(details["Mutation"])
+            "type": fish_type,
+            "mutation": caught_mutations if caught_mutations else "None"
         }
 
         for color in ("Color_1",  "Color_2"):
@@ -70,7 +130,7 @@ class Fishing:
 
             print("Casting Bait...")
 
-            self.cast_time_prompt = current_time + 1500
+            self.cast_time_prompt = current_time + 100 #NOTE: FIXED TIME BEFORE CAST (Original: 1500)
             self.is_casting = "waiting"
 
 
@@ -81,7 +141,7 @@ class Fishing:
             self.is_casting = False
             self.is_fishing = True
             self.start_time = current_time
-            self.duration = random.uniform(2,4)
+            self.duration = random.uniform(0,1) #NOTE: THIS IS THE RANDOM TIME. ADJUST FOR DEBUG (Original: 2,4)
 
             print('Fishing Started! Catch Time:',
                   round(self.duration , 1),
