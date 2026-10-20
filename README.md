@@ -41,3 +41,11 @@ Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
 3. Test the interaction in-game and fix any issues before adding more features.
 
 > Progress note: The proximity detector file replacement has not yet been confirmed complete. Update this checklist as each step is finished.
+
+## How to Play
+
+- **W** — Move up
+- **A** — Move left
+- **S** — Move down
+- **D** — Move right
+- **Esc** — Quit the game
