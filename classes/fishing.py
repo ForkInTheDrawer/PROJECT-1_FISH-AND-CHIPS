@@ -79,19 +79,21 @@ class Fishing:
                 available_mutations,
                 weights = [mutation_weights[m] for m in available_mutations],
                 k = 1
-            )
+            )[0]
             caught_mutations.append(mutation)
             available_mutations = [
                 m for m in available_mutations
                 if m != mutation
             ]
 
+            #NOTE: WORK ON SECOND MUTATION ROLL CHANCE!!!
+
 
     #-------------------RNG SYSTEM
         caught_fish = {
             "name": name,
             "type": fish_type,
-            "mutation": caught_mutations if caught_mutations else "None"
+            "mutation": ", ".join(caught_mutations) if caught_mutations else "None"
         }
 
         for color in ("Color_1",  "Color_2"):
