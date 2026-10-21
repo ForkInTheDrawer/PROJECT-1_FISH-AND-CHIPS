@@ -29,9 +29,13 @@ fish_dictionary = None
 
 
 
-
 def main():
     pygame.init()
+    fish_popup = None
+
+
+
+
 
     fish_path = Path(__file__).resolve().parent / "fishies.json"
     with fish_path.open(encoding="utf-8") as file:
@@ -221,12 +225,16 @@ def main():
                
                 ):
                      fishing_system.start()
+
+                elif event.key == pygame.K_SPACE:
+                    fish_popup = None
                     
         
+
         if fishing_system.update():
             caught_fish = fishing_system.choose_fish()
-
-            print(f"You caught: {caught_fish}!")
+            print(f"You Caught: {caught_fish}!")
+            fish_popup = gui.FishPopUp(caught_fish)
 
                 
 
@@ -381,6 +389,9 @@ def main():
             and not fishing_system.is_fishing
         ):
             fishing_prompt.draw(screen)
+
+        if fish_popup is not None:
+            fish_popup.draw(screen)
 
 
 

@@ -52,7 +52,6 @@ class Fishing:
             "Healthy":30,
             "Meaty": 20,
             "Malnourished": 20,
-            "Colorful": 10,
             "tiny": 5,
             "GIANT":5,
             "Radioactive": 0.5,

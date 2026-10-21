@@ -45,3 +45,36 @@ class ProximityPrompt(GUI):
         screen.blit(text, text.get_rect(center=self.rect.center))
 
 
+class FishPopUp(GUI):
+    def __init__(self,caught_fish , position=(350,260), size=(500,280)):
+        super().__init__(position,size,(30,30,30))
+        self.title_font = pygame.font.Font(None, 42)
+        self.body_font = pygame.font.Font(None, 30)
+
+        self.name = caught_fish.get('name', 'Unknown Fish')
+        self.details = [
+            f"Rarity: {caught_fish.get('type' , 'Unknown...')}",
+            f"Mutation: {caught_fish.get('mutation' , 'None')}",
+        ]
+
+        for color_key in ("COLOR_1" , "COLOR_2"):
+            if color_key in caught_fish:
+                self.details.append(
+                    f"Color{color_key[-1]} : {caught_fish[color_key]}"
+                )
+
+    def draw(self , screen):
+        super().draw(screen)
+
+        title = self.title_font.render(self.name, True , (255,220,100),)
+        screen.blit(title, title.get_rect(midtop=(self.rect.centerx , self.rect.y + 20)))
+
+
+        for index, detail in enumerate(self.details):
+            text = self.body_font.render(detail, True, (255,255,255))
+            screen.blit(text , (self.rect.x + 30, self.rect.y + 85 + index * 35))
+
+
+
+    
+
