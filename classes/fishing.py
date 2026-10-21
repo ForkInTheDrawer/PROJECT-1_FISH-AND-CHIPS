@@ -72,9 +72,9 @@ class Fishing:
 
         caught_mutations = []
 
-        #FIRST MUTATION = 40%
+        #FIRST MUTATION = CURRENTLY 100%, DEBUG MODE (Original = 15%)
 
-        if random.random() < 0.40 and available_mutations: 
+        if random.random() < 1 and available_mutations: 
             mutation = random.choices(
                 available_mutations,
                 weights = [mutation_weights[m] for m in available_mutations],
@@ -87,6 +87,36 @@ class Fishing:
             ]
 
             #NOTE: WORK ON SECOND MUTATION ROLL CHANCE!!!
+        
+        #SECOND MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 15%)
+
+            if random.random() < 1 and available_mutations: 
+                mutation = random.choices(
+                    available_mutations,
+                    weights = [mutation_weights[m] for m in available_mutations],
+                    k=1
+                )[0]
+                caught_mutations.append(mutation)
+                available_mutations =[
+                    m for m in available_mutations
+                    if m != mutation
+                ]
+
+
+                #THIRD MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 10%)
+
+                if random.random() <1 and available_mutations:
+                    mutation = random.choices(
+                        available_mutations,
+                        weights = [mutation_weights[m] for m in available_mutations],
+                        k = 1
+                    )[0]
+                    caught_mutations.append(mutation)
+                    available_mutations = [
+                        m for m in available_mutations
+                        if m != mutation
+                    ]
+
 
 
     #-------------------RNG SYSTEM
