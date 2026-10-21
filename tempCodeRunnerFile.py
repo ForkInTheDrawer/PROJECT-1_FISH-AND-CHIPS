@@ -1,1 +1,1 @@
-player.center
+1000

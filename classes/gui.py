@@ -30,6 +30,11 @@ class GUI():
         return ProximityPrompt(action, position, size, key)
 
 
+
+
+
+
+
 class ProximityPrompt(GUI):
 
     def __init__(self, action, position, size, key):
@@ -50,12 +55,17 @@ class FishPopUp(GUI):
         super().__init__(position,size,(30,30,30))
         self.title_font = pygame.font.Font(None, 42)
         self.body_font = pygame.font.Font(None, 30)
-
         self.name = caught_fish.get('name', 'Unknown Fish')
         self.details = [
             f"Rarity: {caught_fish.get('type' , 'Unknown...')}",
             f"Mutation: {caught_fish.get('mutation' , 'None')}",
         ]
+        self.gui_cooldown(2.3) #shows popup 3 seconds
+
+
+
+
+
 
         for color_key in ("COLOR_1" , "COLOR_2"):
             if color_key in caught_fish:
@@ -63,7 +73,34 @@ class FishPopUp(GUI):
                     f"Color{color_key[-1]} : {caught_fish[color_key]}"
                 )
 
+
+
+
+
+    def gui_cooldown(self, cooldown=1.0):
+
+        self.cooldown_start = pygame.time.get_ticks()
+        self.cooldown_ms = cooldown * 1000
+
+
+        
+        
+
+        
+        
+
+
+
+
+
+
+
     def draw(self , screen):
+
+        if pygame.time.get_ticks() - self.cooldown_start >= self.cooldown_ms:
+            return
+
+
         super().draw(screen)
 
         title = self.title_font.render(self.name, True , (255,220,100),)
