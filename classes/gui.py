@@ -60,7 +60,7 @@ class FishPopUp(GUI):
             f"Rarity: {caught_fish.get('type' , 'Unknown...')}",
             f"Mutation: {caught_fish.get('mutation' , 'None')}",
         ]
-        self.gui_cooldown(2.3) #shows popup 3 seconds
+        self.gui_cooldown(4)                   #NOTE: GUI COOLDOWN FOR FISH RESULTS.
 
 
 
@@ -83,26 +83,17 @@ class FishPopUp(GUI):
         self.cooldown_ms = cooldown * 1000
 
 
-        
-        
-
-        
-        
 
 
 
 
 
-
-
-    def draw(self , screen):
+    def draw(self , screen): #NOTE: FOR RENDERING
 
         if pygame.time.get_ticks() - self.cooldown_start >= self.cooldown_ms:
             return
 
-
         super().draw(screen)
-
         title = self.title_font.render(self.name, True , (255,220,100),)
         screen.blit(title, title.get_rect(midtop=(self.rect.centerx , self.rect.y + 20)))
 
@@ -110,6 +101,34 @@ class FishPopUp(GUI):
         for index, detail in enumerate(self.details):
             text = self.body_font.render(detail, True, (255,255,255))
             screen.blit(text , (self.rect.x + 30, self.rect.y + 85 + index * 35))
+
+        #NOTE: BASICALLY SAYING THE COUNTDOWN
+        remaining_ms = self.cooldown_ms - (
+            pygame.time.get_ticks() - self.cooldown_start
+        )
+        remaining_seconds = max(0, (remaining_ms + 999) // 1000)
+
+        countdown = self.body_font.render(
+            f"Fish again in {remaining_seconds} seconds. ",
+            True,
+            (200,200,200)
+        )
+
+        skip_countdown = self.body_font.render(
+            f"Press _ to skip.",
+            True,
+            200,200,200
+        )
+        screen.blit(
+            countdown, countdown.get_rect(
+                center = (self.rect.centerx , self.rect.bottom - 35)
+            )
+        )
+        screen.blit(
+            skip_countdown , skip_countdown.get_rect(
+                center = (self.rect.centerx , self.rect.bottom -  10)
+            )
+        )
 
 
 

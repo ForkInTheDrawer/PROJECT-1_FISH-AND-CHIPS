@@ -217,24 +217,33 @@ def main():
 
 
 
-                #NOTE: PROXIMITY SENSOR (FOR FISHING NEAR DOCK)    
+                #NOTE: PROXIMITY SENSOR (FOR FISHING NEAR DOCK)  
+                # NOTE: PRESS E TO FISH  
                 elif(
                     event.key == pygame.K_e
                     and
                     dock.colliderect(player_world_rect)
+                    and
+                    fish_popup is None
                
                 ):
-                     fishing_system.start()
+                     fishing_system.start() #NOTE: Fishing thing
 
                 elif event.key == pygame.K_SPACE:
                     fish_popup = None
                     
         
-
+    #FISHING RESULTS
         if fishing_system.update():
             caught_fish = fishing_system.choose_fish()
             print(f"You Caught: {caught_fish}!")
             fish_popup = gui.FishPopUp(caught_fish)
+
+        if(
+            fish_popup is not None
+            and pygame.time.get_ticks() - fish_popup.cooldown_start >= fish_popup.cooldown_ms
+        ):
+            fish_popup = None
 
                 
 
