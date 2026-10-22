@@ -151,6 +151,7 @@ def main():
     #NOTE: Prompts:
 
     fishing_prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
+    inventory_full_prompt = gui.InventoryFull()
 
  #--------------------------------------------
 
@@ -225,8 +226,11 @@ def main():
                     dock.colliderect(player_world_rect)
                     and
                     fish_popup is None
+                    and
+                    len(player_data.inventory["plr_inv"]) < player_data.inventory["maximum_slots"]
                
                 ):
+                    
                      fishing_system.start() #NOTE: Fishing thing
 
                 elif event.key == pygame.K_SPACE:
@@ -393,9 +397,15 @@ def main():
         stone_color = (110,110,110)
         pygame.draw.ellipse(screen, stone_color , gray_stone_screen_rect)
 
+
+
+
+
+
+        #--------------------------------------#
         #NOTE: GUIS
         
-        #(Cooldown)
+        #(Fish Cooldown)
         if fish_popup is not None:
             fish_popup.draw(screen)
 
@@ -415,8 +425,13 @@ def main():
             and fish_popup is None
             and fishing_prompt_delay_start is not None
             and pygame.time.get_ticks() - fishing_prompt_delay_start >= 500
+            
         ):
-            fishing_prompt.draw(screen)
+            if len(player_data.inventory["plr_inv"]) >= player_data.inventory["maximum_slots"]:
+                inventory_full_prompt.draw(screen)
+            
+            else:
+                fishing_prompt.draw(screen)
 
 
 
