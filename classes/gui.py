@@ -49,9 +49,11 @@ class ProximityPrompt(GUI):
         text = self.font.render(self.label, True, (255, 255 ,255))
         screen.blit(text, text.get_rect(center=self.rect.center))
 
+    
+
 
 class FishPopUp(GUI):
-    def __init__(self,caught_fish , position=(350,260), size=(500,280)):
+    def __init__(self,caught_fish , position=(350,260), size=(500,280), skip_key=pygame.K_SPACE):
         super().__init__(position,size,(30,30,30))
         self.title_font = pygame.font.Font(None, 42)
         self.body_font = pygame.font.Font(None, 30)
@@ -60,6 +62,9 @@ class FishPopUp(GUI):
             f"Rarity: {caught_fish.get('type' , 'Unknown...')}",
             f"Mutation: {caught_fish.get('mutation' , 'None')}",
         ]
+        self.skip_key = skip_key
+
+
         self.gui_cooldown(4)                   #NOTE: GUI COOLDOWN FOR FISH RESULTS.
 
 
@@ -88,6 +93,8 @@ class FishPopUp(GUI):
 
 
 
+
+
     def draw(self , screen): #NOTE: FOR RENDERING
 
         if pygame.time.get_ticks() - self.cooldown_start >= self.cooldown_ms:
@@ -102,6 +109,9 @@ class FishPopUp(GUI):
             text = self.body_font.render(detail, True, (255,255,255))
             screen.blit(text , (self.rect.x + 30, self.rect.y + 85 + index * 35))
 
+
+
+        #--------------------------------------- FOR FISHING SYSTEM
         #NOTE: BASICALLY SAYING THE COUNTDOWN
         remaining_ms = self.cooldown_ms - (
             pygame.time.get_ticks() - self.cooldown_start
@@ -114,10 +124,10 @@ class FishPopUp(GUI):
             (200,200,200)
         )
 
-        skip_countdown = self.body_font.render(
-            f"Press _ to skip.",
+        skip_countdown = self.body_font.render(    #NOTE: SKIP COUNTDOWN
+            f"Press {pygame.key.name(self.skip_key).upper()} to skip.",
             True,
-            200,200,200
+            (200,200,200)
         )
         screen.blit(
             countdown, countdown.get_rect(

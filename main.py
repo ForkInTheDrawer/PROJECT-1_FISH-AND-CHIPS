@@ -29,9 +29,11 @@ fish_dictionary = None
 
 
 
+
 def main():
     pygame.init()
     fish_popup = None
+    fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
 
 
 
@@ -61,12 +63,10 @@ def main():
     
  #-----------------------------------
     #NOTE: CHARACTER INFORMATION:
-    player = pygame.Rect(
-        200,200,30,50
-        )
     
-    player_speed = 200 #Measured in pixels per second
-
+    player_data = character.player(name_val="John Fisher", gender_val="",cash_val=0, luck_val=0, walkspeed=200)
+    player = player_data.character
+    player_speed = player_data.walkspeed
     player_pos = pygame.Vector2(player.topleft)
 
     #NOTE: ISLAND INFORMATION:
@@ -237,14 +237,18 @@ def main():
         if fishing_system.update():
             caught_fish = fishing_system.choose_fish()
             print(f"You Caught: {caught_fish}!")
+            if not player_data.add_to_inventory(caught_fish):
+                print("INVENTORY FULL!!")
+            
             fish_popup = gui.FishPopUp(caught_fish)
-
+           
         if(
             fish_popup is not None
             and pygame.time.get_ticks() - fish_popup.cooldown_start >= fish_popup.cooldown_ms
         ):
             fish_popup = None
 
+           
                 
 
 
@@ -391,16 +395,30 @@ def main():
 
         #NOTE: GUIS
         
+        #(Cooldown)
+        if fish_popup is not None:
+            fish_popup.draw(screen)
+
+        if fish_popup is None:
+            if fishing_prompt_delay_start is None:
+                fishing_prompt_delay_start = pygame.time.get_ticks()
+
+        else:
+            fishing_prompt_delay_start = None
+
+
              # FISHING PROMPT:
         if (
             dock.colliderect(player_world_rect)
             and not fishing_system.is_casting
             and not fishing_system.is_fishing
+            and fish_popup is None
+            and fishing_prompt_delay_start is not None
+            and pygame.time.get_ticks() - fishing_prompt_delay_start >= 500
         ):
             fishing_prompt.draw(screen)
 
-        if fish_popup is not None:
-            fish_popup.draw(screen)
+
 
 
 
