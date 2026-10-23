@@ -11,7 +11,12 @@ from classes import proximity_detector
 from classes import gui
 from classes import character
 from classes import fishing
+from classes import fish_prices
+
+
+#NOTE: JSON THING
 from pathlib import Path
+
 
 
 #Screen Dimensions + update version Number when you release a new version
@@ -235,6 +240,25 @@ def main():
 
                 elif event.key == pygame.K_SPACE:
                     fish_popup = None
+
+                elif event.key == pygame.K_q:
+                    items = player_data.inventory["plr_inv"]
+
+                    if items:
+                        sold_fish = items.pop(0)
+
+                        sale_price = fish_prices.price_calculator(sold_fish)
+                        player_data.cash += sale_price
+
+                        player_data.save_inventory()
+
+                        print(f'Sold {sold_fish["name"]} for ${sale_price:.2f}!')
+                        print(f'Current cash: ${player_data.cash:.2f}')
+
+                    else:
+                        print('No fish to sell.')
+
+
                     
         
     #FISHING RESULTS
@@ -426,7 +450,7 @@ def main():
             and fishing_prompt_delay_start is not None
             and pygame.time.get_ticks() - fishing_prompt_delay_start >= 500
             
-        ):
+        ): #NOTE: DONT REMOVE THE RED. ITS WORKS AS INTENDED
             if len(player_data.inventory["plr_inv"]) >= player_data.inventory["maximum_slots"]:
                 inventory_full_prompt.draw(screen)
             

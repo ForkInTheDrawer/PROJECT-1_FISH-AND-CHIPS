@@ -1,6 +1,6 @@
 import random
 import pygame
-
+from . import fish_prices
 
 
 class Fishing: 
@@ -28,10 +28,10 @@ class Fishing:
             k=1
         )[0]
         details = self.fish_data[name]
-
+        
 
     #--------------------------RARITIES--------------
-        type_names = [
+        rarity_names = [
             "Common",
             "Rare",
             "Epic",
@@ -40,10 +40,10 @@ class Fishing:
             "APEX",
             "SECRET"
         ]
-        type_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
-        fish_type = random.choices(
-            type_names,
-            weights=type_weights,
+        rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
+        fish_rarity = random.choices(
+            rarity_names,
+            weights=rarity_weights,
             k=1
         )[0]
 
@@ -121,15 +121,22 @@ class Fishing:
     #-------------------RNG SYSTEM
         caught_fish = {
             "name": name,
-            "type": fish_type,
-            "mutation": ", ".join(caught_mutations) if caught_mutations else "None"
+            "rarity": fish_rarity,
+            "mutation": ", ".join(caught_mutations) if caught_mutations else "None",
+            "weight": fish_prices.fish_weight_generation(fish_rarity)
         }
+
+
+        print(caught_fish) #NOTE: TEMPORARY
 
         for color in ("Color_1",  "Color_2"):
             if color in details:
                 caught_fish[color.upper()] = random.choice(details[color])
 
+            
         return caught_fish
+    
+
 
 
 
@@ -202,15 +209,6 @@ class Fishing:
 
 
 
-class fish_rarity():
-    def __init__ (self, rarity, price, weight):
-        self.rarity = rarity
-        self.price = price
-        self.weight = weight
 
-
-    
-
-        #Placeholder for fish types
 
 

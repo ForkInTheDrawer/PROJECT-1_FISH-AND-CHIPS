@@ -77,7 +77,7 @@ class FishPopUp(GUI):
         self.body_font = pygame.font.Font(None, 30)
         self.name = caught_fish.get('name', 'Unknown Fish')
         self.details = [
-            f"Rarity: {caught_fish.get('type' , 'Unknown...')}",
+            f"Rarity: {caught_fish.get('rarity' , 'Unknown...')}",
             f"Mutation: {caught_fish.get('mutation' , 'None')}",
         ]
         self.skip_key = skip_key
