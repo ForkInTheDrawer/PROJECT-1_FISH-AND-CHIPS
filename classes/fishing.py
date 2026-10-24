@@ -6,12 +6,17 @@ from . import fish_prices
 class Fishing: 
     def __init__(self, fish_data): #Gets data ready
         self.fish_data = fish_data
-        
+
+
+        self.debug_mode = False #NOTE: DEBUG MODE
+
         self.is_fishing = False
         self.is_casting = False
+    
         self.start_time = 0
         self.duration = 0
         self.cast_time_prompt = 0
+        
 
 
     def choose_fish(self): #Readys
@@ -52,10 +57,10 @@ class Fishing:
             "Healthy":30,
             "Meaty": 20,
             "Malnourished": 20,
-            "tiny": 5,
-            "GIANT":5,
-            "Radioactive": 0.5,
-            "Void" : 0.5,
+            "tiny": 1,
+            "GIANT":1,
+            "Radioactive": 0.2,
+            "Void" : 0.2,
             "Inky":50,
             "Heavy" :40,
             "Burnt":10,
@@ -73,7 +78,7 @@ class Fishing:
 
         #FIRST MUTATION = CURRENTLY 100%, DEBUG MODE (Original = 15%)
 
-        if random.random() < 1 and available_mutations: 
+        if random.random() < (1 if self.debug_mode else 0.15) and available_mutations: 
             mutation = random.choices(
                 available_mutations,
                 weights = [mutation_weights[m] for m in available_mutations],
@@ -89,7 +94,7 @@ class Fishing:
         
         #SECOND MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 15%)
 
-            if random.random() < 1 and available_mutations: 
+            if random.random() < (1 if self.debug_mode else 0.15) and available_mutations: 
                 mutation = random.choices(
                     available_mutations,
                     weights = [mutation_weights[m] for m in available_mutations],
@@ -104,7 +109,7 @@ class Fishing:
 
                 #THIRD MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 10%)
 
-                if random.random() <1 and available_mutations:
+                if random.random() < (1 if self.debug_mode else 0.15) and available_mutations:
                     mutation = random.choices(
                         available_mutations,
                         weights = [mutation_weights[m] for m in available_mutations],
@@ -179,7 +184,12 @@ class Fishing:
             self.is_casting = False
             self.is_fishing = True
             self.start_time = current_time
-            self.duration = random.uniform(0,1) #NOTE: THIS IS THE RANDOM TIME. ADJUST FOR DEBUG (Original: 2,4)
+            if self.debug_mode:
+                self.duration = 0
+            else:
+             self.duration = random.uniform(2,4) #NOTE: THIS IS THE RANDOM TIME. ADJUST FOR DEBUG (Original: 2,4)
+
+
 
             print('Fishing Started! Catch Time:',
                   round(self.duration , 1),

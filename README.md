@@ -49,3 +49,6 @@ Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
 - **S** — Move down
 - **D** — Move right
 - **Esc** — Quit the game
+- **P** - Debug Mode (Instant Fish, Sell Anywhere)
+-**Q** - Sell (near dark brown box)
+-**E** - Fish (In the dock)

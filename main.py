@@ -224,26 +224,22 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     game_running = False
 
-                #NOTE: DEBUG MODE
-                elif event.key == pygame.K_e:
-                    if debug_mode:
-                        pass #NOTE: WORK ON THIS.
                 
-                # NOTE: PRESS E TO FISH
+                # NOTE: FISHING SYSTEM
                 elif(
                     event.key == pygame.K_e
                     and
                     dock.colliderect(player_world_rect) and fish_popup is None and len(player_data.inventory["plr_inv"]) < player_data.inventory["maximum_slots"]
                
                 ):
-                     fishing_system.start() #NOTE: Fishing System starts
+                     fishing_system.start()
 
 
                 elif event.key == pygame.K_SPACE: #SKIPS POPUP FROM THE RESULT
                     fish_popup = None 
 
 
-                if event.key == pygame.K_e: #For selling Fishes
+                if event.key == pygame.K_q: #For selling Fishes
                     
 
                     if debug_mode or vendor_proximity.colliderect(player_world_rect):
@@ -268,7 +264,8 @@ def main():
 
                 if event.key == pygame.K_p:
                     debug_mode = not debug_mode
-                    print(f'DEBUG MODE {'ON' if debug_mode else 'OFF'}')
+                    fishing_system.debug_mode = debug_mode
+                    print(f"DEBUG MODE {'ON' if debug_mode else 'OFF'}")
 
 
                     
