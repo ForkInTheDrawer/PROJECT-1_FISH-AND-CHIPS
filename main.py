@@ -74,6 +74,8 @@ def main():
     player_speed = player_data.walkspeed
     player_pos = pygame.Vector2(player.topleft)
 
+    debug_mode = False
+
     #NOTE: ISLAND INFORMATION:
     island_size = (800, 900)
 
@@ -105,7 +107,7 @@ def main():
         250
     )
 
-    #NOTE: Store Info + Location:
+    #NOTE: Store Info + Location + Proximity:
             # vendor store is where you sell sell fish to get money
     vendor_store = pygame.Rect(
         fish_island.left  + 30 ,
@@ -113,6 +115,7 @@ def main():
         100 ,
         180
     )
+    vendor_proximity = vendor_store.inflate(130, 30)
 
             #Fishing supplies Shop is where you upgrade ur gear
     
@@ -215,48 +218,57 @@ def main():
                 game_running = False
 
 
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN: #Key pressed events
 
                 #NOTE: When Escape key is pressed
                 if event.key == pygame.K_ESCAPE:
                     game_running = False
 
-
-
-                #NOTE: PROXIMITY SENSOR (FOR FISHING NEAR DOCK)  
-                # NOTE: PRESS E TO FISH  
+                #NOTE: DEBUG MODE
+                elif event.key == pygame.K_e:
+                    if debug_mode:
+                        pass #NOTE: WORK ON THIS.
+                
+                # NOTE: PRESS E TO FISH
                 elif(
                     event.key == pygame.K_e
                     and
-                    dock.colliderect(player_world_rect)
-                    and
-                    fish_popup is None
-                    and
-                    len(player_data.inventory["plr_inv"]) < player_data.inventory["maximum_slots"]
+                    dock.colliderect(player_world_rect) and fish_popup is None and len(player_data.inventory["plr_inv"]) < player_data.inventory["maximum_slots"]
                
                 ):
+                     fishing_system.start() #NOTE: Fishing System starts
+
+
+                elif event.key == pygame.K_SPACE: #SKIPS POPUP FROM THE RESULT
+                    fish_popup = None 
+
+
+                if event.key == pygame.K_e: #For selling Fishes
                     
-                     fishing_system.start() #NOTE: Fishing thing
 
-                elif event.key == pygame.K_SPACE:
-                    fish_popup = None
+                    if debug_mode or vendor_proximity.colliderect(player_world_rect):
+                        items = player_data.inventory["plr_inv"]
 
-                elif event.key == pygame.K_q:
-                    items = player_data.inventory["plr_inv"]
+                        if items:
+                            sold_fish = items.pop(0)
 
-                    if items:
-                        sold_fish = items.pop(0)
+                            sale_price = fish_prices.price_calculator(sold_fish)
+                            player_data.cash += sale_price
 
-                        sale_price = fish_prices.price_calculator(sold_fish)
-                        player_data.cash += sale_price
+                            player_data.save_inventory()
 
-                        player_data.save_inventory()
+                            print(f'Sold: {sold_fish['name']} for ${sale_price:.2f}')
+                            print(f'Current cash: {player_data.cash:.2f}')
 
-                        print(f'Sold {sold_fish["name"]} for ${sale_price:.2f}!')
-                        print(f'Current cash: ${player_data.cash:.2f}')
+                        else:
+                            print('No fish to sell!')
 
                     else:
-                        print('No fish to sell.')
+                        print('Please be in the vendor store to sell!')
+
+                if event.key == pygame.K_p:
+                    debug_mode = not debug_mode
+                    print(f'DEBUG MODE {'ON' if debug_mode else 'OFF'}')
 
 
                     

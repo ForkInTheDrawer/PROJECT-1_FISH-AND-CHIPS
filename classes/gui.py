@@ -79,6 +79,7 @@ class FishPopUp(GUI):
         self.details = [
             f"Rarity: {caught_fish.get('rarity' , 'Unknown...')}",
             f"Mutation: {caught_fish.get('mutation' , 'None')}",
+            f'Weight: {caught_fish.get('weight', '0...' ,)} kg'
         ]
         self.skip_key = skip_key
 
