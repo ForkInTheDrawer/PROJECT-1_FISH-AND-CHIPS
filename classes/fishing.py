@@ -52,6 +52,13 @@ class Fishing:
             k=1
         )[0]
 
+    #--------------------------MUTATIONS--------------
+
+    if self.debug_mode:
+        mutation_chances = [1.0, 1.0, 1.0]
+
+    else:
+        mutation_chances = [0.15, 0.15, 0.10]
 
         mutation_weights = {
             "Healthy":30,
@@ -78,7 +85,7 @@ class Fishing:
 
         #FIRST MUTATION = CURRENTLY 100%, DEBUG MODE (Original = 15%)
 
-        if random.random() < (1 if self.debug_mode else 0.15) and available_mutations: 
+        if random.random() < mutation_chances[0] and available_mutations: 
             mutation = random.choices(
                 available_mutations,
                 weights = [mutation_weights[m] for m in available_mutations],
@@ -94,7 +101,7 @@ class Fishing:
         
         #SECOND MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 15%)
 
-            if random.random() < (1 if self.debug_mode else 0.15) and available_mutations: 
+            if random.random() < mutation_chances[1] and available_mutations: 
                 mutation = random.choices(
                     available_mutations,
                     weights = [mutation_weights[m] for m in available_mutations],
@@ -109,7 +116,7 @@ class Fishing:
 
                 #THIRD MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 10%)
 
-                if random.random() < (1 if self.debug_mode else 0.15) and available_mutations:
+                if random.random() < mutation_chances[2] and available_mutations:
                     mutation = random.choices(
                         available_mutations,
                         weights = [mutation_weights[m] for m in available_mutations],
