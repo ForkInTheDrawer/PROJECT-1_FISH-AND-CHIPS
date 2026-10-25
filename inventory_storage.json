@@ -1,43 +1,4 @@
 {
     "maximum_slots": 10,
-    "plr_inv": [
-        {
-            "name": "Redwood Salmon",
-            "rarity": "Rare",
-            "mutation": "Inky, Malnourished, Heavy",
-            "weight": 7.2
-        },
-        {
-            "name": "Eastern Milkfish",
-            "rarity": "Common",
-            "mutation": "Heavy, Inky, Malnourished",
-            "weight": 1.1
-        },
-        {
-            "name": "Round Scad",
-            "rarity": "Rare",
-            "mutation": "Gold, Healthy, Inky",
-            "weight": 2.1
-        },
-        {
-            "name": "Round Scad",
-            "rarity": "Common",
-            "mutation": "Heavy, Inky, Meaty",
-            "weight": 1.5
-        },
-        {
-            "name": "Chomp Grouper",
-            "rarity": "Rare",
-            "mutation": "Healthy, Burnt, Inky",
-            "weight": 6.7,
-            "COLOR_1": "Black",
-            "COLOR_2": "Blue"
-        },
-        {
-            "name": "Round Scad",
-            "rarity": "Common",
-            "mutation": "Meaty, Inky, Heavy",
-            "weight": 2.7
-        }
-    ]
+    "plr_inv": []
 }
