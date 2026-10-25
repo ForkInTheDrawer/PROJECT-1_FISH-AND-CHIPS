@@ -52,9 +52,13 @@ def main():
 
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
 
+    #HUD FONTS:
+    hud_title_font = pygame.font.SysFont("consolas", 26, bold=True)
+    hud_font = pygame.font.SysFont("consolas", 20, bold=True)
+    hud_small_font = pygame.font.SysFont("consolas",16)
 
-    pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}")
 
 
     #NOTE: it makes the game run at a constant speed, regardless of the computer's performance
@@ -465,6 +469,25 @@ def main():
             
             else:
                 fishing_prompt.draw(screen)
+
+        #--------HUD BACKGROUND:
+
+        hud_rect = pygame.Rect(20, HEIGHT - 170 , 340, 150)
+
+        #PANEL
+        pygame.draw.rect(screen, (16,43,58),hud_rect)
+
+        #BORDER
+        pygame.draw.rect(screen, (115,226,208),hud_rect,3)
+
+            #HUD TITLE:
+        
+        title_text = hud_font.render(f"FISH N' CHIPS V{GAME_VERSION}", True, (244,231,197))
+        screen.blit(title_text, (35,HEIGHT - 160))
+
+            # CASH:
+        cash_text = hud_font.render( f'CASH: ${player_data.cash:.2f}' , True, (244, 213, 141))
+        screen.blit(cash_text , (35, HEIGHT-  120))
 
 
 

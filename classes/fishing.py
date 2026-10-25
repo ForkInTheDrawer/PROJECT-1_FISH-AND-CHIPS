@@ -33,48 +33,37 @@ class Fishing:
             k=1
         )[0]
         details = self.fish_data[name]
+        rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
+
+        fish_rarity = random.choices(
+        details["Rarity"],
+        weights = rarity_weights,
+        k=1
+        )[0]
         
 
-    #--------------------------RARITIES--------------
-        rarity_names = [
-            "Common",
-            "Rare",
-            "Epic",
-            "Legendary",
-            "Endangered",
-            "APEX",
-            "SECRET"
-        ]
-        rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
-        fish_rarity = random.choices(
-            rarity_names,
-            weights=rarity_weights,
-            k=1
-        )[0]
 
-    #--------------------------MUTATIONS--------------
+        #--------------------------MUTATIONS--------------
 
-    if self.debug_mode:
-        mutation_chances = [1.0, 1.0, 1.0]
-
-    else:
-        mutation_chances = [0.15, 0.15, 0.10]
+        if self.debug_mode:
+            mutation_chances = [1.0, 1.0, 1.0]
+        else:
+            mutation_chances = [0.15, 0.15, 0.10]
 
         mutation_weights = {
-            "Healthy":30,
+            "Healthy": 30,
             "Meaty": 20,
             "Malnourished": 20,
             "tiny": 1,
-            "GIANT":1,
+            "GIANT": 1,
             "Radioactive": 0.2,
-            "Void" : 0.2,
-            "Inky":50,
-            "Heavy" :40,
-            "Burnt":10,
+            "Void": 0.2,
+            "Inky": 50,
+            "Heavy": 40,
+            "Burnt": 10,
             "Transparent": 2,
-            "Gold":15
+            "Gold": 15
         }
-
 
         available_mutations = [
             mutation for mutation in details["Mutation"]
@@ -83,54 +72,40 @@ class Fishing:
 
         caught_mutations = []
 
-        #FIRST MUTATION = CURRENTLY 100%, DEBUG MODE (Original = 15%)
-
-        if random.random() < mutation_chances[0] and available_mutations: 
+        # First mutation roll
+        if random.random() < mutation_chances[0] and available_mutations:
             mutation = random.choices(
                 available_mutations,
-                weights = [mutation_weights[m] for m in available_mutations],
-                k = 1
+                weights=[mutation_weights[m] for m in available_mutations],
+                k=1
             )[0]
             caught_mutations.append(mutation)
-            available_mutations = [
-                m for m in available_mutations
-                if m != mutation
-            ]
+            available_mutations.remove(mutation)
 
-            #NOTE: WORK ON SECOND MUTATION ROLL CHANCE!!!
+        # Second mutation roll
+        if random.random() < mutation_chances[1] and available_mutations:
+            mutation = random.choices(
+                available_mutations,
+                weights=[mutation_weights[m] for m in available_mutations],
+                k=1
+            )[0]
+            caught_mutations.append(mutation)
+            available_mutations.remove(mutation)
+
+        # Third mutation roll
+        if random.random() < mutation_chances[2] and available_mutations:
+            mutation = random.choices(
+                available_mutations,
+                weights=[mutation_weights[m] for m in available_mutations],
+                k=1
+            )[0]
+            caught_mutations.append(mutation)
+            available_mutations.remove(mutation)
+
         
-        #SECOND MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 15%)
 
-            if random.random() < mutation_chances[1] and available_mutations: 
-                mutation = random.choices(
-                    available_mutations,
-                    weights = [mutation_weights[m] for m in available_mutations],
-                    k=1
-                )[0]
-                caught_mutations.append(mutation)
-                available_mutations =[
-                    m for m in available_mutations
-                    if m != mutation
-                ]
+        #-------------------FISH RESULT-------------------
 
-
-                #THIRD MUTATION = CURRENTLY 100%, DEBUG MODE. (Original = 10%)
-
-                if random.random() < mutation_chances[2] and available_mutations:
-                    mutation = random.choices(
-                        available_mutations,
-                        weights = [mutation_weights[m] for m in available_mutations],
-                        k = 1
-                    )[0]
-                    caught_mutations.append(mutation)
-                    available_mutations = [
-                        m for m in available_mutations
-                        if m != mutation
-                    ]
-
-
-
-    #-------------------RNG SYSTEM
         caught_fish = {
             "name": name,
             "rarity": fish_rarity,
@@ -138,15 +113,14 @@ class Fishing:
             "weight": fish_prices.fish_weight_generation(fish_rarity)
         }
 
+        print(caught_fish)  # TEMPORARY
 
-        print(caught_fish) #NOTE: TEMPORARY
-
-        for color in ("Color_1",  "Color_2"):
+        for color in ("Color_1", "Color_2"):
             if color in details:
                 caught_fish[color.upper()] = random.choice(details[color])
 
-            
         return caught_fish
+
     
 
 
