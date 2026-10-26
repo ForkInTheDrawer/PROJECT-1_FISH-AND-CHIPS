@@ -4,18 +4,18 @@
             "Pensie Cod": {
                 "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": 30
+                "Weight": 50
             },
             "Tilapia": {
                 "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": 30
+                "Weight": 50
             },
 
             "Silver Anchovy":{
                 "Rarity" : ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-                "Weight": 30
+                "Weight": 45
             },
             "Chomp Grouper":{
                 "Rarity" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
@@ -86,12 +86,12 @@
             "Great White Shark":{
             "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": 3
+            "Weight": 1
             },
             "Collosal Squid":{
             "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
-            "Weight": 3
+            "Weight": 1
             },
             "Blue Sleeper Ray":{
             "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],

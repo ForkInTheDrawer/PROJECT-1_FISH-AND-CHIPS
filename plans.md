@@ -14,8 +14,81 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 * `git status`
 * `git pull`
 
----
+-------------------------
+START HERE:
 
+
+# Development Progress
+
+### Finished task: 
+- Movement
+- Fishing interaction
+-  RNG Fishing System
+- Selling Mechanic
+- UI (for Cash)
+
+### Work In Progress:
+
+(UI Focused)
+- Work on GUI:
+    * "Press Q to Sell" GUI near Vendor
+    * "Press F to Open SHop" GUI near Fishing Shop
+
+ (Focused on the fishing system)
+- Add a way so that Scrap items can be caught and sold.
+    * Add a mutation
+    * Make it so it can be sold
+- Add more Fishes (?)
+- Different Fish Chances (RNG)
+    * Some fishes are rarer than the other.
+    * Rarity for certain fishes are Epic +, or smth like that.
+    * Common Fishes get Common - Epic Rarity.
+    * Rare Fishes get Epic - Endangered Rarity
+    * Super Rare Fishes get Epic - SECRET Rarity.
+
+
+
+### Future Task:
+
+- Inventory Icon + Inventory Mechanic
+    * "Lock Item" Mechanic - To stop it from getting sold.
+
+- Fishing Minigame (During Casting Bait sequence)
+
+- Add Animation:
+    * "Press E To Fish" Popup
+    * Fish Results Popup Screen Effect
+    * Sell UI Animation 
+
+
+
+- Stats on Basic Rod
+    * Make a new .py file named "rods"
+        * Stats:
+            - Weight (Higher Weight chance)
+            - Durability (Higher Weight chance)
+            - Luck (Better Fish Chance)
+            - Speed (Faster fishing and Casting time)
+
+
+
+
+- Shops and Fishing Upgrades:
+    * Shop System
+        * Put 3 Testing Fishing Rods + Backpack
+        * Timely Rotation (Can skip rotation using money)
+    
+
+    * Rod Upgrades: 
+        - Rod material (+ durability & Weight)
+        - Line Material (+Weight)
+        - Bait / Hook (++Luck)
+        - Reel (+Speed)
+        - Handle (+Durability)
+
+
+
+NTS:
 # Fish n Chips
 
 - Cast your rod, wait for it to catch a fish.
@@ -31,30 +104,44 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 - Reel: reeling speed
 - Handle: Luck
 
-## Planning board
 
-### 1. Island (DONE)
-- [ ] Make an island.
-- [ ] Keep the player inside its world-space boundaries.
 
-### 2. Camera (DONE)
-- [ ] Keep the player in the middle of the screen.
-- [ ] Make sure the world (island, water, and later objects) moves relative to the camera.
 
-### 3. Player GUI
-- [ ] Add a cash display (a placeholder button is okay while learning).
+### PLANS:
+Fish n Chips
+FISHING GAME (Inspired by gimkit's Fishing game)
 
-### 4. Map generation
-- [ ] Split the map into chunks.
-- [ ] Start with chunks that are 50 x 50 pixels.
-- [ ] Learn height-map noise terrain generation after the basic map works.
+-Cast your rod, wait for it to catch a fish.
+-Sell raw fishes to gain Coins
+-Sell Cooked Fishes to gain CHIPS
+-Use the coins to upgrade your rod
+-Use CHIPS to buy 
 
-### 5. Object-oriented programming (OOP)
-- [ ] Learn classes, attributes, methods, and how objects work together.
-- [ ] Keep the player’s in-game stats separate from movement/rendering code where practical.
+-NOTE: Upgrades are as follows:
+-Rod material (+ durability & Weight)
+-Line Material (+Weight)
+-Bait / Hook (++Luck)
+-Reel (+Speed)
+-Handle (+Durability)
 
-### 6. CHARACTER:
-- [] 
+
+CHIPS
+
+Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -136,11 +223,13 @@ WHEN SAVING YOUR PROJECT TO GITHUB:
 **Checkpoint:** Multiple objects render in the correct world positions while the camera moves.
 
 ## Stage 8 — Add collisions and fishing interactions
-- [ ] Decide which objects need collision rectangles.
-- [ ] Test simple collisions with `Rect` overlap checks.
-- [ ] Add interaction logic for fishing spots or fish only after movement, drawing, and camera behavior are reliable.
+- [X] Decide which objects need collision rectangles.
+- [X] Test simple collisions with `Rect` overlap checks.
+- [X] Add interaction logic for fishing spots or fish only after movement, drawing, and camera behavior are reliable.
 
 **Checkpoint:** The player can approach an object and trigger a simple interaction without the camera breaking.
+
+
 
 ## Sprite rules to remember
 - Load assets once, not every frame inside the main loop.

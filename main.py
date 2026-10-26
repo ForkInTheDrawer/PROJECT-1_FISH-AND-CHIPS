@@ -112,7 +112,7 @@ def main():
     )
 
     #NOTE: Store Info + Location + Proximity:
-            # vendor store is where you sell sell fish to get money
+            # vendor store is where you buy gear
     vendor_store = pygame.Rect(
         fish_island.left  + 30 ,
         fish_island.top + 200 ,
@@ -121,7 +121,7 @@ def main():
     )
     vendor_proximity = vendor_store.inflate(130, 30)
 
-            #Fishing supplies Shop is where you upgrade ur gear
+            #Fishing supplies Shop is where you sell
     
     fishing_shop = pygame.Rect(
         fish_island.centerx - 100, 
@@ -129,12 +129,9 @@ def main():
         180 ,
         100
     )
+    fishing_shop_proximity = fishing_shop.inflate(130,30)
 
 
-
-
-        
-    
 
 
     #NOTE: Dock Location + Size 
@@ -160,11 +157,15 @@ def main():
 
 
 
-    #NOTE: Prompts:
+    #NOTE: Prompt information:
 
     fishing_prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
-    inventory_full_prompt = gui.InventoryFull()
 
+    sell_prompt = gui.GUI.proximity_prompt("sell!" , key=pygame.K_q)
+
+    shop_prompt = gui.GUI.proximity_prompt("open shop!" , key=pygame.K_f)
+
+    inventory_full_prompt = gui.InventoryFull()
  #--------------------------------------------
 
        
@@ -469,6 +470,15 @@ def main():
             
             else:
                 fishing_prompt.draw(screen)
+
+
+        if vendor_proximity.colliderect(player_world_rect):
+            sell_prompt.draw(screen)
+
+        if fishing_shop_proximity.colliderect(player_world_rect):
+            shop_prompt.draw(screen)
+
+
 
         #--------HUD BACKGROUND:
 
