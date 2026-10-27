@@ -4,7 +4,7 @@ Write your story in a vast world full of surprises with your trusty rod, and cat
 Buy upgrades, or gamble it for more. It's your choice!
 
 
-
+NOTE: Cash Saving doesnt work yet, only the Inventory does.
 
 
 
@@ -14,10 +14,14 @@ Buy upgrades, or gamble it for more. It's your choice!
 - **A** — Move left
 - **S** — Move down
 - **D** — Move right
-- **Esc** — Quit the game
+
+- **Backspace** — Quit Game
+
 - **P** - Debug Mode (Instant Fish, Sell Anywhere)
--**Q** - Sell (near dark brown box)
--**E** - Fish (In the dock)
+- **Q** - Sell (near dark brown box)
+- **E** - Fish (In the dock)
+- **F** - Open Shop
+- **Esc** - Close Shop
 
 
 

@@ -39,6 +39,7 @@ def main():
     pygame.init()
     fish_popup = None
     fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
+    shop_open = False
 
 
 
@@ -46,10 +47,15 @@ def main():
 
     fish_path = Path(__file__).resolve().parent / "fishies.json"
     with fish_path.open(encoding="utf-8") as file:
-        fish_dictionary = json.load(file)["FISH"]
+        item_dictionary = json.load(file)
+
+    #DICTIONARIES:
+
+    fish_dictionary = item_dictionary["FISH"]
+    scrap_dictionary = item_dictionary["SCRAP"]
+    stones_dictionary = item_dictionary["STONES"]
+    
     fishing_system = fishing.Fishing(fish_dictionary)
-
-
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
@@ -114,20 +120,20 @@ def main():
     #NOTE: Store Info + Location + Proximity:
             # vendor store is where you buy gear
     vendor_store = pygame.Rect(
-        fish_island.left  + 30 ,
-        fish_island.top + 200 ,
-        100 ,
-        180
-    )
-    vendor_proximity = vendor_store.inflate(130, 30)
-
-            #Fishing supplies Shop is where you sell
-    
-    fishing_shop = pygame.Rect(
         fish_island.centerx - 100, 
         fish_island.top + 20,
         180 ,
         100
+    )
+    vendor_proximity = vendor_store.inflate(10, 50)
+
+            #Fishing supplies Shop is where you sell
+    
+    fishing_shop = pygame.Rect(
+        fish_island.left  + 30 ,
+        fish_island.top + 200 ,
+        100 ,
+        180
     )
     fishing_shop_proximity = fishing_shop.inflate(130,30)
 
@@ -222,7 +228,7 @@ def main():
             if event.type == pygame.QUIT:
                 game_running = False
 
-
+            #------
             elif event.type == pygame.KEYDOWN: #Key pressed events
 
                 #NOTE: When Escape key is pressed
@@ -267,10 +273,22 @@ def main():
                     else:
                         print('Please be in the vendor store to sell!')
 
-                if event.key == pygame.K_p:
+                if event.key == pygame.K_p: #Debug Mode
                     debug_mode = not debug_mode
                     fishing_system.debug_mode = debug_mode
                     print(f"DEBUG MODE {'ON' if debug_mode else 'OFF'}")
+
+                elif event.key == pygame.K_f: 
+                    if shop_open: #Close Shop
+                        shop_open = False
+                        
+
+                    elif fishing_shop_proximity.colliderect(player_world_rect): #Open Shop
+                        shop_open = True
+                        print('Worked')
+    
+
+                
 
 
                     
@@ -332,6 +350,10 @@ def main():
             round(player_pos.y)
         )
 
+        #shop closes when you go away
+        if shop_open and not fishing_shop_proximity.colliderect(player_world_rect):
+            shop_open = False
+            print('You walked away :(')
 
 
 
@@ -447,6 +469,16 @@ def main():
         if fish_popup is not None:
             fish_popup.draw(screen)
 
+        if shop_open:
+            shop_rect = pygame.Rect(200, 300 , 800, 400)
+
+                #Shop BG:
+            pygame.draw.rect(screen, (90, 118, 125), shop_rect)
+
+                #Shop Border:
+            pygame.draw.rect(screen, (125, 97, 90) , shop_rect, 4)
+        
+
         if fish_popup is None:
             if fishing_prompt_delay_start is None:
                 fishing_prompt_delay_start = pygame.time.get_ticks()
@@ -471,12 +503,20 @@ def main():
             else:
                 fishing_prompt.draw(screen)
 
-
+        #OPENS SELL NEAR VENDOR
         if vendor_proximity.colliderect(player_world_rect):
             sell_prompt.draw(screen)
-
+        #OPENS SHOP NEAR SHOP
         if fishing_shop_proximity.colliderect(player_world_rect):
             shop_prompt.draw(screen)
+
+
+
+
+
+
+
+
 
 
 
