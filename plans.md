@@ -39,7 +39,7 @@ START HERE:
     * Add a mutation
     * Make it so it can be sold
 - Add more Fishes (?)
-- Different Fish Chances (RNG)
+- Different Fish Chances (RNG) "Fish Sectors"
     * Some fishes are rarer than the other.
     * Rarity for certain fishes are Epic +, or smth like that.
     * Common Fishes get Common - Epic Rarity.

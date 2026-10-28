@@ -1,11 +1,20 @@
 import random
 import pygame
 from . import fish_prices
+from enum import Enum
+
+
+class Item_Category(Enum):
+    FISH = "FISH"
+    SCRAP = "SCRAP"
+    STONE = "STONES"
 
 
 class Fishing: 
-    def __init__(self, fish_data): #Gets data ready
+    def __init__(self, fish_data, scrap_data, stones_data): #Gets data ready
         self.fish_data = fish_data
+        self.scrap_data = scrap_data
+        self.stones_data = stones_data
 
 
         self.debug_mode = False #NOTE: DEBUG MODE
@@ -16,23 +25,59 @@ class Fishing:
         self.start_time = 0
         self.duration = 0
         self.cast_time_prompt = 0
+
+
         
+    def choose_category(self): #Chooses category to get. 
+        return random.choices(
+            list(Item_Category),
+            weights = [80,15,5],
+            k = 1
+    )[0]
+
+    def choose_item_name(self, category): #Checks for correct dictionary
+
+        if category == Item_Category.FISH:
+            item_data = self.fish_data
+            item_names = self.fish_data
+            item_weights = [
+                item_data[name]['Weight']
+                for name in item_names
+            ]
+            return random.choices( item_names,
+                                  weights = item_weights,
+                                  k = 1)[0]
+    
+
+        elif category == Item_Category.SCRAP:
+             return random.choice(list(self.scrap_data))
+
+        else:
+            return random.choice(list(self.stones_data))
+
+    
+    def choose_fish(self): #Readys the fish to be caught
+
+        category = self.choose_category()
+        item_name = self.choose_item_name(category)
+
+        if category == Item_Category.SCRAP:
+            return{
+                "name" : item_name,
+                "category" : category.value,
+                "price" : self.scrap_data[item_name]["PRICE"]
+            }
+
+        elif category == Item_Category.STONE:
+            return{
+                "name" : item_name,
+                "category" : category.value
+            } 
 
 
-    def choose_fish(self): #Readys
-        fish_names = list(self.fish_data)
-
-        fish_weights = [
-            self.fish_data[name]["Weight"]
-            for name in fish_names
-        ]
-
-        name = random.choices(
-            fish_names,
-            weights = fish_weights,
-            k=1
-        )[0]
+        name = item_name
         details = self.fish_data[name]
+        
         rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
 
         fish_rarity = random.choices(

@@ -54,8 +54,12 @@ def main():
     fish_dictionary = item_dictionary["FISH"]
     scrap_dictionary = item_dictionary["SCRAP"]
     stones_dictionary = item_dictionary["STONES"]
-    
-    fishing_system = fishing.Fishing(fish_dictionary)
+
+    fishing_system = fishing.Fishing(
+        fish_dictionary ,
+        scrap_dictionary,
+        stones_dictionary
+    )
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
