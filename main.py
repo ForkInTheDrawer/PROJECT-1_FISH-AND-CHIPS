@@ -254,7 +254,7 @@ def main():
                     fish_popup = None 
 
 
-                if event.key == pygame.K_q: #For selling Fishes
+                if event.key == pygame.K_q: #For selling Fishes (ALSO ADD SCRAPS AND GEMSTONES FUCTION)
                     
 
                     if debug_mode or vendor_proximity.colliderect(player_world_rect):
@@ -263,13 +263,34 @@ def main():
                         if items:
                             sold_fish = items.pop(0)
 
-                            sale_price = fish_prices.price_calculator(sold_fish)
-                            player_data.cash += sale_price
+                            if sold_fish.get("category") == "SCRAP": #FOR SCRAPS
+                                sale_price = sold_fish["price"]
 
-                            player_data.save_inventory()
+                            elif sold_fish.get("category") == "STONES": #FOR STONES
+                                tier_multipliers = {
+                                    "Honed" : 1.0,
+                                    "Tidebound" : 2.5,
+                                    "Soulbound" : 3.0,
+                                    "Aetherbound" : 5.0
+                                }
 
-                            print(f'Sold: {sold_fish['name']} for ${sale_price:.2f}')
-                            print(f'Current cash: {player_data.cash:.2f}')
+                                base_price = sold_fish["base_price"]
+                                rarity = sold_fish["rarity"]
+                                multiplier = tier_multipliers.get(rarity, 1.0)
+
+                                sale_price = base_price * multiplier
+
+                            else: #FOR FISH
+                                sale_price = fish_prices.price_calculator(sold_fish)
+
+
+                            if sale_price is not None:
+                                player_data.cash += sale_price
+                                player_data.save_inventory()
+
+                                print(f"Sold: {sold_fish['name']} for ${sale_price:.2f}")
+                                print(f"Current Cash: {player_data.cash:.2f}")
+
 
                         else:
                             print('No fish to sell!')

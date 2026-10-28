@@ -146,13 +146,38 @@
         },
 
     "STONES":{
-        "Atlas Gem":{},
-        "Rad Gemstone":{},
-        "Polished Ruby":{},
-        "Wisteria Pearl":{},
-        "Kneadough Gem":{},
-        "Alturist Stone":{},
-        "Tablet of Convex":{}
+
+         "Alexandrite":{
+            "PRICE" : 1000,
+            "weight" : 60.0
+        },
+        "Golden Gem":{
+            "PRICE" : 1000,
+            "Weight" : 60.0
+        },
+
+        "Atlas Gemstone":{
+            "PRICE" : 1500,
+            "Weight" : 50.0
+        },
+        "Onyx Gemstone":{
+            "PRICE" : 1600,
+            "Weight" : 40.0
+        },
+
+        "Wisteria Pearl":{
+            "PRICE" : 2500,
+            "Weight" : 30.0
+        },
+
+        "Alturist Stone":{
+            "PRICE" : 4000,
+            "Weight" : 5.0
+        },
+        "Tablet of Convex":{
+            "PRICE" : 10000,
+            "Weight" : 0.1
+        }
         
 
         }

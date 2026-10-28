@@ -1,7 +1,7 @@
 import random
 
 FISH_WEIGHT_RANGES={
-    "Common": (0.5 , 3.0),
+    "Common": (1.0 , 3.0),
     "Rare": (2.0,8.0),
     "Epic": (5.0 , 20.0),
     "Legendary": (15.0 , 50.0),
@@ -16,7 +16,7 @@ FISH_WEIGHT_RANGES={
 def fish_weight_generation(fish_rarity):
     min_weight, max_weight = FISH_WEIGHT_RANGES.get(
         fish_rarity,
-        (0.5, 30)
+        (1.0, 30)
     )
 
     return round(random.uniform(min_weight , max_weight), 1)

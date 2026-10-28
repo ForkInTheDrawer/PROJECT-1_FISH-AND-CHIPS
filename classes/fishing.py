@@ -35,18 +35,30 @@ class Fishing:
             k = 1
     )[0]
 
+    def choose_stone_rarity(self): #Chooses stone rarity
+        stone_rarities = [
+            "Honed",
+            "Tidebound",
+            "Soulbound",
+            "Aetherbound"
+        ]
+        chances = [99.4, 0.5, 0.05, 0.05]
+        return random.choices(stone_rarities, weights = chances, k = 1)[0]
+
     def choose_item_name(self, category): #Checks for correct dictionary
 
         if category == Item_Category.FISH:
             item_data = self.fish_data
-            item_names = self.fish_data
+            item_names = list(self.fish_data)
             item_weights = [
                 item_data[name]['Weight']
                 for name in item_names
             ]
-            return random.choices( item_names,
-                                  weights = item_weights,
-                                  k = 1)[0]
+            return random.choices(
+             item_names,
+            weights = item_weights,
+            k = 1
+            )[0]
     
 
         elif category == Item_Category.SCRAP:
@@ -67,12 +79,17 @@ class Fishing:
                 "category" : category.value,
                 "price" : self.scrap_data[item_name]["PRICE"]
             }
-
         elif category == Item_Category.STONE:
+            rarity = self.choose_stone_rarity()
+
+            base_price = self.stones_data[item_name]["PRICE"]
+
             return{
                 "name" : item_name,
-                "category" : category.value
-            } 
+                "category" : category.value,
+                "rarity" : rarity,
+                "base_price" : base_price
+            }
 
 
         name = item_name
@@ -166,18 +183,8 @@ class Fishing:
 
         return caught_fish
 
-    
 
-
-
-
-
-
-
-
-
-
-    def start(self):
+    def start(self): #Starts fishing
         if self.is_fishing or self.is_casting:
             return
 
@@ -241,7 +248,7 @@ class Fishing:
 
 
 
-#NOTE: THIS IS FOR THE FISHES!!!!!!!!
+
 
 
 

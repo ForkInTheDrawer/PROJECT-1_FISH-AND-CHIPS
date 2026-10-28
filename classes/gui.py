@@ -76,11 +76,23 @@ class FishPopUp(GUI):
         self.title_font = pygame.font.Font(None, 42)
         self.body_font = pygame.font.Font(None, 30)
         self.name = caught_fish.get('name', 'Unknown Fish')
-        self.details = [
-            f"Rarity: {caught_fish.get('rarity' , 'Unknown...')}",
-            f"Mutation: {caught_fish.get('mutation' , 'None')}",
-            f'Weight: {caught_fish.get('weight', '0...' ,)} kg'
-        ]
+
+        category = caught_fish.get("category" , "FISH")
+
+        if category == "STONES":
+            self.details = [
+                f"Rarity: {caught_fish.get("rarity", "Unknown")}",
+                f"Price: ${caught_fish.get("base_price", 0):,.2f}"
+            ]
+
+        elif category == "SCRAP":
+            pass #WORK ON THIS
+
+        else:
+            pass #WORK ON THIS
+
+
+
         self.skip_key = skip_key
 
 
