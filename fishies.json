@@ -117,8 +117,8 @@
             "Seaweed":{
                 "PRICE": 1
             },
-            "Broken Bag":{
-                "PRICE": 2
+            "Scrap Metal":{
+                "PRICE": 40
             },
             "Stick":{
                 "PRICE": 1
@@ -126,7 +126,7 @@
             "Skull":{
                 "PRICE": 10
             },
-            "Map":{
+            "Unknown Map":{
                 "PRICE": 15
             },
             "Broken Laptop":{
@@ -135,8 +135,8 @@
             "Broken Phone":{
                 "PRICE": 4
             },
-            "Soaked Book":{
-                "PRICE": 2
+            "Fish Net":{
+                "PRICE": 4
             },
             "Worn Tire":{
                 "PRICE": 3
@@ -149,16 +149,16 @@
 
          "Alexandrite":{
             "PRICE" : 1000,
-            "weight" : 60.0
+            "weight" : 90.0
         },
         "Golden Gem":{
             "PRICE" : 1000,
-            "Weight" : 60.0
+            "Weight" : 80.0
         },
 
         "Atlas Gemstone":{
             "PRICE" : 1500,
-            "Weight" : 50.0
+            "Weight" : 80.0
         },
         "Onyx Gemstone":{
             "PRICE" : 1600,

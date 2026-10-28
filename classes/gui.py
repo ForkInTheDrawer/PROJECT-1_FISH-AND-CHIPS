@@ -81,15 +81,22 @@ class FishPopUp(GUI):
 
         if category == "STONES":
             self.details = [
-                f"Rarity: {caught_fish.get("rarity", "Unknown")}",
-                f"Price: ${caught_fish.get("base_price", 0):,.2f}"
+                f"Tier: {caught_fish.get("rarity", "Unknown")}",
+                f"Price: ${caught_fish.get("base_price", 0):,.2f}",
+                f"Stats: (PLACEHOLDER)"
             ]
 
         elif category == "SCRAP":
-            pass #WORK ON THIS
+            self.details = [
+                f"Price: $ {caught_fish.get('price', 0):.2f}"
+            ]
 
-        else:
-            pass #WORK ON THIS
+        else: #FOR FISH
+            self.details = [
+                f"Rarity: {caught_fish.get('rarity', 'Unknown')}",
+                f"Mutation: {caught_fish.get('mutation', 'None')}",
+                f"Weight: {caught_fish.get('weight', 0)} kg"
+            ]
 
 
 
