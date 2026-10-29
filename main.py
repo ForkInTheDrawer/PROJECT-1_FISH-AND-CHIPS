@@ -40,6 +40,7 @@ def main():
     fish_popup = None
     fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
     shop_open = False
+    sell_confirmation = False
 
 
 
@@ -261,7 +262,15 @@ def main():
                         items = player_data.inventory["plr_inv"]
 
                         if items:
-                            sold_fish = items.pop(0)
+                            sold_fish = items[0]
+
+                        if sold_fish.get("category") == "STONES":
+                            sell_confirmation = gui.Sell_Confirmation(
+                                sold_fish["name"]
+                            )
+                            
+                        else:
+                            items.pop(0)                        
 
                             if sold_fish.get("category") == "SCRAP": #FOR SCRAPS
                                 sale_price = sold_fish["price"]

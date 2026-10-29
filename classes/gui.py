@@ -16,6 +16,7 @@ class GUI():
        self.fill_color = fill_color
        
 
+
     def draw(self, screen):
         pygame.draw.rect(screen,self.fill_color, self.rect)
 
@@ -70,7 +71,7 @@ class InventoryFull(GUI):   #NOTE: WORK ON THIS SO THAT THE "INVENTORY FULL" WIL
 
 
 
-class FishPopUp(GUI):
+class FishPopUp(GUI):   
     def __init__(self,caught_fish , position=(350,260), size=(500,280), skip_key=pygame.K_SPACE):
         super().__init__(position,size,(30,30,30))
         self.title_font = pygame.font.Font(None, 42)
@@ -81,21 +82,21 @@ class FishPopUp(GUI):
 
         if category == "STONES":
             self.details = [
-                f"Tier: {caught_fish.get("rarity", "Unknown")}",
-                f"Price: ${caught_fish.get("base_price", 0):,.2f}",
-                f"Stats: (PLACEHOLDER)"
+                f'Tier: {caught_fish.get("rarity", "Unknown")}',
+                f'Price: ${caught_fish.get("base_price", 0):,.2f}',
+                f'Stats: (PLACEHOLDER)'
             ]
 
         elif category == "SCRAP":
             self.details = [
-                f"Price: $ {caught_fish.get('price', 0):.2f}"
+                f'Price: $ {caught_fish.get('price', 0):.2f}'
             ]
 
         else: #FOR FISH
             self.details = [
-                f"Rarity: {caught_fish.get('rarity', 'Unknown')}",
-                f"Mutation: {caught_fish.get('mutation', 'None')}",
-                f"Weight: {caught_fish.get('weight', 0)} kg"
+                f'Rarity: {caught_fish.get('rarity', 'Unknown')}',
+                f'Mutation: {caught_fish.get('mutation', 'None')}',
+                f'Weight: {caught_fish.get('weight', 0)} kg'
             ]
 
 
@@ -179,6 +180,54 @@ class FishPopUp(GUI):
         )
 
 
+
+
+class Sell_Confirmation(GUI):
+    def __init__ (self, item_name):
+        super().__init__(
+            position = (300,280),
+            size = (600,240),
+            fill_color = (30,30,30)
+        )
+
+        self.item_name = item_name
+        self.font = pygame.font.Font(None, 35)
+        self.button_font = pygame.font.Font(None,32)
+
+        self.yes_button = pygame.Rect(400,200, 150,55)
+        self.no_button = pygame.Rect(650,200,150,55)
+
+    def draw(self, screen):
+        super().draw(screen)
+        title = self.font.render(
+            f"Sell {self.item_name}?",
+            True,
+            (255,220,100)
+        )
+
+        screen.blit(
+            title, title.get_rect(center = (self.rect.centerx,370))
+        )
+
+
+        pygame.draw.rect(screen, (49,132, 92), self.yes_button)
+
+        pygame.draw.rect(screen, (169,67,67), self.no_button)
+
+        yes_text = self.button_font.render(
+            "YES", True, (255,255,255)
+        )
+        no_text = self.button_font.render(
+            "NO", True, (255,255,255)
+        )
+
+        screen.blit(
+            yes_text, yes_text.get_rect(center = self.yes_button.center)
+        )
+
+        screen.blit(
+            no_text, no_text.get_rect(center = self.no_button.center)
+        )
 
     
 
