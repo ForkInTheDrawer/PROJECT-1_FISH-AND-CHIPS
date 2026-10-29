@@ -12,6 +12,10 @@ from classes import gui
 from classes import character
 from classes import fishing
 from classes import fish_prices
+from classes.button import Button
+
+from events import keyboard_events
+
 
 
 #NOTE: JSON THING
@@ -63,6 +67,10 @@ def main():
     )
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+    test_button = Button("YES", (255,255,255), pygame.Rect(400,420, 150,55), (100,100,100), (150,150,150))
+
+
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
 
     #HUD FONTS:
@@ -237,46 +245,39 @@ def main():
             elif event.type == pygame.KEYDOWN: #Key pressed events
 
                 #NOTE: When Escape key is pressed
-                if event.key == pygame.K_ESCAPE:
+                if keyboard_events.quit_game_key(event):
                     game_running = False
+                    print('Player had quit the game.')
 
                 
                 # NOTE: FISHING SYSTEM
-                elif(
-                    event.key == pygame.K_e
-                    and
-                    dock.colliderect(player_world_rect) and fish_popup is None and len(player_data.inventory["plr_inv"]) < player_data.inventory["maximum_slots"]
-               
-                ):
-                     fishing_system.start()
+                
+                keyboard_events.fishing_key(
+                    event, dock, player_world_rect, fish_popup, player_data, fishing_system
+                )
 
 
-                elif event.key == pygame.K_SPACE: #SKIPS POPUP FROM THE RESULT
-                    fish_popup = None 
+                fish_popup = keyboard_events.popup_skip_key(event, fish_popup)
 
 
                 if event.key == pygame.K_q: #For selling Fishes (ALSO ADD SCRAPS AND GEMSTONES FUCTION)
                     
 
-                    if event.key == pygame.K_q:
+                    if keyboard_events.sell_key(event, debug_mode, vendor_proximity, player_world_rect):
 
                         if debug_mode or vendor_proximity.colliderect(player_world_rect): #if ur debugging or near shop
 
-                            items = player_data.inventory["plr_inv"]
+                            sold_fish = keyboard_events.get_item_to_sell(player_data)
+                            if sold_fish is not None:
 
-                            if not items: #if it aint an item
-                                print("No fish to sell!")
-
-                            else: #if it IS an item
-                                sold_fish = items[0]
-
-                                if sold_fish.get("category") == "STONES": #if its a stone
+                                if keyboard_events.is_stone(sold_fish): #if its a stone
+                                    print('Stone Detected, opening confirmation')
                                     sell_confirmation = gui.Sell_Confirmation(
                                         sold_fish["name"]
                                     )
 
                                 else: #other than that, do this:
-                                    items.pop(0)
+                                    player_data.inventory["plr_inv"].pop(0)
 
                                     if sold_fish.get("category") == "SCRAP": #if its a scrap
                                         sale_price = sold_fish["price"]
@@ -296,22 +297,13 @@ def main():
                         else: #if ur not meetign the conditions for the sell to work
                             print("Please be in the vendor store to sell!")
 
+                debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
 
-                if event.key == pygame.K_p: #Debug Mode
-                    debug_mode = not debug_mode
-                    fishing_system.debug_mode = debug_mode
-                    print(f"DEBUG MODE {'ON' if debug_mode else 'OFF'}")
 
-                elif event.key == pygame.K_f: 
-                    if shop_open: #Close Shop
-                        shop_open = False
-                        
-
-                    elif fishing_shop_proximity.colliderect(player_world_rect): #Open Shop
-                        shop_open = True
-                        print('Worked')
+                shop_open = keyboard_events.shop_key(event, shop_open, fishing_shop_proximity, player_world_rect)
     
-
+                if test_button.is_clicked(event):
+                    print("Button Click Event")
                 
 
 
@@ -393,6 +385,7 @@ def main():
 
         #NOTE: WATER BACKGROUND
         screen.fill(MENU_BACKGROUND_COLOR) 
+        
        
         #NOTE: CAMERA OFFSET
         camera_offset_x = (
@@ -493,6 +486,9 @@ def main():
         if fish_popup is not None:
             fish_popup.draw(screen)
 
+        if sell_confirmation:
+            sell_confirmation.draw(screen)
+
         if shop_open:
             shop_rect = pygame.Rect(200, 300 , 800, 400)
 
@@ -526,6 +522,8 @@ def main():
             
             else:
                 fishing_prompt.draw(screen)
+
+
 
         #OPENS SELL NEAR VENDOR
         if vendor_proximity.colliderect(player_world_rect):
@@ -564,7 +562,11 @@ def main():
         screen.blit(cash_text , (35, HEIGHT-  120))
 
 
+            #BUTTON TEST
+        
 
+        test_button.draw(screen)
+        
 
 
 
