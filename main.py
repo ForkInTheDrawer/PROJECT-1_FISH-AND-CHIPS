@@ -258,54 +258,44 @@ def main():
                 if event.key == pygame.K_q: #For selling Fishes (ALSO ADD SCRAPS AND GEMSTONES FUCTION)
                     
 
-                    if debug_mode or vendor_proximity.colliderect(player_world_rect):
-                        items = player_data.inventory["plr_inv"]
+                    if event.key == pygame.K_q:
 
-                        if items:
-                            sold_fish = items[0]
+                        if debug_mode or vendor_proximity.colliderect(player_world_rect): #if ur debugging or near shop
 
-                        if sold_fish.get("category") == "STONES":
-                            sell_confirmation = gui.Sell_Confirmation(
-                                sold_fish["name"]
-                            )
-                            
-                        else:
-                            items.pop(0)                        
+                            items = player_data.inventory["plr_inv"]
 
-                            if sold_fish.get("category") == "SCRAP": #FOR SCRAPS
-                                sale_price = sold_fish["price"]
+                            if not items: #if it aint an item
+                                print("No fish to sell!")
 
-                            elif sold_fish.get("category") == "STONES": #FOR STONES
-                                tier_multipliers = {
-                                    "Honed" : 1.0,
-                                    "Tidebound" : 2.5,
-                                    "Soulbound" : 3.0,
-                                    "Aetherbound" : 5.0
-                                }
+                            else: #if it IS an item
+                                sold_fish = items[0]
 
-                                base_price = sold_fish["base_price"]
-                                rarity = sold_fish["rarity"]
-                                multiplier = tier_multipliers.get(rarity, 1.0)
+                                if sold_fish.get("category") == "STONES": #if its a stone
+                                    sell_confirmation = gui.Sell_Confirmation(
+                                        sold_fish["name"]
+                                    )
 
-                                sale_price = base_price * multiplier
+                                else: #other than that, do this:
+                                    items.pop(0)
 
-                            else: #FOR FISH
-                                sale_price = fish_prices.price_calculator(sold_fish)
+                                    if sold_fish.get("category") == "SCRAP": #if its a scrap
+                                        sale_price = sold_fish["price"]
 
+                                    else: #if its a fish
+                                        sale_price = fish_prices.price_calculator(sold_fish) #use calculation
 
-                            if sale_price is not None:
-                                player_data.cash += sale_price
-                                player_data.save_inventory()
+                                    if sale_price is not None: #if it has a sale price
+                                        player_data.cash += sale_price
+                                        player_data.save_inventory()
 
-                                print(f"Sold: {sold_fish['name']} for ${sale_price:.2f}")
-                                print(f"Current Cash: {player_data.cash:.2f}")
+                                        print(
+                                            f"Sold {sold_fish['name']} "
+                                            f"for ${sale_price:.2f}"
+                                        )
 
+                        else: #if ur not meetign the conditions for the sell to work
+                            print("Please be in the vendor store to sell!")
 
-                        else:
-                            print('No fish to sell!')
-
-                    else:
-                        print('Please be in the vendor store to sell!')
 
                 if event.key == pygame.K_p: #Debug Mode
                     debug_mode = not debug_mode

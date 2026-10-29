@@ -89,14 +89,14 @@ class FishPopUp(GUI):
 
         elif category == "SCRAP":
             self.details = [
-                f'Price: $ {caught_fish.get('price', 0):.2f}'
+                f'Price: $ {caught_fish.get("price", 0):.2f}'
             ]
 
         else: #FOR FISH
             self.details = [
-                f'Rarity: {caught_fish.get('rarity', 'Unknown')}',
-                f'Mutation: {caught_fish.get('mutation', 'None')}',
-                f'Weight: {caught_fish.get('weight', 0)} kg'
+                f'Rarity: {caught_fish.get("rarity", "Unknown")}',
+                f'Mutation: {caught_fish.get("mutation", "None")}',
+                f'Weight: {caught_fish.get("weight", 0):.2f} kg'
             ]
 
 
@@ -194,8 +194,8 @@ class Sell_Confirmation(GUI):
         self.font = pygame.font.Font(None, 35)
         self.button_font = pygame.font.Font(None,32)
 
-        self.yes_button = pygame.Rect(400,200, 150,55)
-        self.no_button = pygame.Rect(650,200,150,55)
+        self.yes_button = pygame.Rect(400,420, 150,55)
+        self.no_button = pygame.Rect(650,420,150,55)
 
     def draw(self, screen):
         super().draw(screen)
