@@ -7,12 +7,10 @@ import json
 #Imports from other files
 
 from function import collisions
-from classes import proximity_detector
 from classes import gui
 from classes import character
 from classes import fishing
-from classes import fish_prices
-from classes.button import Button
+
 
 from events import keyboard_events
 from events import mouse_events
@@ -76,9 +74,10 @@ def main():
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
 
     #HUD FONTS:
-    hud_title_font = pygame.font.SysFont("consolas", 26, bold=True)
+    
     hud_font = pygame.font.SysFont("consolas", 20, bold=True)
     hud_small_font = pygame.font.SysFont("consolas",16)
+    hud_title_font = pygame.font.SysFont("consolas", 26, bold=True)
 
 
 
@@ -150,7 +149,7 @@ def main():
         100 ,
         180
     )
-    fishing_shop_proximity = fishing_shop.inflate(130,30)
+    fishing_shop_proximity = fishing_shop.inflate(130,40)
 
 
 
@@ -165,15 +164,7 @@ def main():
 
     #NOTE: Interact Detector:
 
-        #FISHING DETECTOR
 
-    fishing_proximity = proximity_detector.proximity(
-        dock.center ,
-        (250,0) ,
-        "'E' Fish" ,
-        None ,
-        pygame.K_e
-    ) 
         #FISHING STATE:
 
 

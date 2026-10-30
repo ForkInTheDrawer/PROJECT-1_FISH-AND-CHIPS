@@ -38,7 +38,7 @@ def accept_sell_stone(player_data):
     player_data.cash += sale_price
     player_data.save_inventory()
 
-    print(f"Sold {stone["name"]}")
+    print(f"Sold {stone['name']}")
     print(f"Sold for {sale_price:.2f}")
 
 

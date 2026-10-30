@@ -1,9 +1,9 @@
 
-
+#NOTE: For future use.
 
 import pygame
 
-class proximity:
+class Proximity:
     def __init__(self, coords, distance, Action_Name=None, Object_Name=None, keybind=pygame.K_e):
 
         self.position = coords #<-its a tuple
@@ -36,6 +36,3 @@ class proximity:
             and self.is_in_range(player_rect)
         )
 
-
-fishing_proximity = proximity((0,0),(10,0), "Fish", "fishingrod!!", pygame.key.key_code("space"))
-shop_proximity = proximity( (0,0), (10,20), "'E' Buy Gear" , None , pygame.key.key_code("e"))
