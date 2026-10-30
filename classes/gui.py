@@ -1,4 +1,5 @@
 import pygame
+from classes.button import Button
 
 default_config = {
     "proximity prompt": {
@@ -194,8 +195,10 @@ class Sell_Confirmation(GUI):
         self.font = pygame.font.Font(None, 35)
         self.button_font = pygame.font.Font(None,32)
 
-        self.yes_button = pygame.Rect(400,420, 150,55)
-        self.no_button = pygame.Rect(650,420,150,55)
+        self.yes_button = Button( "YES", (255,255,255), pygame.Rect(400,420,150,55), (49,132,92), (70,160,110))
+        self.no_button = Button("NO", (255,255,255), pygame.Rect(620,420,150,55), (169,67,67), (200,85,85))
+
+
 
     def draw(self, screen):
         super().draw(screen)
@@ -206,28 +209,10 @@ class Sell_Confirmation(GUI):
         )
 
         screen.blit(
-            title, title.get_rect(center = (self.rect.centerx,370))
+            title, title.get_rect(center = (self.rect.centerx, 370))
         )
-
-
-        pygame.draw.rect(screen, (49,132, 92), self.yes_button)
-
-        pygame.draw.rect(screen, (169,67,67), self.no_button)
-
-        yes_text = self.button_font.render(
-            "YES", True, (255,255,255)
-        )
-        no_text = self.button_font.render(
-            "NO", True, (255,255,255)
-        )
-
-        screen.blit(
-            yes_text, yes_text.get_rect(center = self.yes_button.center)
-        )
-
-        screen.blit(
-            no_text, no_text.get_rect(center = self.no_button.center)
-        )
+        self.yes_button.draw(screen)
+        self.no_button.draw(screen)
 
     
 

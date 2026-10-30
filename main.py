@@ -15,6 +15,7 @@ from classes import fish_prices
 from classes.button import Button
 
 from events import keyboard_events
+from events import mouse_events
 
 
 
@@ -68,7 +69,7 @@ def main():
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    test_button = Button("YES", (255,255,255), pygame.Rect(400,420, 150,55), (100,100,100), (150,150,150))
+
 
 
     pygame.display.set_caption(f"Fish N' Chips V{GAME_VERSION}") #DISPLAY
@@ -241,7 +242,45 @@ def main():
             if event.type == pygame.QUIT:
                 game_running = False
 
-            #------
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                choice = mouse_events.confirmation_click(event, sell_confirmation)
+
+                if choice == "no":
+                    stone = player_data.inventory["plr_inv"].pop(0)
+                    player_data.inventory["plr_inv"].append(stone)
+
+                    player_data.save_inventory()
+                    sell_confirmation = False
+
+                    print(f"Moved {stone['name']} to the back of inventory.")
+
+                elif choice == "yes":
+                    stone = player_data.inventory["plr_inv"][0]
+
+                    tier_multipliers = {
+                        "Honed": 1.0,
+                        "Tidebound": 2.5,
+                        "Soulbound": 3.0,
+                        "Aetherbound": 5.0
+                    }
+
+                    base_price = stone["base_price"]
+                    rarity = stone["rarity"]
+                    multiplier = tier_multipliers.get(rarity,1.0)
+
+                    sale_price = base_price * multiplier
+
+                    player_data.inventory["plr_inv"].pop(0)
+                    player_data.cash += sale_price
+
+                    player_data.save_inventory()
+                    sell_confirmation = False
+
+                    print(f"Sold {stone["name"]}")
+                    print(f"Sold for {sale_price:.2f}")
+            
+
+            #---------------
             elif event.type == pygame.KEYDOWN: #Key pressed events
 
                 #NOTE: When Escape key is pressed
@@ -302,8 +341,7 @@ def main():
 
                 shop_open = keyboard_events.shop_key(event, shop_open, fishing_shop_proximity, player_world_rect)
     
-                if test_button.is_clicked(event):
-                    print("Button Click Event")
+
                 
 
 
@@ -565,7 +603,6 @@ def main():
             #BUTTON TEST
         
 
-        test_button.draw(screen)
         
 
 
