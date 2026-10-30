@@ -1,4 +1,11 @@
 {
     "maximum_slots": 10,
-    "plr_inv": []
+    "plr_inv": [
+        {
+            "name": "Alturist Stone",
+            "category": "STONES",
+            "rarity": "Honed",
+            "base_price": 4000
+        }
+    ]
 }

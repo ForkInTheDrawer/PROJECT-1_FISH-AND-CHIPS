@@ -16,6 +16,7 @@ from classes.button import Button
 
 from events import keyboard_events
 from events import mouse_events
+from events import selling_events
 
 
 
@@ -246,38 +247,16 @@ def main():
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
 
                 if choice == "no":
-                    stone = player_data.inventory["plr_inv"].pop(0)
-                    player_data.inventory["plr_inv"].append(stone)
-
-                    player_data.save_inventory()
+                    selling_events.cancel_sell_stone(player_data)
                     sell_confirmation = False
 
-                    print(f"Moved {stone['name']} to the back of inventory.")
+
 
                 elif choice == "yes":
-                    stone = player_data.inventory["plr_inv"][0]
-
-                    tier_multipliers = {
-                        "Honed": 1.0,
-                        "Tidebound": 2.5,
-                        "Soulbound": 3.0,
-                        "Aetherbound": 5.0
-                    }
-
-                    base_price = stone["base_price"]
-                    rarity = stone["rarity"]
-                    multiplier = tier_multipliers.get(rarity,1.0)
-
-                    sale_price = base_price * multiplier
-
-                    player_data.inventory["plr_inv"].pop(0)
-                    player_data.cash += sale_price
-
-                    player_data.save_inventory()
+                    selling_events.accept_sell_stone(player_data)
                     sell_confirmation = False
 
-                    print(f"Sold {stone["name"]}")
-                    print(f"Sold for {sale_price:.2f}")
+
             
 
             #---------------
@@ -316,22 +295,7 @@ def main():
                                     )
 
                                 else: #other than that, do this:
-                                    player_data.inventory["plr_inv"].pop(0)
-
-                                    if sold_fish.get("category") == "SCRAP": #if its a scrap
-                                        sale_price = sold_fish["price"]
-
-                                    else: #if its a fish
-                                        sale_price = fish_prices.price_calculator(sold_fish) #use calculation
-
-                                    if sale_price is not None: #if it has a sale price
-                                        player_data.cash += sale_price
-                                        player_data.save_inventory()
-
-                                        print(
-                                            f"Sold {sold_fish['name']} "
-                                            f"for ${sale_price:.2f}"
-                                        )
+                                    selling_events.sell_regular_item(player_data , sold_fish)
 
                         else: #if ur not meetign the conditions for the sell to work
                             print("Please be in the vendor store to sell!")
@@ -600,8 +564,11 @@ def main():
         screen.blit(cash_text , (35, HEIGHT-  120))
 
 
-            #BUTTON TEST
+            # CHIPS:
         
+        chips_text = hud_font.render( f'CHIPS: (NONE YET)', True , (244,213,141))
+        screen.blit(chips_text, (35, HEIGHT- 80))
+        pass #WORK ON CHIPS SYSTEM
 
         
 
