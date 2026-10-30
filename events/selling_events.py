@@ -1,5 +1,5 @@
 from classes import fish_prices
-
+from classes import gui
 
 def calculate_stone_price(stone):
 
@@ -58,3 +58,8 @@ def sell_regular_item(player_data, item):
         player_data.save_inventory()
 
         print(f"Sold {item['name']} for ${sale_price:.2f}")
+
+
+def open_sell_confirmation(item):
+    print("Rare Material Detected.")
+    return gui.Sell_Confirmation(item["name"])

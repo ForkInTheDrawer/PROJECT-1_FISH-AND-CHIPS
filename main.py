@@ -282,24 +282,13 @@ def main():
                     
 
                     if keyboard_events.sell_key(event, debug_mode, vendor_proximity, player_world_rect):
-
-                        if debug_mode or vendor_proximity.colliderect(player_world_rect): #if ur debugging or near shop
-
                             sold_fish = keyboard_events.get_item_to_sell(player_data)
                             if sold_fish is not None:
 
-                                if keyboard_events.is_stone(sold_fish): #if its a stone
-                                    print('Stone Detected, opening confirmation')
-                                    sell_confirmation = gui.Sell_Confirmation(
-                                        sold_fish["name"]
-                                    )
-
-                                else: #other than that, do this:
-                                    selling_events.sell_regular_item(player_data , sold_fish)
-
-                        else: #if ur not meetign the conditions for the sell to work
-                            print("Please be in the vendor store to sell!")
-
+                                if keyboard_events.is_stone(sold_fish):
+                                    sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
+                                else:
+                                    selling_events.sell_regular_item(player_data,sold_fish)
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
 
 
