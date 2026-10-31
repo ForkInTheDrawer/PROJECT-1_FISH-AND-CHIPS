@@ -36,7 +36,7 @@ START HERE:
 ### Work In Progress:
     (Focused on the fishing system)
 - Add a way so that Scrap items can be caught and sold.
-    * Add a mutation
+    * Add a mutation (mutations multiply the amount of money it gives, and one mutation which is super rare, can give chips instead of the regular coins)
     * Make it so it can be sold (DONE)
 - Add more Fishes (Optional)
 - Different Fish Chances (RNG) "Fish Sectors"

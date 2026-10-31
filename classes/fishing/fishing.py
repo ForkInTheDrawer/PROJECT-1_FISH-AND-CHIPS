@@ -1,6 +1,7 @@
 import random
 import pygame
 from . import fish_prices
+from . import scrap_mutations
 from enum import Enum
 
 
@@ -67,6 +68,13 @@ class Fishing:
         else:
             return random.choice(list(self.stones_data))
 
+    def choose_scrap_mutation(self):
+        mutations = [None, "Rusty", "Golden", "Prismatic", "Glitched"]
+        weights = [59.9, 30, 8,2,0.1]
+
+        return random.choices(mutations, weights = weights, k = 1)
+
+
     
     def choose_fish(self): #Readys the fish to be caught
 
@@ -74,11 +82,17 @@ class Fishing:
         item_name = self.choose_item_name(category)
 
         if category == Item_Category.SCRAP:
+
+            mutation = self.choose_scrap_mutation()
             return{
                 "name" : item_name,
                 "category" : category.value,
-                "price" : self.scrap_data[item_name]["PRICE"]
+                "price" : self.scrap_data[item_name]["PRICE"],
+                "mutation" : mutation
             }
+        
+
+        
         elif category == Item_Category.STONE:
             rarity = self.choose_stone_rarity()
 
@@ -182,6 +196,7 @@ class Fishing:
                 caught_fish[color.upper()] = random.choice(details[color])
 
         return caught_fish
+
 
 
     def start(self): #Starts fishing

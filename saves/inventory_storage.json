@@ -1,4 +1,53 @@
 {
     "maximum_slots": 10,
-    "plr_inv": []
+    "plr_inv": [
+        {
+            "name": "Tilapia",
+            "rarity": "Rare",
+            "mutation": "Gold, Heavy, Healthy",
+            "weight": 6.5
+        },
+        {
+            "name": "Lapu-Lapu",
+            "rarity": "Common",
+            "mutation": "Meaty, Burnt, Healthy",
+            "weight": 2.9
+        },
+        {
+            "name": "Bleached Coral",
+            "category": "SCRAP",
+            "price": 4,
+            "mutation": [
+                "Rusty"
+            ]
+        },
+        {
+            "name": "Eastern Milkfish",
+            "rarity": "Common",
+            "mutation": "Healthy, Heavy, Inky",
+            "weight": 2.3
+        },
+        {
+            "name": "Coconut Shell",
+            "category": "SCRAP",
+            "price": 3,
+            "mutation": [
+                "Rusty"
+            ]
+        },
+        {
+            "name": "Plastic Bottle",
+            "category": "SCRAP",
+            "price": 3,
+            "mutation": [
+                null
+            ]
+        },
+        {
+            "name": "Round Scad",
+            "rarity": "Common",
+            "mutation": "Meaty, Healthy, Malnourished",
+            "weight": 1.8
+        }
+    ]
 }
