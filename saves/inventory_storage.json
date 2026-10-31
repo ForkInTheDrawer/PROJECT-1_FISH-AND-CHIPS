@@ -2,52 +2,34 @@
     "maximum_slots": 10,
     "plr_inv": [
         {
-            "name": "Tilapia",
-            "rarity": "Rare",
-            "mutation": "Gold, Heavy, Healthy",
-            "weight": 6.5
-        },
-        {
-            "name": "Lapu-Lapu",
+            "name": "Silver Anchovy",
             "rarity": "Common",
-            "mutation": "Meaty, Burnt, Healthy",
-            "weight": 2.9
+            "mutation": "Inky, Heavy, Malnourished",
+            "weight": 2.4
         },
         {
-            "name": "Bleached Coral",
-            "category": "SCRAP",
-            "price": 4,
-            "mutation": [
-                "Rusty"
-            ]
-        },
-        {
-            "name": "Eastern Milkfish",
+            "name": "Yellow Fin Tuna",
             "rarity": "Common",
-            "mutation": "Healthy, Heavy, Inky",
-            "weight": 2.3
+            "mutation": "Healthy, Meaty, Heavy",
+            "weight": 1.6
         },
         {
-            "name": "Coconut Shell",
-            "category": "SCRAP",
-            "price": 3,
-            "mutation": [
-                "Rusty"
-            ]
+            "name": "Silver Anchovy",
+            "rarity": "Common",
+            "mutation": "Inky, Meaty, Gold",
+            "weight": 1.4
+        },
+        {
+            "name": "Alturist Stone",
+            "category": "STONES",
+            "rarity": "Honed",
+            "base_price": 35
         },
         {
             "name": "Plastic Bottle",
             "category": "SCRAP",
             "price": 3,
-            "mutation": [
-                null
-            ]
-        },
-        {
-            "name": "Round Scad",
-            "rarity": "Common",
-            "mutation": "Meaty, Healthy, Malnourished",
-            "weight": 1.8
+            "mutation": null
         }
     ]
 }

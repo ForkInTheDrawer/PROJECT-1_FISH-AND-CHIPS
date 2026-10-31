@@ -90,7 +90,8 @@ class FishPopUp(GUI):
 
         elif category == "SCRAP":
             self.details = [
-                f'Price: $ {caught_fish.get("price", 0):.2f}'
+                f'Price: $ {caught_fish.get("price", 0):.2f}',
+                f'Mutation: {caught_fish.get("mutation") or "None"}'
             ]
 
         else: #FOR FISH

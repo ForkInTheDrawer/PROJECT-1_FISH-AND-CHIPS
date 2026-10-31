@@ -16,7 +16,7 @@ SCRAP_MUTATIONS = {
     },
 
     "Glitched" : {
-        "multipler" : None,
+        "multiplier" : None,
         "currency" : "Chips"
     }
     

@@ -72,7 +72,7 @@ class Fishing:
         mutations = [None, "Rusty", "Golden", "Prismatic", "Glitched"]
         weights = [59.9, 30, 8,2,0.1]
 
-        return random.choices(mutations, weights = weights, k = 1)
+        return random.choices(mutations, weights = weights, k = 1)[0]
 
 
     

@@ -1,5 +1,6 @@
 from classes.fishing import fish_prices
 from classes.ui_handling import gui
+from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 
 
 
@@ -50,19 +51,33 @@ def accept_sell_stone(player_data):
 def sell_regular_item(player_data, item):
 
     if item.get("category") == "SCRAP":
-        sale_price = item["price"]
+        mutation = item.get("mutation")
+
+        if mutation == "Glitched":
+            sale_price = item["price"]
+            currency = "Chips"
+
+        else:
+            mutation_data = SCRAP_MUTATIONS.get(mutation)
+            multiplier = mutation_data["multiplier"] if mutation_data else 1.0
+            sale_price = item["price"] * multiplier
+            currency = "coins"
 
     else:
-        sale_price = fish_prices.price_calculator(item)
+        sale_price =fish_prices.price_calculator(item)
+        currency = "Coins"
 
     if sale_price is not None:
         player_data.inventory["plr_inv"].pop(0)
 
-        player_data.cash += sale_price
+        if currency == "Chips":
+            player_data.chips += sale_price
+        else:
+            player_data.cash += sale_price
+
         player_data.save_inventory()
 
-        print(f"Sold {item['name']} for ${sale_price:.2f} Coins.")
-
+        print(f"Sold {item['name']} for {sale_price:.2f} {currency}.")
 
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
