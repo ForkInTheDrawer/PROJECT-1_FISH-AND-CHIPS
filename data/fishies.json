@@ -108,7 +108,7 @@
   
 
     "SCRAP":{
-            "Worn Boot":{
+            "Coconut Shell":{
                 "PRICE": 3
             },
             "Plastic Bottle":{
@@ -120,7 +120,7 @@
             "Scrap Metal":{
                 "PRICE": 40
             },
-            "Stick":{
+            "Twig":{
                 "PRICE": 1
             },
             "Skull":{
@@ -129,16 +129,16 @@
             "Unknown Map":{
                 "PRICE": 15
             },
-            "Broken Laptop":{
+            "Wine Bottle":{
                 "PRICE": 15
             },
-            "Broken Phone":{
+            "Bleached Coral":{
                 "PRICE": 4
             },
             "Fish Net":{
                 "PRICE": 4
             },
-            "Worn Tire":{
+            "Driftwood":{
                 "PRICE": 3
             }
 
@@ -148,34 +148,34 @@
     "STONES":{
 
          "Alexandrite":{
-            "PRICE" : 1000,
+            "PRICE" : 5,
             "weight" : 90.0
         },
         "Golden Gem":{
-            "PRICE" : 1000,
+            "PRICE" : 5,
             "Weight" : 80.0
         },
 
         "Atlas Gemstone":{
-            "PRICE" : 1500,
+            "PRICE" : 10,
             "Weight" : 80.0
         },
         "Onyx Gemstone":{
-            "PRICE" : 1600,
+            "PRICE" : 15,
             "Weight" : 40.0
         },
 
         "Wisteria Pearl":{
-            "PRICE" : 2500,
+            "PRICE" : 25,
             "Weight" : 30.0
         },
 
         "Alturist Stone":{
-            "PRICE" : 4000,
+            "PRICE" : 35,
             "Weight" : 5.0
         },
         "Tablet of Convex":{
-            "PRICE" : 10000,
+            "PRICE" : 40,
             "Weight" : 0.1
         }
         

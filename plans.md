@@ -26,19 +26,19 @@ START HERE:
 -  RNG Fishing System
 - Selling Mechanic
 - UI (for Cash)
-
-### Work In Progress:
-
-(UI Focused)
 - Work on GUI:
     * "Press Q to Sell" GUI near Vendor
     * "Press F to Open SHop" GUI near Fishing Shop
+- UI (for Chips)
 
- (Focused on the fishing system)
+
+
+### Work In Progress:
+    (Focused on the fishing system)
 - Add a way so that Scrap items can be caught and sold.
     * Add a mutation
-    * Make it so it can be sold
-- Add more Fishes (?)
+    * Make it so it can be sold (DONE)
+- Add more Fishes (Optional)
 - Different Fish Chances (RNG) "Fish Sectors"
     * Some fishes are rarer than the other.
     * Rarity for certain fishes are Epic +, or smth like that.
@@ -52,8 +52,12 @@ START HERE:
 
 - Inventory Icon + Inventory Mechanic
     * "Lock Item" Mechanic - To stop it from getting sold.
+    * Reorganize the inventory by dragging
+    * Filter by: Category, A-Z, Rarity, Weight 
+    * Note that we can expand the inventory size VIA Buying new Backpacks
 
 - Fishing Minigame (During Casting Bait sequence)
+- Catch Fish Minigame
 
 - Add Animation:
     * "Press E To Fish" Popup
@@ -85,6 +89,12 @@ START HERE:
         - Bait / Hook (++Luck)
         - Reel (+Speed)
         - Handle (+Durability)
+
+- MAP EXPANSION:
+    * Implement a Quest System
+        - Catch a specific fish Quest
+        - Bring a Scrap Quest
+        - Return a stone Quest
 
 
 

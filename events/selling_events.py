@@ -1,6 +1,9 @@
-from classes import fish_prices
-from classes import gui
+from classes.fishing import fish_prices
+from classes.ui_handling import gui
 
+
+
+# FOR SELLING
 def calculate_stone_price(stone):
 
     tier_multipliers = {
@@ -18,7 +21,7 @@ def calculate_stone_price(stone):
 
     return sale_price
 
-
+#STONE
 def cancel_sell_stone(player_data):
     stone = player_data.inventory["plr_inv"].pop(0)
 
@@ -35,14 +38,15 @@ def accept_sell_stone(player_data):
     sale_price = calculate_stone_price(stone)
 
     player_data.inventory["plr_inv"].pop(0)
-    player_data.cash += sale_price
+    player_data.chips += sale_price
+    print(f"Chips: {player_data.chips:.2f}")
+
     player_data.save_inventory()
 
-    print(f"Sold {stone['name']}")
-    print(f"Sold for {sale_price:.2f}")
+    print(f"Sold {stone['name']} for {sale_price:.2f} Chips.")
 
 
-
+#OTHER THINGS
 def sell_regular_item(player_data, item):
 
     if item.get("category") == "SCRAP":
@@ -57,7 +61,7 @@ def sell_regular_item(player_data, item):
         player_data.cash += sale_price
         player_data.save_inventory()
 
-        print(f"Sold {item['name']} for ${sale_price:.2f}")
+        print(f"Sold {item['name']} for ${sale_price:.2f} Coins.")
 
 
 def open_sell_confirmation(item):

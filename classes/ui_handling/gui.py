@@ -1,5 +1,5 @@
 import pygame
-from classes.button import Button
+from classes.ui_handling.button import Button
 
 default_config = {
     "proximity prompt": {

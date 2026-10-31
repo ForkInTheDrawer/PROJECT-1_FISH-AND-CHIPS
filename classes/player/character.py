@@ -46,7 +46,7 @@ class player:
         # self.luck = luck
 
     #NOTE: "STARTING HERE, IT PULLS inventory_storage.json" 
-        inventory_path = Path(__file__).resolve().parent.parent / "inventory_storage.json"
+        inventory_path = Path(__file__).resolve().parent.parent.parent / "saves" / "inventory_storage.json"
         if inventory_path.exists():
             with inventory_path.open(encoding="utf-8") as file:
                 try: #NOTE: LOADS AND RETURNS FILE CONTENTS 
@@ -74,7 +74,7 @@ class player:
     #----------------
 
     def save_inventory(self):
-        inventory_path = Path(__file__).resolve().parent.parent / "inventory_storage.json"
+        inventory_path = Path(__file__).resolve().parent.parent.parent / "saves" / "inventory_storage.json"
         with inventory_path.open("w", encoding = "utf-8") as file:
             json.dump(self.inventory, file, indent=4)
 

@@ -7,9 +7,9 @@ import json
 #Imports from other files
 
 from function import collisions
-from classes import gui
-from classes import character
-from classes import fishing
+from classes.ui_handling import gui
+from classes.player import character
+from classes.fishing import fishing
 
 
 from events import keyboard_events
@@ -33,12 +33,10 @@ FPS = 60
 clock = pygame.time.Clock()
 
 
-fish_dictionary = None
 
 
 
-
-
+#BELOW THIS IS LOCAL TO main()
 def main():
     pygame.init()
     fish_popup = None
@@ -50,7 +48,7 @@ def main():
 
 
 
-    fish_path = Path(__file__).resolve().parent / "fishies.json"
+    fish_path = Path(__file__).resolve().parent / "data" / "fishies.json"
     with fish_path.open(encoding="utf-8") as file:
         item_dictionary = json.load(file)
 
@@ -546,7 +544,7 @@ def main():
 
             # CHIPS:
         
-        chips_text = hud_font.render( f'CHIPS: (NONE YET)', True , (244,213,141))
+        chips_text = hud_font.render( f'CHIPS: {player_data.chips:.2f}', True , (244,213,141))
         screen.blit(chips_text, (35, HEIGHT- 80))
         pass #WORK ON CHIPS SYSTEM
 
