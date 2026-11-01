@@ -139,7 +139,11 @@ CHIPS
 Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
 
 
+NOTE: When making a demo link, do:
 
+"python -m PyInstaller --onefile --windowed main.py"
+
+And submit everything as a zip file.
 
 
 

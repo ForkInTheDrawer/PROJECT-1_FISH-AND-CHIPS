@@ -2,7 +2,7 @@
 
 import pygame
 import json
-
+import sys
 
 #Imports from other files   
 
@@ -15,6 +15,18 @@ from classes.fishing import fishing
 from events import keyboard_events
 from events import mouse_events
 from events import selling_events
+
+
+from pathlib import Path
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        base_path = Path(sys._MEIPASS)
+    else:
+        base_path = Path(__file__).resolve().parent
+
+    return base_path / relative_path
+
 
 
 
@@ -48,7 +60,7 @@ def main():
 
 
 
-    fish_path = Path(__file__).resolve().parent / "data" / "fishies.json"
+    fish_path = resource_path("data/fishies.json")
     with fish_path.open(encoding="utf-8") as file:
         item_dictionary = json.load(file)
 

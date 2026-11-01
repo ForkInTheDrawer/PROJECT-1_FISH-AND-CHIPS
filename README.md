@@ -9,19 +9,18 @@ NOTE: Cash Saving doesnt work yet, only the Inventory does.
 
 
 ## How to Play
-
+MOVEMENT
 - **W** — Move up
 - **A** — Move left
 - **S** — Move down
 - **D** — Move right
-
-- **Backspace** — Quit Game
+OTHERS
+- **ESC** — Quit Game
 
 - **P** - Debug Mode (Instant Fish, Sell Anywhere)
 - **Q** - Sell (near dark brown box)
 - **E** - Fish (In the dock)
-- **F** - Open Shop
-- **Esc** - Close Shop
+- **F** - Open & Close Shop
 
 
 

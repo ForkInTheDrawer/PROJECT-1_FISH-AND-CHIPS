@@ -1,5 +1,6 @@
 import pygame
 import json
+import os
 from pathlib import Path
 
 default_character = {
@@ -46,36 +47,34 @@ class player:
         # self.luck = luck
 
     #NOTE: "STARTING HERE, IT PULLS inventory_storage.json" 
-        inventory_path = Path(__file__).resolve().parent.parent.parent / "saves" / "inventory_storage.json"
+        save_folder = Path(os.getenv("LOCALAPPDATA")) / "Fish n Chips" / "saves"
+        save_folder.mkdir(parents=True, exist_ok=True)
+
+        inventory_path = save_folder / "inventory_storage.json"
+
         if inventory_path.exists():
             with inventory_path.open(encoding="utf-8") as file:
-                try: #NOTE: LOADS AND RETURNS FILE CONTENTS 
-                    inventory_dict = json.load(file)
-                except json.JSONDecodeError: #NOTE: ERROR HANDLING BRUH
-                    inventory_dict = {}
-                    print("smth bad happened lil bro..")
-                    raise 
+                inventory_dict = json.load(file)
         else:
-            inventory_dict = {}
-            #NOTE to self: for  better mechanism, if the inventory_path is not found, make a new file instead then put the data inside
-
-        if not inventory_dict:
             inventory_dict = {
                 "maximum_slots": 10,
-                "plr_inv":[]
+                "plr_inv": []
             }
 
             with inventory_path.open("w", encoding="utf-8") as file:
                 json.dump(inventory_dict, file, indent=4)
 
-        
         self.inventory = inventory_dict
      
     #----------------
 
     def save_inventory(self):
-        inventory_path = Path(__file__).resolve().parent.parent.parent / "saves" / "inventory_storage.json"
-        with inventory_path.open("w", encoding = "utf-8") as file:
+        save_folder = Path(os.getenv("LOCALAPPDATA")) / "Fish n Chips" / "saves"
+        save_folder.mkdir(parents=True, exist_ok=True)
+
+        inventory_path = save_folder / "inventory_storage.json"
+
+        with inventory_path.open("w", encoding="utf-8") as file:
             json.dump(self.inventory, file, indent=4)
 
     def add_to_inventory(self, item):
