@@ -1,5 +1,6 @@
 import pygame
 from classes.ui_handling.button import Button
+from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 
 default_config = {
     "proximity prompt": {
@@ -84,15 +85,37 @@ class FishPopUp(GUI):
         if category == "STONES":
             self.details = [
                 f'Tier: {caught_fish.get("rarity", "Unknown")}',
-                f'Price: ${caught_fish.get("base_price", 0):,.2f}',
+                f'Price: {caught_fish.get("base_price", 0):,.2f} Chips',
                 f'Stats: (PLACEHOLDER)'
             ]
 
         elif category == "SCRAP":
-            self.details = [
-                f'Price: $ {caught_fish.get("price", 0):.2f}',
-                f'Mutation: {caught_fish.get("mutation") or "None"}'
+            mutation = caught_fish.get("mutation")
+            base_price = caught_fish.get("price", 0)
+
+            if mutation == "Glitched":
+                selling_value = base_price
+                currency = "Chips"
+
+            elif mutation in SCRAP_MUTATIONS:
+                mutation_data = SCRAP_MUTATIONS[mutation]
+                selling_value = base_price * mutation_data.get("price_multiplier", 1)
+                currency = "Coins"
+
+            else:
+                selling_value = base_price
+                currency = "Coins"
+            self.details =[
+                f'Mutation: {mutation or "None"}',
+                f'Price: {"$" if currency == "Coins" else ""}{selling_value:,.2f} {currency if currency =="Chips" else ""}',
+
             ]
+            
+
+
+
+
+            
 
         else: #FOR FISH
             self.details = [

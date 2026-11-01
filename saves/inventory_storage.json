@@ -1,35 +1,4 @@
 {
     "maximum_slots": 10,
-    "plr_inv": [
-        {
-            "name": "Silver Anchovy",
-            "rarity": "Common",
-            "mutation": "Inky, Heavy, Malnourished",
-            "weight": 2.4
-        },
-        {
-            "name": "Yellow Fin Tuna",
-            "rarity": "Common",
-            "mutation": "Healthy, Meaty, Heavy",
-            "weight": 1.6
-        },
-        {
-            "name": "Silver Anchovy",
-            "rarity": "Common",
-            "mutation": "Inky, Meaty, Gold",
-            "weight": 1.4
-        },
-        {
-            "name": "Alturist Stone",
-            "category": "STONES",
-            "rarity": "Honed",
-            "base_price": 35
-        },
-        {
-            "name": "Plastic Bottle",
-            "category": "SCRAP",
-            "price": 3,
-            "mutation": null
-        }
-    ]
+    "plr_inv": []
 }
