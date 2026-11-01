@@ -102,6 +102,36 @@
             "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 15
+            },
+            "Amethyst Koi" : {
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 10
+            },
+            "Clownfish" :{
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 50
+            },
+            "Deep Sea Anglerfish":{
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 0.1
+            },
+            "Blue Marlin":{
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 10
+            },
+            "Red Snapper":{
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 30
+            },
+            "MEGALODON":{
+            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
+            "Weight": 0.000001
             }
 
         },

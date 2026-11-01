@@ -30,14 +30,13 @@ START HERE:
     * "Press Q to Sell" GUI near Vendor
     * "Press F to Open SHop" GUI near Fishing Shop
 - UI (for Chips)
-
+    (Focused on the fishing system)
+- Add a way so that Scrap items can be caught and sold.
+    * Add a mutation
+    * Make it so it can be sold (DONE)
 
 
 ### Work In Progress:
-    (Focused on the fishing system)
-- Add a way so that Scrap items can be caught and sold.
-    * Add a mutation (mutations multiply the amount of money it gives, and one mutation which is super rare, can give chips instead of the regular coins)
-    * Make it so it can be sold (DONE)
 - Add more Fishes (Optional)
 - Different Fish Chances (RNG) "Fish Sectors"
     * Some fishes are rarer than the other.
