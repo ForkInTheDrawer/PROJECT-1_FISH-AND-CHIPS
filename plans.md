@@ -34,10 +34,9 @@ START HERE:
 - Add a way so that Scrap items can be caught and sold.
     * Add a mutation
     * Make it so it can be sold (DONE)
-
+- Add more Fishes (Optional)
 
 ### Work In Progress:
-- Add more Fishes (Optional)
 - Different Fish Chances (RNG) "Fish Sectors"
     * Some fishes are rarer than the other.
     * Rarity for certain fishes are Epic +, or smth like that.
@@ -45,15 +44,13 @@ START HERE:
     * Rare Fishes get Epic - Endangered Rarity
     * Super Rare Fishes get Epic - SECRET Rarity.
 
-
-
-### Future Task:
-
 - Inventory Icon + Inventory Mechanic
     * "Lock Item" Mechanic - To stop it from getting sold.
     * Reorganize the inventory by dragging
     * Filter by: Category, A-Z, Rarity, Weight 
     * Note that we can expand the inventory size VIA Buying new Backpacks
+
+### Future Task:
 
 - Fishing Minigame (During Casting Bait sequence)
 - Catch Fish Minigame
