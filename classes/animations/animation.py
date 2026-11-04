@@ -36,3 +36,5 @@ class Animation:
 
         if progress_status >= 1.0:
             self.finished_status = True
+
+        return self.current_value
