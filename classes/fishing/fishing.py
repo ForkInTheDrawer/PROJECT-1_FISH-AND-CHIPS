@@ -2,6 +2,7 @@ import random
 import pygame
 from . import fish_prices
 from . import scrap_mutations
+from .fish_sectors import FISH_SECTORS
 from enum import Enum
 
 
@@ -27,6 +28,22 @@ class Fishing:
         self.duration = 0
         self.cast_time_prompt = 0
 
+        self.unlocked_sectors = ["Common", "Rare"]
+
+        self.sector_weights = {
+            "Common" : 80,
+            "Rare" : 20
+        }
+
+    def choose_sector(self):
+        available_sectors = self.unlocked_sectors
+
+        sector_weights = [
+            self.sector_weights[sector]
+            for sector in available_sectors
+        ]
+        return random.choices(available_sectors, weights = sector_weights , k = 1)[0]
+
 
         
     def choose_category(self): #Chooses category to get. 
@@ -46,27 +63,26 @@ class Fishing:
         chances = [99.4, 0.5, 0.05, 0.05]
         return random.choices(stone_rarities, weights = chances, k = 1)[0]
 
-    def choose_item_name(self, category): #Checks for correct dictionary
+    def choose_item_name(self, category, sector = None): #Checks for correct dictionary
 
         if category == Item_Category.FISH:
-            item_data = self.fish_data
-            item_names = list(self.fish_data)
+            sector = sector or self.choose_sector()
+            names = FISH_SECTORS[sector]["fish"]
             item_weights = [
-                item_data[name]['Weight']
-                for name in item_names
+                self.fish_data[name].get("Weight", 1)
+                for name in names
             ]
-            return random.choices(
-             item_names,
-            weights = item_weights,
-            k = 1
-            )[0]
-    
+            return random.choices( names, weights = item_weights, k = 1)[0]
+     
 
         elif category == Item_Category.SCRAP:
              return random.choice(list(self.scrap_data))
 
         else:
             return random.choice(list(self.stones_data))
+        raise ValueError(f"Unknown item category!! {category}")
+
+    
 
     def choose_scrap_mutation(self):
         mutations = [None, "Rusty", "Golden", "Prismatic", "Glitched"]
@@ -79,34 +95,28 @@ class Fishing:
     def choose_fish(self): #Readys the fish to be caught
 
         category = self.choose_category()
-        item_name = self.choose_item_name(category)
 
+        sector = None
+        
         if category == Item_Category.SCRAP:
 
-            mutation = self.choose_scrap_mutation()
-            return{
-                "name" : item_name,
-                "category" : category.value,
-                "price" : self.scrap_data[item_name]["PRICE"],
-                "mutation" : mutation
-            }
+            sector = self.choose_sector()
         
+            self.item_name = self.choose_item_name(category, sector)
 
         
         elif category == Item_Category.STONE:
-            rarity = self.choose_stone_rarity()
-
-            base_price = self.stones_data[item_name]["PRICE"]
-
-            return{
-                "name" : item_name,
-                "category" : category.value,
-                "rarity" : rarity,
-                "base_price" : base_price
-            }
-
-
-        name = item_name
+           name = self.choose_item_name(category)
+           return {
+            
+                "name": name,
+                "category": category.value,
+                "rarity": self.choose_stone_rarity(),
+                "base_price": self.scrap_data[name]["base_price"],
+                "weight": 1
+           }
+        sector = self.choose_sector()    
+        name = self.choose_item_name(Item_Category.FISH, sector)
         details = self.fish_data[name]
         
         rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]

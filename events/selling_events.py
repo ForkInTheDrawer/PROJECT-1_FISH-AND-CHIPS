@@ -10,7 +10,7 @@ def calculate_stone_price(stone):
     tier_multipliers = {
         "Honed" : 1.0,
         "Tidebound" : 2.5,
-        "Soulbond" : 3.0,
+        "Soulbound" : 3.0,
         "Aetherbound" : 5.0
     }
 

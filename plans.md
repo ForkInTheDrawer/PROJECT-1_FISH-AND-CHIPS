@@ -50,6 +50,7 @@ START HERE:
     * Filter by: Category, A-Z, Rarity, Weight 
     * Note that we can expand the inventory size VIA Buying new Backpacks
 
+-Show "item name" Sold. UI
 ### Future Task:
 
 - Fishing Minigame (During Casting Bait sequence)
