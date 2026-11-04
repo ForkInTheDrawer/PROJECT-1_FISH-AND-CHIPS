@@ -35,14 +35,14 @@ START HERE:
     * Add a mutation
     * Make it so it can be sold (DONE)
 - Add more Fishes (Optional)
-
-### Work In Progress:
 - Different Fish Chances (RNG) "Fish Sectors"
     * Some fishes are rarer than the other.
     * Rarity for certain fishes are Epic +, or smth like that.
     * Common Fishes get Common - Epic Rarity.
     * Rare Fishes get Epic - Endangered Rarity
     * Super Rare Fishes get Epic - SECRET Rarity.
+### Work In Progress:
+
 
 - Inventory Icon + Inventory Mechanic
     * "Lock Item" Mechanic - To stop it from getting sold.
@@ -51,7 +51,17 @@ START HERE:
     * Note that we can expand the inventory size VIA Buying new Backpacks
 
 -Show "item name" Sold. UI
+
+
 ### Future Task:
+
+- Placeholder Fishing Rods:
+    * "Better Rod" - +10 stats on everything
+    * "Admin Rod" - +100 stats on everything
+
+- Other Islands
+    * Implement a Boat system ($10,000 for boat access)
+    * New fishes in the other island (named "Redwood")
 
 - Fishing Minigame (During Casting Bait sequence)
 - Catch Fish Minigame

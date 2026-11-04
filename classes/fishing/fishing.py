@@ -43,9 +43,7 @@ class Fishing:
             for sector in available_sectors
         ]
         return random.choices(available_sectors, weights = sector_weights , k = 1)[0]
-
-
-        
+    
     def choose_category(self): #Chooses category to get. 
         return random.choices(
             list(Item_Category),
@@ -82,39 +80,48 @@ class Fishing:
             return random.choice(list(self.stones_data))
         raise ValueError(f"Unknown item category!! {category}")
 
-    
-
     def choose_scrap_mutation(self):
         mutations = [None, "Rusty", "Golden", "Prismatic", "Glitched"]
         weights = [59.9, 30, 8,2,0.1]
 
         return random.choices(mutations, weights = weights, k = 1)[0]
 
-
-    
     def choose_fish(self): #Readys the fish to be caught
 
         category = self.choose_category()
 
         sector = None
-        
+
+
+        #----------SCRAP ----------
         if category == Item_Category.SCRAP:
 
-            sector = self.choose_sector()
-        
-            self.item_name = self.choose_item_name(category, sector)
+            item_name = self.choose_item_name(category)
+            mutation = self.choose_scrap_mutation()
 
-        
+
+            return {
+                "name" : item_name,
+                "category" : category.value,
+                "price" : self.scrap_data[item_name]["PRICE"],
+                "mutation" : mutation
+            }
+
+        #----------STONE ----------     
         elif category == Item_Category.STONE:
-           name = self.choose_item_name(category)
+           item_name = self.choose_item_name(category)
+           rarity = self.choose_stone_rarity()
+
            return {
             
-                "name": name,
+                "name": item_name,
                 "category": category.value,
-                "rarity": self.choose_stone_rarity(),
-                "base_price": self.scrap_data[name]["base_price"],
+                "rarity": rarity,
+                "base_price": self.stones_data[item_name]["PRICE"],
                 "weight": 1
            }
+
+        #----------FISH----------
         sector = self.choose_sector()    
         name = self.choose_item_name(Item_Category.FISH, sector)
         details = self.fish_data[name]
@@ -208,7 +215,6 @@ class Fishing:
         return caught_fish
 
 
-
     def start(self): #Starts fishing
         if self.is_fishing or self.is_casting:
             return
@@ -217,8 +223,6 @@ class Fishing:
         self.is_casting = True
         self.cast_time_prompt = pygame.time.get_ticks() + 200
         
-
-
     def update(self):
 
         if not self.is_fishing and not self.is_casting:

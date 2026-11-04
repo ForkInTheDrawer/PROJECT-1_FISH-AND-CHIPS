@@ -240,3 +240,5 @@ class Sell_Confirmation(GUI):
 
     
 
+class Sell_Notification(GUI):
+    
