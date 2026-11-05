@@ -185,6 +185,7 @@ def main():
     fishing_prompt_was_visible =  False
 
     sell_prompt = gui.GUI.proximity_prompt("sell!" , key=pygame.K_q)
+    sell_prompt_was_visible = False
 
     shop_prompt = gui.GUI.proximity_prompt("open shop!" , key=pygame.K_f)
 
@@ -529,11 +530,18 @@ def main():
 
 
         #OPENS SELL NEAR VENDOR
-        if vendor_proximity.colliderect(player_world_rect):
-            sell_prompt.draw(screen)
-        #OPENS SHOP NEAR SHOP
-        if fishing_shop_proximity.colliderect(player_world_rect):
-            shop_prompt.draw(screen)
+        sell_prompt_conditions = vendor_proximity.colliderect(player_world_rect)
+
+        if sell_prompt_conditions:
+            if not sell_prompt_was_visible:
+                sell_prompt.start_animation()
+
+                sell_prompt_was_visible = True 
+                sell_prompt.draw(screen, dt)
+
+        else:
+                sell_prompt_was_visible = False
+
 
 
 

@@ -77,9 +77,6 @@ class ProximityPrompt(GUI):
 
         popup_surface = pygame.Surface(self.rect.size , pygame.SRCALPHA)
 
-        print(f"Popup Surface: {popup_surface.get_size()}")
-        print(f"YES button: {self.yes_button.rect}")
-        print(f"NO button: {self.no_button.rect}")
         pygame.draw.rect(
             popup_surface,
             self.fill_color,
@@ -279,11 +276,11 @@ class Sell_Confirmation(GUI):
 
         self.yes_button = Button( 
             "YES", (255,255,255), 
-            pygame.Rect(400,420,150,55), 
+            pygame.Rect(100,140,150,55), 
             (49,132,92), (70,160,110))
 
         self.no_button = Button("NO", (255,255,255), 
-        pygame.Rect(620,420,150,55), 
+        pygame.Rect(320,140,150,55), 
         (169,67,67), (200,85,85))
 
         self.scale_animation = Animation(
@@ -304,8 +301,8 @@ class Sell_Confirmation(GUI):
                 self.scale_animation = None
                 self.current_scale = 1.0
 
-        popup_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
 
+        popup_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
         pygame.draw.rect(
             popup_surface,
             self.fill_color,
