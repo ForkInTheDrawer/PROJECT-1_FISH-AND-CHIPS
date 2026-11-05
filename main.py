@@ -182,6 +182,7 @@ def main():
     #NOTE: Prompt information:
 
     fishing_prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
+    fishing_prompt_was_visible =  False
 
     sell_prompt = gui.GUI.proximity_prompt("sell!" , key=pygame.K_q)
 
@@ -479,7 +480,7 @@ def main():
             fish_popup.draw(screen)
 
         if sell_confirmation:
-            sell_confirmation.draw(screen)
+            sell_confirmation.draw(screen, dt)
 
         if shop_open:
             shop_rect = pygame.Rect(200, 300 , 800, 400)
@@ -500,7 +501,7 @@ def main():
 
 
              # FISHING PROMPT:
-        if (
+        fishing_prompt_conditions = (
             dock.colliderect(player_world_rect)
             and not fishing_system.is_casting
             and not fishing_system.is_fishing
@@ -508,12 +509,22 @@ def main():
             and fishing_prompt_delay_start is not None
             and pygame.time.get_ticks() - fishing_prompt_delay_start >= 500
             
-        ): #NOTE: DONT REMOVE THE RED. ITS WORKS AS INTENDED
+        ) 
+        if fishing_prompt_conditions:
             if len(player_data.inventory["plr_inv"]) >= player_data.inventory["maximum_slots"]:
                 inventory_full_prompt.draw(screen)
-            
+                fishing_prompt_was_visible = False
+
             else:
-                fishing_prompt.draw(screen)
+                if not fishing_prompt_was_visible:
+                    fishing_prompt.start_animation()
+
+                fishing_prompt_was_visible = True
+                fishing_prompt.draw(screen, dt)
+
+        else:
+            fishing_prompt_was_visible = False
+                
 
 
 

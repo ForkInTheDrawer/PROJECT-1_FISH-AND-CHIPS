@@ -1,6 +1,8 @@
 import pygame
 from classes.ui_handling.button import Button
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
+from classes.animations import easing
+from classes.animations.animation import Animation
 
 default_config = {
     "proximity prompt": {
@@ -47,10 +49,61 @@ class ProximityPrompt(GUI):
         self.font = pygame.font.Font(None, 32)
         self.label = f"Press {pygame.key.name(key).upper()} to {action}"
 
-    def draw(self, screen):
-        super().draw(screen)
-        text = self.font.render(self.label, True, (255, 255 ,255))
-        screen.blit(text, text.get_rect(center=self.rect.center))
+        self.scale_animation = None
+
+    def start_animation(self):
+        self.scale_animation = Animation(
+            start_val = 0.50,
+            end_val = 1.0,
+            duration = 0.4,
+            easing_function = easing.ease_out_back
+        )
+
+    
+
+
+
+    def draw(self, screen, dt=0):
+
+        scale = 1.0
+
+        if self.scale_animation is not None:
+            scale = self.scale_animation.update(dt)
+
+            if self.scale_animation.finished_status:
+                self.scale_animation = None
+                scale = 1.0
+
+
+        popup_surface = pygame.Surface(self.rect.size , pygame.SRCALPHA)
+
+        print(f"Popup Surface: {popup_surface.get_size()}")
+        print(f"YES button: {self.yes_button.rect}")
+        print(f"NO button: {self.no_button.rect}")
+        pygame.draw.rect(
+            popup_surface,
+            self.fill_color,
+            popup_surface.get_rect()
+        )
+        text = self.font.render(self.label, True, (255,255,255))
+
+        popup_surface.blit(
+            text,
+            text.get_rect(center = popup_surface.get_rect().center)
+        )
+
+        scaled_size = (
+            max(1, round(self.rect.width * scale)),
+            max(1, round(self.rect.height * scale)),
+        )
+        scaled_surface = pygame.transform.smoothscale(popup_surface, scaled_size)
+
+        screen.blit(
+        scaled_surface,
+        scaled_surface.get_rect(center = self.rect.center)
+        )
+
+
 
     
 class InventoryFull(GUI):   #NOTE: WORK ON THIS SO THAT THE "INVENTORY FULL" WILL BE IN THE ____
@@ -81,6 +134,11 @@ class FishPopUp(GUI):
         self.name = caught_fish.get('name', 'Unknown Fish')
 
         category = caught_fish.get("category" , "FISH")
+
+
+
+
+
 
         if category == "STONES":
             self.details = [
@@ -219,26 +277,99 @@ class Sell_Confirmation(GUI):
         self.font = pygame.font.Font(None, 35)
         self.button_font = pygame.font.Font(None,32)
 
-        self.yes_button = Button( "YES", (255,255,255), pygame.Rect(400,420,150,55), (49,132,92), (70,160,110))
-        self.no_button = Button("NO", (255,255,255), pygame.Rect(620,420,150,55), (169,67,67), (200,85,85))
+        self.yes_button = Button( 
+            "YES", (255,255,255), 
+            pygame.Rect(400,420,150,55), 
+            (49,132,92), (70,160,110))
 
+        self.no_button = Button("NO", (255,255,255), 
+        pygame.Rect(620,420,150,55), 
+        (169,67,67), (200,85,85))
 
+        self.scale_animation = Animation(
+            start_val = 0.85,
+            end_val = 1.0,
+            duration = 0.4,
+            easing_function = easing.ease_out_back
+        )
+        
+        self.current_scale = 0.85
+        self.draw_rect = self.rect.copy()
 
-    def draw(self, screen):
-        super().draw(screen)
+    def draw(self, screen, dt):
+        if self.scale_animation is not None:
+            self.current_scale = self.scale_animation.update(dt)
+
+            if self.scale_animation.finished_status:
+                self.scale_animation = None
+                self.current_scale = 1.0
+
+        popup_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
+
+        pygame.draw.rect(
+            popup_surface,
+            self.fill_color,
+            popup_surface.get_rect()
+        )
+
         title = self.font.render(
-            f"Sell {self.item_name}?",
+            f'Sell {self.item_name}?',
             True,
-            (255,220,100)
+            (255,255,255)
         )
 
-        screen.blit(
-            title, title.get_rect(center = (self.rect.centerx, 370))
+        popup_surface.blit( title, title.get_rect(center = (300,90)))
+
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        scaled_width = round(self.rect.width * self.current_scale)
+        scaled_height = round(self.rect.height * self.current_scale)
+
+        self.draw_rect = pygame.Rect(
+            0,0, scaled_width, scaled_height
         )
-        self.yes_button.draw(screen)
-        self.no_button.draw(screen)
+
+        self.draw_rect.center = self.rect.center
+
+        local_mouse = (
+            (mouse_x - self.draw_rect.left) / self.current_scale,
+            (mouse_y - self.draw_rect.top) / self.current_scale
+        )
+
+        for button in (self.yes_button, self.no_button):
+            color = (
+                button.hover_color
+
+                if button.rect.collidepoint(local_mouse)
+                else(button.color)
+                )
+
+            pygame.draw.rect(
+                popup_surface,
+                color,
+                button.rect
+            )
+
+            text = self.button_font.render(
+                button.text,
+                True,
+                button.text_color
+            )
+
+            popup_surface.blit(
+                text, text.get_rect(center = button.rect.center)
+            )
+
+        scaled_surface = pygame.transform.smoothscale(
+            popup_surface,
+            self.draw_rect.size
+        )
+
+        screen.blit(scaled_surface, self.draw_rect)
+
+
 
     
 
 class Sell_Notification(GUI):
-    
+    pass
