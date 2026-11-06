@@ -398,11 +398,11 @@ class Sell_Notification(GUI):
         self.notifications = []
         self.exiting_notifications = []
 
-        self.font = pygame.font.Font(None, 27)
+        self.font = pygame.font.Font(None, 25)
 
         self.max_notifications = 5
         self.notification_width = 340
-        self.notification_height = 52
+        self.notification_height = 64
         self.notification_gap = 10
 
         self.margin_right = 24
@@ -412,10 +412,10 @@ class Sell_Notification(GUI):
         self.fade_progress = 0
 
         self.fade_delay = 3.0
-        self.fade_duration = 0
+        self.fade_duration = 0.5
         self.overflow_fade_duration = 0.3
 
-    def add_notif(self, fish_name, price, currency):
+    def add_notif(self, fish_name= None, price= None, currency= None, message = None):
 
         self.idle_time = 0
         self.fade_progress = 0
@@ -437,6 +437,7 @@ class Sell_Notification(GUI):
             "name" : fish_name,
             "price" : price,
             "currency" : currency,
+            "message" : message,
             "y" : pygame.display.get_surface().get_height() + 20
         }
 
@@ -453,8 +454,14 @@ class Sell_Notification(GUI):
                     self.fade_progress + dt / self.fade_duration
                 )
 
+                if self.fade_progress >= 1.0:
+                    self.notifications.clear()
+                    self.fade_progress = 0
+                    self.idle_time = 0
+
 
         for notification in self.exiting_notifications [:]:
+
             notification["elapsed"] += dt
 
             progress = min(
@@ -466,6 +473,8 @@ class Sell_Notification(GUI):
 
             if progress >= 1.0:
                 self.exiting_notifications.remove(notification)
+
+                #STACK POSITIONS
         screen_height = pygame.display.get_surface().get_height()
 
         bottom_y = (
@@ -493,17 +502,75 @@ class Sell_Notification(GUI):
 
         background = (20,45,55)
         border = (115, 226, 208)
-        text_color = (255,255,255)
+        
 
         pygame.draw.rect(
             notification_surface,
-            background,
+            border,
             notification_surface.get_rect(),
+            width = 2,
             border_radius = 8
         )
 
-        message = (
-            f"You sold {notification['name']} for"
-            f"{notification['price']:,.2f}"
-            f"{notification['currency']}"
-        )
+        if notification.get("message"):
+            message = notification["message"]
+        else:
+            message = (
+                f"You sold {notification['name']} for "
+                f"{notification['price']:,.2f} "
+                f"{notification['currency']}!"
+            )
+
+
+        #WRAP TEXT MAX
+        max_text_width = self.notification_width - 24
+        words = message.split(" ")
+
+        lines = []
+        current_line = ""
+
+        for word in words:
+            test_line = f"{current_line} {word}".strip()
+
+            if self.font.size(test_line)[0] <= max_text_width:
+                current_line = test_line
+            else:
+                if current_line:
+                    lines.append(current_line)
+
+                current_line = word
+        if current_line:
+            lines.append(current_line)
+
+        line_height = self.font.get_linesize()
+        total_text_height = len(lines) * line_height
+
+        start_y = (
+            self.notification_height - total_text_height
+        ) // 2
+
+        for index, line in enumerate(lines):
+            text = self.font.render(line, True, (255,255,255))
+
+            text_rect = text.get_rect(
+                center = (self.notification_width // 2,
+                          start_y + index * line_height + line_height //2
+                          )
+            )
+
+            notification_surface.blit(text, text_rect)
+
+
+        notification_surface.set_alpha(alpha)
+
+        x = screen.get_width() - self.margin_right - self.notification_width
+        screen.blit (notification_surface, (x, round(notification["y"])))
+
+    def draw(self,screen):
+        alpha = round(255 * (1 - self.fade_progress))
+
+        for notification in self.notifications:
+            self.draw_notif(screen, notification, alpha)
+
+        for notification in self.exiting_notifications:
+            self.draw_notif(screen, notification, notification["alpha"])

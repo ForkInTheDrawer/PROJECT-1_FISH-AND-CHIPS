@@ -296,18 +296,19 @@ def main():
 
                     if keyboard_events.sell_key(event, debug_mode, vendor_proximity, player_world_rect):
                             sold_fish = keyboard_events.get_item_to_sell(player_data)
-                            if sold_fish is not None:
 
-                                if keyboard_events.is_stone(sold_fish):
-                                    sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
-                                else:
-                                    sale_info = selling_events.sell_regular_item( player_data, sold_fish)
-                                    if sale_info is not None:
-                                        sell_notifications.add_notif(
-                                            sale_info["name"],
-                                            sale_info["price"],
-                                            sale_info["currency"]
-                                        )
+                            if sold_fish is None:
+                                sell_notifications.add_notif(message = "Nothing to sell.")
+                            elif keyboard_events.is_stone(sold_fish):
+                                sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
+                            else:
+                                sale_info = selling_events.sell_regular_item(player_data, sold_fish)
+                                if sale_info is not None:
+                                    sell_notifications.add_notif(
+                                        sale_info["name"],
+                                        sale_info["price"],
+                                        sale_info["currency"]qq
+                                    )
 
 
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
@@ -324,7 +325,7 @@ def main():
     #FISHING RESULTS
         if fishing_system.update():
             caught_fish = fishing_system.choose_fish()
-            print(f"You Caught: {caught_fish}!")
+
             if not player_data.add_to_inventory(caught_fish):
                 print("INVENTORY FULL!!")
             
