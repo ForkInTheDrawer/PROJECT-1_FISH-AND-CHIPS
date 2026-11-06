@@ -120,7 +120,7 @@ class InventoryWindow:
         self.width, self.height = size
 
         self.background_color = (16,43,58)
-        self.border_color = (115, 226, 208)
+        self.border_color = (255, 255, 255)
         self.text_color = (244,231,197)
 
         self.title_font = pygame.font.Font(None, 48)
@@ -167,16 +167,61 @@ class InventoryWindow:
 
         #TEMPORARY Placeholder:
 
-        template = self.info_font.render(
-            "Inventory Items Here",
-            True,
-            self.text_color
-        )
+        items = inventory["plr_inv"]
 
-        screen.blit(
-            template,
-            template.get_rect(center = window_rect.center)
-        )
+        slot_width = 128
+        slot_height = 128
+        slot_gap = 10
+        columns = 5
+        rows = 4
+
+        grid_x = window_rect.x + 25
+        grid_y = window_rect.y + 125
+
+        for slot_index in range(columns*rows):
+            column = slot_index % columns
+            row = slot_index // columns
+
+            slot_rect = pygame.Rect(
+                grid_x + column * (slot_width + slot_gap),
+                grid_y + row * (slot_height + slot_gap),
+                slot_width,
+                slot_height
+            )
+
+        #SLOT BG AND BORDER:
+        pygame.draw.rect(screen, (25,62,76), slot_rect)
+        pygame.draw.rect(screen, self.border_color, slot_rect, 2)
+
+        if slot_index < len(items):
+            item = items[slot_index]
+
+            item_name = item.get("name", "Unknown")
+            item_rarity = item.get("rarity", "No Rarity"),
+            item_category = item.get("category", "FISH")
+
+            name_font = pygame.font.Font(None, 23)
+            detail_font = pygame.font.Font(None, 19)
+
+            name_text = name_font.render(
+                item_name[:15],
+                True,
+                self.text_color
+            )
+
+            rarity_text = detail_font.render(
+                str(item_rarity),
+                True,
+                (244,213,141)
+            )
+            category_text = detail_font.render(
+                str(item_category),
+                True,
+                (190, 210, 215)
+            )
+            screen.blit(name_text, (slot_rect.x +6, slot_rect.y + 12))
+            screen.blit(rarity_text,(slot_rect.x + 6, slot_rect.y + 42))
+            screen.blit(category_text, (slot_rect.x + 6, slot_rect.y + 65))
 
         close_template = self.info_font.render(
             "Press TAB to close.",
