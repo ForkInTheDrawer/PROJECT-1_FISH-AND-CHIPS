@@ -307,7 +307,7 @@ def main():
                                     sell_notifications.add_notif(
                                         sale_info["name"],
                                         sale_info["price"],
-                                        sale_info["currency"]qq
+                                        sale_info["currency"]
                                     )
 
 

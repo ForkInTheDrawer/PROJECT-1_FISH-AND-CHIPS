@@ -519,7 +519,7 @@ class Sell_Notification(GUI):
                 f"You sold {notification['name']} for "
                 f"{notification['price']:,.2f} "
                 f"{notification['currency']}!"
-            )
+    )
 
 
         #WRAP TEXT MAX
