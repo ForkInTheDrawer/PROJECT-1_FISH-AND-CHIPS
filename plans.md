@@ -41,17 +41,26 @@ START HERE:
     * Common Fishes get Common - Epic Rarity.
     * Rare Fishes get Epic - Endangered Rarity
     * Super Rare Fishes get Epic - SECRET Rarity.
+- fish sold Notification
+- Added Animations
+    * "Press Q to sell" animation
+    * "Press E to fish" animation
+
+    
 ### Work In Progress:
-
-
 - Inventory Icon + Inventory Mechanic
     * "Lock Item" Mechanic - To stop it from getting sold.
     * Reorganize the inventory by dragging
     * Filter by: Category, A-Z, Rarity, Weight 
     * Note that we can expand the inventory size VIA Buying new Backpacks
-
--Show "item name" Sold. UI
-
+    * On a side panel, you can see your characters:
+    NOTE: 1 to 3 are in the bottom of the side panel
+        1. Name
+        2. Gender
+        3. Luck Value
+        4. Hat
+        5. Ring
+        6. Boots
 
 ### Future Task:
 
@@ -87,7 +96,8 @@ START HERE:
 - Shops and Fishing Upgrades:
     * Shop System
         * Put 3 Testing Fishing Rods + Backpack
-        * Timely Rotation (Can skip rotation using money)
+        * Timely Rotation (Can skip rotation using Chips)
+        * You can buy Gear such as Hats, Rings, and boots.
     
 
     * Rod Upgrades: 

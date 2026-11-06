@@ -55,6 +55,7 @@ def main():
     fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
     shop_open = False
     sell_confirmation = False
+    inventory_open = False
 
 
 
@@ -191,6 +192,7 @@ def main():
 
     inventory_full_prompt = gui.InventoryFull()
     sell_notifications = gui.Sell_Notification()
+    inventory_window = gui.InventoryWindow()
  #--------------------------------------------
 
        
@@ -247,6 +249,12 @@ def main():
 
             if event.type == pygame.QUIT:
                 game_running = False
+
+
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                inventory_open = not inventory_open
+            elif inventory_open:
+                continue
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
@@ -353,6 +361,10 @@ def main():
             keys[pygame.K_d] - keys[pygame.K_a], #X axis
             keys[pygame.K_s] - keys[pygame.K_w] #Y Axis
         )
+
+        if inventory_open:
+            direction.update(0,0)
+
         if direction.length_squared() > 0:
             direction.normalize_ip()
 
@@ -600,6 +612,12 @@ def main():
 
         #SELL NOTIFS:
         sell_notifications.draw(screen)
+
+
+        #INVENTORY:
+
+        if inventory_open:
+            inventory_window.draw(screen, player_data.inventory)
 
         
 

@@ -115,6 +115,79 @@ class InventoryFull(GUI):   #NOTE: WORK ON THIS SO THAT THE "INVENTORY FULL" WIL
         text = self.font.render("Inventory Full! Sell to fish again.", True, (255,255,255))
         screen.blit(text, text.get_rect(center =self.rect.center))
 
+class InventoryWindow:
+    def __init__(self, size = (760, 560)):
+        self.width, self.height = size
+
+        self.background_color = (16,43,58)
+        self.border_color = (115, 226, 208)
+        self.text_color = (244,231,197)
+
+        self.title_font = pygame.font.Font(None, 48)
+        self.info_font = pygame.font.Font(None, 26)
+
+    def draw(self,screen , inventory):
+
+        overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
+        overlay.fill((0,0,0,150))
+        screen.blit(overlay, (0,0))
+
+        window_rect = pygame.Rect(
+            0,0,
+            self.width, self.height
+        )
+
+        window_rect.center = screen.get_rect().center
+
+        pygame.draw.rect(
+            screen, self.background_color, window_rect
+        )
+        pygame.draw.rect(
+            screen, self.border_color, window_rect, 3
+        )
+
+        #Window Title
+        title = self.title_font.render("INVENTORY", True, self.text_color)
+        screen.blit(title, (window_rect.x + 25, window_rect.y + 20))
+
+        #slot count
+        item_count = len(inventory["plr_inv"])
+        maximum_slots = inventory["maximum_slots"]
+
+        slot_text = self.info_font.render(
+            f"Slots: {item_count} / {maximum_slots}",
+            True,
+            self.text_color
+        )
+
+        screen.blit(
+            slot_text,
+            (window_rect.x + 28, window_rect.y + 80)
+        )
+
+        #TEMPORARY Placeholder:
+
+        template = self.info_font.render(
+            "Inventory Items Here",
+            True,
+            self.text_color
+        )
+
+        screen.blit(
+            template,
+            template.get_rect(center = window_rect.center)
+        )
+
+        close_template = self.info_font.render(
+            "Press TAB to close.",
+            True,
+            self.text_color
+        )
+
+        screen.blit(
+            close_template,
+            (window_rect.x + 25, window_rect.bottom - 40)
+        )
 
 
 
@@ -428,6 +501,7 @@ class Sell_Notification(GUI):
                 "name" : oldest["name"],
                 "price" : oldest["price"],
                 "currency" : oldest["currency"],
+                "message" : oldest.get("message"),
                 "y" : oldest["y"],
                 "alpha" : 255,
                 "elapsed" : 0
