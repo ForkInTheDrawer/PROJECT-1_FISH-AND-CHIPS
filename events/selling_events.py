@@ -46,6 +46,12 @@ def accept_sell_stone(player_data):
 
     print(f"Sold {stone['name']} for {sale_price:.2f} Chips.")
 
+    return {
+        "name" : stone["name"],
+        "price" : sale_price,
+        "currency" : "Chips"
+    }
+
 
 #OTHER THINGS
 def sell_regular_item(player_data, item):
@@ -78,6 +84,13 @@ def sell_regular_item(player_data, item):
         player_data.save_inventory()
 
         print(f"Sold {item['name']} for {sale_price:.2f} {currency}.")
+
+        return {
+            "name" : item["name"],
+            "price" : sale_price,
+            "currency" : currency.title()
+        }
+    return None
 
 def open_sell_confirmation(item):
     print("Rare Material Detected.")

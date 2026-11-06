@@ -293,6 +293,14 @@ class Sell_Confirmation(GUI):
         self.current_scale = 0.85
         self.draw_rect = self.rect.copy()
 
+        self.button_scales = {
+            "YES" : 1.0, "NO" : 1.0
+        }
+
+        self.button_hover_speed = 12
+        self.button_hover_scale = 1.08
+
+
     def draw(self, screen, dt):
         if self.scale_animation is not None:
             self.current_scale = self.scale_animation.update(dt)
@@ -334,39 +342,168 @@ class Sell_Confirmation(GUI):
         )
 
         for button in (self.yes_button, self.no_button):
-            color = (
-                button.hover_color
 
-                if button.rect.collidepoint(local_mouse)
-                else(button.color)
-                )
+            button_hovered = button.rect.collidepoint(local_mouse)
+
+            target_scale = (self.button_hover_scale if button_hovered else 1.0)
+
+            current_scale = self.button_scales[button.text]
+
+            current_scale += (target_scale - current_scale) * min(1.0, self.button_hover_speed *dt)
+
+            self.button_scales[button.text] = current_scale
+
+            color = button.hover_color if button_hovered else button.color
+            scaled_width = round(button.rect.width * current_scale)
+            scaled_height = round(button.rect.height * current_scale)
+
+            scaled_button_rect = pygame.Rect(
+                0,0, scaled_width, scaled_height
+            )
+            scaled_button_rect.center = button.rect.center
 
             pygame.draw.rect(
                 popup_surface,
                 color,
-                button.rect
+                scaled_button_rect,
+                border_radius = 6
             )
 
             text = self.button_font.render(
-                button.text,
-                True,
-                button.text_color
+                button.text, True, button.text_color
+            )
+
+            scaled_text = pygame.transform.smoothscale(
+                text, (
+                    max(1, round(text.get_width() * current_scale)),
+                    max(1, round(text.get_height() * current_scale))
+                )
             )
 
             popup_surface.blit(
-                text, text.get_rect(center = button.rect.center)
+                scaled_text, scaled_text.get_rect(center = scaled_button_rect.center)
             )
 
-        scaled_surface = pygame.transform.smoothscale(
-            popup_surface,
-            self.draw_rect.size
-        )
+            scaled_surface = pygame.transform.smoothscale(
+                popup_surface, self.draw_rect.size
+            )
 
-        screen.blit(scaled_surface, self.draw_rect)
-
+            screen.blit(scaled_surface, self.draw_rect)
 
 
-    
 
 class Sell_Notification(GUI):
-    pass
+    def __init__(self):
+
+        self.notifications = []
+        self.exiting_notifications = []
+
+        self.font = pygame.font.Font(None, 27)
+
+        self.max_notifications = 5
+        self.notification_width = 340
+        self.notification_height = 52
+        self.notification_gap = 10
+
+        self.margin_right = 24
+        self.margin_bottom = 24
+
+        self.idle_time = 0
+        self.fade_progress = 0
+
+        self.fade_delay = 3.0
+        self.fade_duration = 0
+        self.overflow_fade_duration = 0.3
+
+    def add_notif(self, fish_name, price, currency):
+
+        self.idle_time = 0
+        self.fade_progress = 0
+
+
+        if len(self.notifications) >= self.max_notifications:
+            oldest = self.notifications.pop(0)
+
+            self.exiting_notifications.append( {
+                "name" : oldest["name"],
+                "price" : oldest["price"],
+                "currency" : oldest["currency"],
+                "y" : oldest["y"],
+                "alpha" : 255,
+                "elapsed" : 0
+            } )
+
+        new_notification = {
+            "name" : fish_name,
+            "price" : price,
+            "currency" : currency,
+            "y" : pygame.display.get_surface().get_height() + 20
+        }
+
+        self.notifications.append(new_notification)
+
+
+    def update(self, dt):
+        if self.notifications:
+            self.idle_time += dt
+
+            if self.idle_time >= self.fade_delay:
+                self.fade_progress = min(
+                    1.0,
+                    self.fade_progress + dt / self.fade_duration
+                )
+
+
+        for notification in self.exiting_notifications [:]:
+            notification["elapsed"] += dt
+
+            progress = min(
+                1.0,
+                notification ["elapsed"] / self.overflow_fade_duration
+            )
+
+            notification["alpha"] = round(255 * (1 - progress))
+
+            if progress >= 1.0:
+                self.exiting_notifications.remove(notification)
+        screen_height = pygame.display.get_surface().get_height()
+
+        bottom_y = (
+            screen_height - self.margin_bottom - self.notification_height
+        )
+
+        stack_spacing = (
+            self.notification_height + self.notification_gap
+        )
+
+        for index, notification in enumerate(self.notifications):
+            target_y = bottom_y - (
+                len(self.notifications) - 1 - index
+            ) * stack_spacing
+
+            notification["y"] += (
+                target_y - notification["y"]
+            ) * min(1.0, 12 * dt)
+
+    def draw_notif(self, screen, notification, alpha):
+        notification_surface = pygame.Surface(
+            (self.notification_width, self.notification_height),
+            pygame.SRCALPHA
+        )
+
+        background = (20,45,55)
+        border = (115, 226, 208)
+        text_color = (255,255,255)
+
+        pygame.draw.rect(
+            notification_surface,
+            background,
+            notification_surface.get_rect(),
+            border_radius = 8
+        )
+
+        message = (
+            f"You sold {notification['name']} for"
+            f"{notification['price']:,.2f}"
+            f"{notification['currency']}"
+        )

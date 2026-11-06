@@ -190,6 +190,7 @@ def main():
     shop_prompt = gui.GUI.proximity_prompt("open shop!" , key=pygame.K_f)
 
     inventory_full_prompt = gui.InventoryFull()
+    sell_notifications = gui.Sell_Notification()
  #--------------------------------------------
 
        
@@ -234,6 +235,7 @@ def main():
     #NOTE: Main Game Loop
     while game_running:
         dt = clock.tick(FPS) / 1000
+        sell_notifications.update(dt)
 
 
         #NOTE: Event Handling System
@@ -256,7 +258,15 @@ def main():
 
 
                 elif choice == "yes":
-                    selling_events.accept_sell_stone(player_data)
+                    sale_info = selling_events.accept_sell_stone(player_data)
+
+                    if sale_info is not None:
+                        sell_notifications.add_notif(
+                            sale_info["name"],
+                            sale_info["price"],
+                            sale_info["currency"]
+                        )
+
                     sell_confirmation = False
 
 
@@ -291,7 +301,15 @@ def main():
                                 if keyboard_events.is_stone(sold_fish):
                                     sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
                                 else:
-                                    selling_events.sell_regular_item(player_data,sold_fish)
+                                    sale_info = selling_events.sell_regular_item( player_data, sold_fish)
+                                    if sale_info is not None:
+                                        sell_notifications.add_notif(
+                                            sale_info["name"],
+                                            sale_info["price"],
+                                            sale_info["currency"]
+                                        )
+
+
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
 
 
@@ -536,8 +554,8 @@ def main():
             if not sell_prompt_was_visible:
                 sell_prompt.start_animation()
 
-                sell_prompt_was_visible = True 
-                sell_prompt.draw(screen, dt)
+            sell_prompt_was_visible = True 
+            sell_prompt.draw(screen, dt)
 
         else:
                 sell_prompt_was_visible = False
@@ -578,6 +596,9 @@ def main():
         chips_text = hud_font.render( f'CHIPS: {player_data.chips:.2f}', True , (244,213,141))
         screen.blit(chips_text, (35, HEIGHT- 80))
         pass #WORK ON CHIPS SYSTEM
+
+        #SELL NOTIFS:
+        sell_notifications.draw(screen)
 
         
 
