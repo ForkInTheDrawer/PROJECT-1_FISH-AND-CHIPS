@@ -2,65 +2,65 @@
 
     "FISH": {
             "Pensie Cod": {
-                "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 50
             },
             "Tilapia": {
-                "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 50
             },
 
             "Silver Anchovy":{
-                "Rarity" : ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity" : ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 45
             },
             "Chomp Grouper":{
-                "Rarity" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity" :  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Color_1" : ["Dark Blue", "Red", "White", "Black", "Orange", "Yellow"] ,
                 "Color_2" : ["Blue", "Red", "White", "Black", "Orange", "Light Blue", "Lime"],
                 "Weight": 23
             },
             "Cute Pufferfish": {
-                "Rarity" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity" :  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 15
             },
             "Eastanian Flying Fish":{
-                "Rarity" :  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity" :  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 25
             },
             "Lapu-Lapu":{
-                "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
                 "Weight": 28
             },
             "Redwood Salmon":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
             "Weight": 20
             },
             "Eastern Milkfish":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"] ,
             "Weight": 20 
             },
             "Mackarel Tuna":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 25  
             },
             "Round Scad": {
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 20  
             },
             "Yellow Fin Tuna": {
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 10   
             },
@@ -69,67 +69,67 @@
 
 
             "Redwood Squid":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 15  
             },
             "Lemon Shark": {
-                "Rarity":["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+                "Rarity":["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
                 "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
                 "Weight": 7
             },
             "Blackbell Octopus":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 10
             },
             "Great White Shark":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 1
             },
             "Collosal Squid":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 1
             },
             "Blue Sleeper Ray":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 10
             },
             "Redwood Crab":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 15
             },
             "Amethyst Koi" : {
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 10
             },
             "Clownfish" :{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 50
             },
             "Deep Sea Anglerfish":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 0.1
             },
             "Blue Marlin":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 10
             },
             "Red Snapper":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 30
             },
             "MEGALODON":{
-            "Rarity":  ["Common", "Endangered", "Rare", "Legendary", "APEX", "SECRET","Epic"],
+            "Rarity":  ["Common", "Rare", "Epic", "Legendary", "Endangered", "APEX", "SECRET"],
             "Mutation": ["Healthy", "Meaty","Malnourished","Void","tiny","GIANT","Radioactive","Inky","Heavy","Burnt","Transparent","Gold"],
             "Weight": 0.000001
             }

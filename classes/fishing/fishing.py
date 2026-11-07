@@ -126,12 +126,26 @@ class Fishing:
         name = self.choose_item_name(Item_Category.FISH, sector)
         details = self.fish_data[name]
         
-        rarity_weights = [64, 22.5, 10.5, 2.5, 0.4, 0.099, 0.001]
+        sector_rarities = FISH_SECTORS[sector]["rarities"]
+
+        available_rarities = [
+            rarity for rarity in details["Rarity"]
+            if rarity in sector_rarities
+        ]
+        rarity_weights = {
+            "Common": 64,
+            "Rare": 22.5,
+            "Epic": 10.5,
+            "Legendary": 2.5,
+            "Endangered": 0.4,
+            "APEX": 0.099,
+            "SECRET": 0.001
+        }
 
         fish_rarity = random.choices(
-        details["Rarity"],
-        weights = rarity_weights,
-        k=1
+            available_rarities,
+            weights = [rarity_weights[rarity] for rarity in available_rarities],
+            k = 1
         )[0]
         
 
