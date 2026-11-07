@@ -57,8 +57,13 @@ def get_item_to_sell(player_data): #Readys the item to sell.
 
         print('Nothing to sell.')
         return None
+    for item in items:
+        if not item.get("locked", False):
+            return item
 
-    return items[0]
+    print("No unlocked items to sell.")
+
+    return None
 
 def is_stone(item):
     return item is not None and item.get("category") == "STONES"

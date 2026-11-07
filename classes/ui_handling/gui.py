@@ -200,6 +200,7 @@ class InventoryWindow:
                 item_name = item.get("name", "Unknown")
                 item_rarity = item.get("rarity", "No Rarity")
                 item_category = item.get("category", "FISH")
+                is_locked = item.get("locked", False)
 
                 name_font = pygame.font.Font(None, 19)
                 detail_font = pygame.font.Font(None, 17)
@@ -236,17 +237,63 @@ class InventoryWindow:
                     center = (slot_rect.centerx, slot_rect.y + 65)
                 ))
 
-        close_template = self.info_font.render(
+                if is_locked:
+                    lock_text = self.info_font.render(
+                        "LOCKED" , True, (255,190,70)
+                    )
+                    screen.blit(
+                        lock_text ,
+                        lock_text.get_rect(
+                            center = (slot_rect.centerx, slot_rect.bottom - 8)
+                        )
+                    )
+
+        close_hint = self.info_font.render(
             "Press TAB to close.",
             True,
             self.text_color
         )
 
+        lock_hint = self. info_font.render(
+            "Right click an item to lock/unlock." , 
+            True,
+            self.text_color
+        )
+
+        screen.blit(lock_hint, (window_rect.x + 25, window_rect.bottom - 60))
+
         screen.blit(
-            close_template,
+            close_hint,
             (window_rect.x + 25, window_rect.bottom - 40)
         )
 
+    def get_slot_index_at_position(self, mouse_pos, screen):
+        window_rect = pygame.Rect( 0, 0, self.width, self.height)
+        window_rect.center = screen.get_rect().center
+
+        slot_width = 80
+        slot_height = 80
+        slot_gap = 8
+        columns = 5
+        rows = 4
+
+        grid_x = window_rect.x + 300
+        grid_y = window_rect.y + 90
+
+        for slot_index in range(columns * rows):
+
+            column = slot_index % columns
+            row = slot_index // columns
+
+            slot_rect = pygame.Rect(
+                grid_x + column * (slot_width + slot_gap),
+                grid_y + row * (slot_height + slot_gap),
+                slot_width,
+                slot_height
+            )
+            if slot_rect.collidepoint(mouse_pos):
+                return slot_index
+        return None
 
 
 

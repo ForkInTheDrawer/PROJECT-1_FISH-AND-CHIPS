@@ -83,6 +83,10 @@ class player:
         if len(items) >= self.inventory["maximum_slots"]:
             return False
 
+        #New items unlocked:
+        item["locked"] = False
+
+
         items.append(item)
         self.save_inventory()
         return True

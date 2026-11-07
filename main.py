@@ -253,6 +253,18 @@ def main():
 
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
                 inventory_open = not inventory_open
+
+            elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                slot_index = inventory_window.get_slot_index_at_position(
+                    event.pos, screen
+                )
+                items = player_data.inventory["plr_inv"]
+
+                if slot_index is not None and slot_index < len(items):
+                    item = items[slot_index]
+                    item["locked"] = not item.get("locked", False)
+                    player_data.save_inventory
+                    
             elif inventory_open:
                 continue
 
