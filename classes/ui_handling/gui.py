@@ -169,14 +169,14 @@ class InventoryWindow:
 
         items = inventory["plr_inv"]
 
-        slot_width = 128
-        slot_height = 128
-        slot_gap = 10
+        slot_width = 80
+        slot_height = 80
+        slot_gap = 8
         columns = 5
         rows = 4
 
-        grid_x = window_rect.x + 25
-        grid_y = window_rect.y + 125
+        grid_x = window_rect.x + 300
+        grid_y = window_rect.y + 90
 
         for slot_index in range(columns*rows):
             column = slot_index % columns
@@ -194,34 +194,47 @@ class InventoryWindow:
             pygame.draw.rect(screen, self.border_color, slot_rect, 2)
 
             if slot_index < len(items):
+                #Item info
                 item = items[slot_index]
 
                 item_name = item.get("name", "Unknown")
-                item_rarity = item.get("rarity", "No Rarity"),
+                item_rarity = item.get("rarity", "No Rarity")
                 item_category = item.get("category", "FISH")
 
-                name_font = pygame.font.Font(None, 23)
-                detail_font = pygame.font.Font(None, 19)
+                name_font = pygame.font.Font(None, 19)
+                detail_font = pygame.font.Font(None, 17)
 
-                name_text = name_font.render(
-                    item_name[:15],
-                    True,
-                    self.text_color
-                )
+                #Helper Func
+                def fit_text(text, font, max_width):
+                    text = str(text)
 
-                rarity_text = detail_font.render(
-                    str(item_rarity),
-                    True,
-                    (244,213,141)
-                )
-                category_text = detail_font.render(
-                    str(item_category),
-                    True,
-                    (190, 210, 215)
-                )
-                screen.blit(name_text, (slot_rect.x +6, slot_rect.y + 12))
-                screen.blit(rarity_text,(slot_rect.x + 6, slot_rect.y + 42))
-                screen.blit(category_text, (slot_rect.x + 6, slot_rect.y + 65))
+                    # Keep the original text if it already fits.
+                    if font.size(text)[0] <= max_width:
+                        return font.render(text, True, self.text_color)
+
+                    # Shorten the text until it fits with an ellipsis.
+                    while text and font.size(text + "...")[0] > max_width:
+                        text = text[:-1]
+
+                    return font.render(text + "...", True, self.text_color)
+
+                #Text Render:
+
+                name_text = fit_text(item_name,name_font,slot_width - 10)
+                rarity_text = fit_text(item_rarity,detail_font,slot_width - 10)
+                category_text = fit_text(item_category,detail_font,slot_width - 10)
+
+                screen.blit(name_text, name_text.get_rect(
+                    center = (slot_rect.centerx, slot_rect.y + 20)
+                ))
+
+                screen.blit(rarity_text, rarity_text.get_rect(
+                    center = (slot_rect.centerx, slot_rect.y + 43)
+                ))
+
+                screen.blit(category_text, category_text.get_rect(
+                    center = (slot_rect.centerx, slot_rect.y + 65)
+                ))
 
         close_template = self.info_font.render(
             "Press TAB to close.",

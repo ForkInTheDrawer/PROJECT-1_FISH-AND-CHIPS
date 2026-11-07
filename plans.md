@@ -62,6 +62,8 @@ START HERE:
         5. Ring
         6. Boots
 
+- Fix Fish Sectors (actually not working)
+
 ### Future Task:
 
 - Placeholder Fishing Rods:

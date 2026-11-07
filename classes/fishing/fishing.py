@@ -126,7 +126,7 @@ class Fishing:
         name = self.choose_item_name(Item_Category.FISH, sector)
         details = self.fish_data[name]
         
-        rarity_weights = [60, 20, 10.5, 8, 0.999, 0.5, 0.001]
+        rarity_weights = [64, 22.5, 10.5, 2.5, 0.4, 0.099, 0.001]
 
         fish_rarity = random.choices(
         details["Rarity"],
