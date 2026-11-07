@@ -99,6 +99,12 @@ def sell_regular_item(player_data, item, item_index):
         else:
             player_data.cash += sale_price
 
+        return{
+            "name" : item["name"],
+            "price" : sale_price,
+            "currency" : currency.title()
+        }
+
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
     return gui.Sell_Confirmation(item["name"])
