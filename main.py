@@ -340,7 +340,12 @@ def main():
                                             sale_info["price"],
                                             sale_info["currency"]
                                         )
-
+                    else:
+                        sell_notifications.add_notif(
+                            message = "You need to be near the Fishing Shop to Sell!",
+                            border_color= (255, 70, 70),
+                            shake = True
+                        )
 
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
 

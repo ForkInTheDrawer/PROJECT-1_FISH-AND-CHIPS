@@ -1,4 +1,6 @@
 import pygame
+
+
 from classes.ui_handling.button import Button
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.animations import easing
@@ -593,7 +595,7 @@ class Sell_Notification(GUI):
         self.fade_duration = 0.5
         self.overflow_fade_duration = 0.3
 
-    def add_notif(self, fish_name= None, price= None, currency= None, message = None):
+    def add_notif(self, fish_name= None, price= None, currency= None, message = None, border_color = None, shake = None):
 
         self.idle_time = 0
         self.fade_progress = 0
@@ -617,13 +619,40 @@ class Sell_Notification(GUI):
             "price" : price,
             "currency" : currency,
             "message" : message,
-            "y" : pygame.display.get_surface().get_height() + 20
+            "y" : pygame.display.get_surface().get_height() + 20,
+            "border_color" : border_color,
+            "shake_x" : 0,
+            "shake_animation" : (
+                Animation( 0, -8, 0.06, easing.ease_in_out)
+                if shake else None
+            ),
+            "shake_sequence" : [
+                Animation(-15, 8 , 0.12, easing.ease_in_out),
+                Animation(15, 5 , 0.10, easing.ease_in_out),
+                Animation(-5, 5 , 0.08, easing.ease_in_out),
+                Animation(5, 0 , 0.06, easing.ease_in_out),
+            ] if shake else []
         }
 
         self.notifications.append(new_notification)
 
 
     def update(self, dt):
+
+        for notification in self.notifications:
+            animation = notification["shake_animation"]
+
+            if animation is not None:
+                notification["shake_x"] = animation.update(dt)
+
+                if animation.finished_status:
+                    if notification["shake_sequence"]:
+                        notification["shake_animation"] = (
+                            notification["shake_sequence"].pop(0)
+                        )
+                    else:
+                        notification["shake_animation"] = None
+                        notification["shake_x"] = 0
         if self.notifications:
             self.idle_time += dt
 
@@ -680,7 +709,7 @@ class Sell_Notification(GUI):
         )
 
         background = (20,45,55)
-        border = (115, 226, 208)
+        border = notification.get("border_color") or (115, 226, 208)
         
 
         pygame.draw.rect(
@@ -742,7 +771,7 @@ class Sell_Notification(GUI):
 
         notification_surface.set_alpha(alpha)
 
-        x = screen.get_width() - self.margin_right - self.notification_width
+        x = screen.get_width() - self.margin_right - self.notification_width + round(notification.get("shake_x", 0))
         screen.blit (notification_surface, (x, round(notification["y"])))
 
     def draw(self,screen):
