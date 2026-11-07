@@ -324,7 +324,11 @@ def main():
                                     message = "All items are Locked."
                                 else:
                                     message = "Nothing to sell."
-                                sell_notifications.add_notif(message=message)
+                                sell_notifications.add_notif(
+                                    message=message,
+                                    border_color=(255, 70, 70),
+                                    shake = True
+                                )
                             else:
                                 sell_item_index , sold_fish = sell_result
 
@@ -628,13 +632,13 @@ def main():
         screen.blit(title_text, (35,HEIGHT - 160))
 
             # CASH:
-        cash_text = hud_font.render( f'CASH: ${player_data.cash:.2f}' , True, (244, 213, 141))
+        cash_text = hud_font.render( f'CASH: ${player_data.cash:,.0f}' , True, (244, 213, 141))
         screen.blit(cash_text , (35, HEIGHT-  120))
 
 
             # CHIPS:
         
-        chips_text = hud_font.render( f'CHIPS: {player_data.chips:.2f}', True , (244,213,141))
+        chips_text = hud_font.render( f'CHIPS: {player_data.chips:,.0f}', True , (244,213,141))
         screen.blit(chips_text, (35, HEIGHT- 80))
         pass #WORK ON CHIPS SYSTEM
 

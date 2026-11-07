@@ -48,7 +48,7 @@ def accept_sell_stone(player_data, item_index):
     if stone.get("category") != "STONES":
         return None
 
-    sale_price = calculate_stone_price(stone, item_index)
+    sale_price = round(calculate_stone_price(stone, item_index))
     items.pop(item_index)
 
     player_data.chips += sale_price
@@ -91,6 +91,7 @@ def sell_regular_item(player_data, item, item_index):
         currency = "Coins"
 
     if sale_price is not None:
+        sale_price = round(sale_price)
         items.pop(item_index)
 
         if currency == "Chips":

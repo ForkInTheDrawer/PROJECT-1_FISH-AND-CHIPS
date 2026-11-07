@@ -725,7 +725,7 @@ class Sell_Notification(GUI):
         else:
             message = (
                 f"You sold {notification['name']} for "
-                f"{notification['price']:,.2f} "
+                f"{notification['price']:,.0f} "
                 f"{notification['currency']}!"
     )
 
