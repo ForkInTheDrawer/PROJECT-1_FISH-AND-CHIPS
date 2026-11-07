@@ -541,7 +541,7 @@ def main():
         
         #(Fish Cooldown)
         if fish_popup is not None:
-            fish_popup.draw(screen)
+            fish_popup.draw(screen,dt)
 
         if sell_confirmation:
             sell_confirmation.draw(screen, dt)

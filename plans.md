@@ -42,10 +42,10 @@ START HERE:
     * Rare Fishes get Epic - Endangered Rarity
     * Super Rare Fishes get Epic - SECRET Rarity.
 - fish sold Notification
-- Added Animations
-    * "Press Q to sell" animation
-    * "Press E to fish" animation
-
+- Add Animation:
+    * "Press E To Fish" Popup
+    * Sell UI Notif 
+- Fix Fish Sectors
     
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
@@ -62,8 +62,8 @@ START HERE:
         5. Ring
         6. Boots
 
-- Fix Fish Sectors (actually not working)
-
+-    Add Animation: 
+    * Fish Results Popup Screen Effect
 ### Future Task:
 
 - Placeholder Fishing Rods:
@@ -77,10 +77,7 @@ START HERE:
 - Fishing Minigame (During Casting Bait sequence)
 - Catch Fish Minigame
 
-- Add Animation:
-    * "Press E To Fish" Popup
-    * Fish Results Popup Screen Effect
-    * Sell UI Animation 
+
 
 
 

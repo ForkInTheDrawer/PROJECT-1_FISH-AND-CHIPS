@@ -100,6 +100,8 @@ def sell_regular_item(player_data, item, item_index):
         else:
             player_data.cash += sale_price
 
+        player_data.save_inventory()
+
         return{
             "name" : item["name"],
             "price" : sale_price,

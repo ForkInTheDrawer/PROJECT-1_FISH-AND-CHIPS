@@ -366,7 +366,12 @@ class FishPopUp(GUI):
 
         self.gui_cooldown(4)                   #NOTE: GUI COOLDOWN FOR FISH RESULTS.
 
-
+        self.scale_animation = Animation(
+            start_val= 0.75,
+            end_val= 1.0,
+            duration = 0.45,
+            easing_function= easing.ease_out_back
+        )
 
 
 
@@ -394,51 +399,93 @@ class FishPopUp(GUI):
 
 
 
-    def draw(self , screen): #NOTE: FOR RENDERING
+    def draw(self , screen, dt = 0): #NOTE: FOR RENDERING
 
         if pygame.time.get_ticks() - self.cooldown_start >= self.cooldown_ms:
             return
 
-        super().draw(screen)
-        title = self.title_font.render(self.name, True , (255,220,100),)
-        screen.blit(title, title.get_rect(midtop=(self.rect.centerx , self.rect.y + 20)))
+       # POPUP ANIMATION:
+        if self.scale_animation is not None:
+            self.current_scale = self.scale_animation.update(dt)
 
+            if self.scale_animation.finished_status:
+                self.scale_animation = None
+                self.current_scale = 1.0
+
+        #POPUP SURFACE:
+
+        popup_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
+
+        pygame.draw.rect(
+            popup_surface,
+            self.fill_color,
+            popup_surface.get_rect()
+        )
+
+        #TITLE:
+
+        title = self.title_font.render(
+            self.name,
+            True,
+            (255,220,100)
+        )
+
+        popup_surface.blit(
+            title,
+            title.get_rect(midtop = (self.rect.width // 2, 20))
+        )
+
+        #DETAILS:
 
         for index, detail in enumerate(self.details):
             text = self.body_font.render(detail, True, (255,255,255))
-            screen.blit(text , (self.rect.x + 30, self.rect.y + 85 + index * 35))
 
+            popup_surface.blit(
+                text,
+                (30,85 + index * 35)
+            )
 
+        #COUNTDOWN TIMER:
 
-        #--------------------------------------- FOR FISHING SYSTEM
-        #NOTE: BASICALLY SAYING THE COUNTDOWN
-        remaining_ms = self.cooldown_ms - (
+        remaining_ms = self.cooldown_ms- (
             pygame.time.get_ticks() - self.cooldown_start
         )
+
         remaining_seconds = max(0, (remaining_ms + 999) // 1000)
 
         countdown = self.body_font.render(
-            f"Fish again in {remaining_seconds} seconds. ",
+            f"Fish again in {remaining_seconds} seconds.",
             True,
             (200,200,200)
         )
-
-        skip_countdown = self.body_font.render(    #NOTE: SKIP COUNTDOWN
+        skip_countdown = self.body_font.render(
             f"Press {pygame.key.name(self.skip_key).upper()} to skip.",
             True,
             (200,200,200)
         )
-        screen.blit(
-            countdown, countdown.get_rect(
-                center = (self.rect.centerx , self.rect.bottom - 35)
+        popup_surface.blit(
+            countdown,
+            countdown.get_rect(
+                center = (self.rect.width // 2, self.rect.height - 35)
             )
         )
-        screen.blit(
-            skip_countdown , skip_countdown.get_rect(
-                center = (self.rect.centerx , self.rect.bottom -  10)
+        popup_surface.blit(
+            skip_countdown,
+            skip_countdown.get_rect(
+                center=(self.rect.width // 2, self.rect.height - 10)
             )
+        )
+        #SCALE:
+        scaled_size = (
+            max(1, round(self.rect.width * self.current_scale)),
+            max(1, round(self.rect.height * self.current_scale))
         )
 
+        scaled_surface = pygame.transform.smoothscale(
+            popup_surface, scaled_size
+        )
+
+        screen.blit(scaled_surface, scaled_surface.get_rect(center = self.rect.center))
 
 
 
