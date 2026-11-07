@@ -55,6 +55,7 @@ def main():
     fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
     shop_open = False
     sell_confirmation = False
+    sell_item_index = None
     inventory_open = False
 
 
@@ -263,8 +264,8 @@ def main():
                 if slot_index is not None and slot_index < len(items):
                     item = items[slot_index]
                     item["locked"] = not item.get("locked", False)
-                    player_data.save_inventory
-                    
+                    player_data.save_inventory()
+
             elif inventory_open:
                 continue
 
@@ -272,13 +273,13 @@ def main():
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
 
                 if choice == "no":
-                    selling_events.cancel_sell_stone(player_data)
+                    selling_events.cancel_sell_stone(player_data, sell_item_index)
                     sell_confirmation = False
 
 
 
                 elif choice == "yes":
-                    sale_info = selling_events.accept_sell_stone(player_data)
+                    sale_info = selling_events.accept_sell_stone(player_data, sell_item_index)
 
                     if sale_info is not None:
                         sell_notifications.add_notif(
@@ -315,20 +316,30 @@ def main():
                     
 
                     if keyboard_events.sell_key(event, debug_mode, vendor_proximity, player_world_rect):
-                            sold_fish = keyboard_events.get_item_to_sell(player_data)
+                            sell_result = keyboard_events.get_item_to_sell(player_data)
 
-                            if sold_fish is None:
-                                sell_notifications.add_notif(message = "Nothing to sell.")
-                            elif keyboard_events.is_stone(sold_fish):
-                                sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
+                            if sell_result is None:
+                                items = player_data.inventory["plr_inv"]
+                                if items:
+                                    message = "All items are Locked."
+                                else:
+                                    message = "Nothing to sell."
+                                sell_notifications.add_notif(message=message)
                             else:
-                                sale_info = selling_events.sell_regular_item(player_data, sold_fish)
-                                if sale_info is not None:
-                                    sell_notifications.add_notif(
-                                        sale_info["name"],
-                                        sale_info["price"],
-                                        sale_info["currency"]
-                                    )
+                                sell_item_index , sold_fish = sell_result
+
+                                if keyboard_events.is_stone(sold_fish):
+                                    sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
+
+                                else:
+                                    sale_info = selling_events.sell_regular_item(player_data, sold_fish, sell_item_index)
+
+                                    if sale_info is not None:
+                                        sell_notifications.add_notif(
+                                            sale_info["name"],
+                                            sale_info["price"],
+                                            sale_info["currency"]
+                                        )
 
 
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)

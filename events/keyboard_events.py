@@ -57,9 +57,9 @@ def get_item_to_sell(player_data): #Readys the item to sell.
 
         print('Nothing to sell.')
         return None
-    for item in items:
+    for index, item in enumerate(items):
         if not item.get("locked", False):
-            return item
+            return index, item
 
     print("No unlocked items to sell.")
 

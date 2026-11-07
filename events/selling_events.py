@@ -5,7 +5,7 @@ from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 
 
 # FOR SELLING
-def calculate_stone_price(stone):
+def calculate_stone_price(stone, item_index):
 
     tier_multipliers = {
         "Honed" : 1.0,
@@ -23,30 +23,40 @@ def calculate_stone_price(stone):
     return sale_price
 
 #STONE
-def cancel_sell_stone(player_data):
-    stone = player_data.inventory["plr_inv"].pop(0)
+def cancel_sell_stone(player_data, item_index):
+    items = player_data.inventory["plr_inv"]
 
-    player_data.inventory["plr_inv"].append(stone)
+    if not 0 <= item_index < len(items):
+        return
+
+    stone = items.pop(item_index)
+    items.append(stone)
+
     player_data.save_inventory()
-
 
     print(f"Moved {stone['name']} to the back of inventory.")
 
 
-def accept_sell_stone(player_data):
-    stone = player_data.inventory["plr_inv"][0]
+def accept_sell_stone(player_data, item_index):
+    items = player_data.inventory["plr_inv"]
 
-    sale_price = calculate_stone_price(stone)
+    if not 0 <= item_index < len(items):
+        return None
 
-    player_data.inventory["plr_inv"].pop(0)
+    stone = items[item_index]
+
+    if stone.get("category") != "STONES":
+        return None
+
+    sale_price = calculate_stone_price(stone, item_index)
+    items.pop(item_index)
+
     player_data.chips += sale_price
-    print(f"Chips: {player_data.chips:.2f}")
 
+    print(f"Chips: {player_data.chips:.2f}")
     player_data.save_inventory()
 
-    print(f"Sold {stone['name']} for {sale_price:.2f} Chips.")
-
-    return {
+    return{
         "name" : stone["name"],
         "price" : sale_price,
         "currency" : "Chips"
@@ -54,7 +64,14 @@ def accept_sell_stone(player_data):
 
 
 #OTHER THINGS
-def sell_regular_item(player_data, item):
+def sell_regular_item(player_data, item, item_index):
+    items = player_data.inventory["plr_inv"]
+    if not 0 <= item_index < len(items):
+        return None
+
+    if items[item_index] is not item:
+        return None
+
 
     if item.get("category") == "SCRAP":
         mutation = item.get("mutation")
@@ -74,23 +91,13 @@ def sell_regular_item(player_data, item):
         currency = "Coins"
 
     if sale_price is not None:
-        player_data.inventory["plr_inv"].pop(0)
+        items.pop(item_index)
 
         if currency == "Chips":
             player_data.chips += sale_price
+
         else:
             player_data.cash += sale_price
-
-        player_data.save_inventory()
-
-        print(f"Sold {item['name']} for {sale_price:.2f} {currency}.")
-
-        return {
-            "name" : item["name"],
-            "price" : sale_price,
-            "currency" : currency.title()
-        }
-    return None
 
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
