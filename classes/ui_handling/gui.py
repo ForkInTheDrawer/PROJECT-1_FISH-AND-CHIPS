@@ -221,6 +221,10 @@ class InventoryWindow:
                 f"Locked: {'Yes' if selected_item.get('locked' ,False) else 'No'}",
             ]
 
+            for color_key in ("COLOR_1", "COLOR_2"):
+                if color_key in selected_item:
+                    details.append(f"Color {color_key[-1]}: {selected_item[color_key]}")
+
             if "price" in selected_item:
                 details.append(f"Price {selected_item['price']}")
             if "base_price" in selected_item:

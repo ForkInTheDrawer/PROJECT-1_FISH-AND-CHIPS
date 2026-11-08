@@ -215,6 +215,7 @@ class Fishing:
 
         caught_fish = {
             "name": name,
+            "category" : category.value,
             "rarity": fish_rarity,
             "mutation": ", ".join(caught_mutations) if caught_mutations else "None",
             "weight": fish_prices.fish_weight_generation(fish_rarity)
