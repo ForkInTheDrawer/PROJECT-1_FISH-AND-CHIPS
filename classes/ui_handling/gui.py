@@ -128,6 +128,8 @@ class InventoryWindow:
         self.title_font = pygame.font.Font(None, 48)
         self.info_font = pygame.font.Font(None, 26)
 
+
+
     def wrap_text(self, text, font, max_width):
         words = str(text).split()
         lines = []
@@ -160,7 +162,9 @@ class InventoryWindow:
         if current_line:
             lines.append(current_line)
         return lines
-    
+
+
+
 
     def draw(self,screen , inventory, selected_index = None):
 

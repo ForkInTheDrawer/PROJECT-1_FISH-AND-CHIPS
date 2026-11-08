@@ -36,4 +36,12 @@ class Button:
                 return self.rect.collidepoint(event.pos)
 
         return False
+
+
+
+class DropdownMenu:
+    def __init__(
+            self, options, rect, font = None, bg_color = (35,55,65),
+            hover_color = (55,85,95), text_color = (255,255,255), border_color = (115,226, 208)
+    ):
         
