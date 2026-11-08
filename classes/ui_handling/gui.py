@@ -320,7 +320,20 @@ class InventoryWindow:
 
             #SLOT BG AND BORDER:
             pygame.draw.rect(screen, (25,62,76), slot_rect)
-            pygame.draw.rect(screen, self.border_color, slot_rect, 2)
+            if slot_index == selected_index:
+                pygame.draw.rect(
+                    screen, 
+                    (255, 210, 90),
+                    slot_rect,
+                    4
+                )
+            else:
+                pygame.draw.rect(
+                    screen,
+                    self.border_color,
+                    slot_rect,
+                    2
+                )
 
             if slot_index < len(items):
                 #Item info
