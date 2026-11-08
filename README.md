@@ -1,10 +1,14 @@
 # PROJECT-1-FISH-AND-CHIPS
 Welcome to Fish N' Chips. 
-Write your story in a vast world full of surprises with your trusty rod, and catch rare fishes!
-Buy upgrades, or gamble it for more. It's your choice!
+Embark on a journey in a vast world full of surprises with your trusty rod, and catch the rarest fishes from the Sea!
+
+Be careful, You might get carried away little one
+Buy upgrades, or gamble it for more. The choice is yours to catch!
 
 
-NOTE: Cash Saving doesnt work yet, only the Inventory does.
+
+
+NOTE TO PLAYERS: Cash Saving doesnt work yet, only the Inventory does.
 
 
 
@@ -16,6 +20,8 @@ MOVEMENT
 - **D** — Move right
 OTHERS
 - **ESC** — Quit Game
+- **TAB** - Open/Close Inventory
+(More directions for ine inventory once you open it, don't worry)
 
 - **P** - Debug Mode (Instant Fish, Sell Anywhere)
 - **Q** - Sell (near dark brown box)
