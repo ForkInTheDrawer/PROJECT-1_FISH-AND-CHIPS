@@ -128,7 +128,7 @@ class InventoryWindow:
         self.title_font = pygame.font.Font(None, 48)
         self.info_font = pygame.font.Font(None, 26)
 
-    def draw(self,screen , inventory):
+    def draw(self,screen , inventory, selected_index = None):
 
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
@@ -151,6 +151,62 @@ class InventoryWindow:
         #Window Title
         title = self.title_font.render("INVENTORY", True, self.text_color)
         screen.blit(title, (window_rect.x + 25, window_rect.y + 20))
+
+        #Item inspection:
+
+        panel_rect = pygame.Rect(
+            window_rect.x + 25,
+            window_rect.y + 120,
+            240,
+            350
+        )
+        pygame.draw.rect(screen, (25,62,76), panel_rect)
+        pygame.draw.rect(screen, self.border_color, panel_rect, 2)
+
+        panel_title = self.info_font.render(
+            "ITEM DETAILS",
+            True,
+            self.text_color
+        )
+        screen.blit( panel_title, (panel_rect.x + 12, panel_rect.y + 15))
+
+        items = inventory["plr_inv"]
+
+        if selected_index is not None and selected_index < len(items):
+            selected_item = items[selected_index]
+            details = [
+                f"Name: {selected_item.get('name', 'Unknown')}",
+                f"Category: {selected_item.get('category', 'Unknown')}",
+                f"Rarity: {selected_item.get('rarity', 'Unknown')}",
+                f"Mutation: {selected_item.get('mutation', 'None')}",
+                f"Weight: {selected_item.get('weight', 'N/A')}",
+                f"Locked: {'Yes' if selected_item.get('locked' ,False) else 'No'}",
+            ]
+
+            if "price" in selected_item:
+                details.append(f"Price {selected_item['price']}")
+            if "base_price" in selected_item:
+                details.append(F"Base Price: {selected_item['base_price']}")
+            for index, detail in enumerate(details):
+                detail_text = pygame.font.Font(None, 22).render(
+                    detail, True, self.text_color
+                )
+                screen.blit(
+                    detail_text, (panel_rect.x + 12, panel_rect.y + 60 + index * 35)
+                )
+        else:
+            inspect_hint = pygame.font.Font(None, 24).render(
+                "Select an item to inspect.",
+                True,
+                self.text_color
+            )
+            screen.blit(
+                inspect_hint,
+                inspect_hint.get_rect(center = panel_rect.center)
+            )
+
+
+
 
         #slot count
         item_count = len(inventory["plr_inv"])

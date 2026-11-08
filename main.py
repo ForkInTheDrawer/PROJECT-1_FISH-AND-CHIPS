@@ -57,6 +57,7 @@ def main():
     sell_confirmation = False
     sell_item_index = None
     inventory_open = False
+    selected_inventory_index = None
 
 
 
@@ -254,6 +255,16 @@ def main():
 
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
                 inventory_open = not inventory_open
+
+            elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                slot_index = inventory_window.get_slot_index_at_position(
+                    event.pos, screen
+                )
+                items = player_data.inventory["plr_inv"]
+                if slot_index is not None and slot_index < len(items):
+                    selected_inventory_index = slot_index
+                else:
+                    selected_inventory_index = None
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 slot_index = inventory_window.get_slot_index_at_position(
@@ -649,7 +660,11 @@ def main():
         #INVENTORY:
 
         if inventory_open:
-            inventory_window.draw(screen, player_data.inventory)
+            inventory_window.draw(
+                screen, 
+                player_data.inventory,
+                selected_inventory_index
+                )
 
         
 

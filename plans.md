@@ -41,12 +41,18 @@ START HERE:
     * Common Fishes get Common - Epic Rarity.
     * Rare Fishes get Epic - Endangered Rarity
     * Super Rare Fishes get Epic - SECRET Rarity.
-- fish sold Notification
+- Notification:
+    * Fish Sold 
+    * Alerts
 - Add Animation:
     * "Press E To Fish" Popup
     * Sell UI Notif 
-- Fix Fish Sectors
     
+- Fix Fish Sectors
+    -    Add Animation: 
+    * Fish Results Popup Screen Effect
+
+
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
     * "Lock Item" Mechanic - To stop it from getting sold.
@@ -62,8 +68,9 @@ START HERE:
         5. Ring
         6. Boots
 
--    Add Animation: 
-    * Fish Results Popup Screen Effect
+
+
+
 ### Future Task:
 
 - Placeholder Fishing Rods:
