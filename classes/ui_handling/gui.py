@@ -128,6 +128,37 @@ class InventoryWindow:
         self.title_font = pygame.font.Font(None, 48)
         self.info_font = pygame.font.Font(None, 26)
 
+    def wrap_text(self, text, font, max_width):
+        words = str(text).split()
+        lines = []
+        current_line = ""
+        for word in words:
+            if current_line:
+                lines.append(current_line)
+                current_line = ""
+                chunk = ""
+
+                for char in word:
+                    if font.size(chunk + char)[0] <= max_width:
+                        chunk += char
+
+                current_line = chunk
+                continue
+        test_line = (
+            word if not current_line
+            else current_line + "" + word
+        )
+        if font.size(test_line)[0] <= max_width:
+            current_line = test_line
+
+        else:
+            lines.append(current_line)
+            current_line = word
+        if current_line:
+            lines.append(current_line)
+        return lines
+    
+
     def draw(self,screen , inventory, selected_index = None):
 
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
@@ -187,13 +218,50 @@ class InventoryWindow:
                 details.append(f"Price {selected_item['price']}")
             if "base_price" in selected_item:
                 details.append(F"Base Price: {selected_item['base_price']}")
-            for index, detail in enumerate(details):
-                detail_text = pygame.font.Font(None, 22).render(
-                    detail, True, self.text_color
+            
+            
+            # Wrap inspection details:
+            detail_font = pygame.font.Font(None,20)
+
+            text_x = panel_rect.x + 12
+            text_y = panel_rect.y + 60
+
+            max_width = panel_rect.width - 24
+            line_height = 24
+
+            max_lines = (
+                panel_rect.bottom - 12 - text_y
+            ) // line_height
+            wrapped_details = []
+            for detail in details:
+                wrapped_details.extend(
+                    self.wrap_text( detail, detail_font, max_width)
                 )
+
+            #prevents overflow
+
+            if len(wrapped_details) > max_lines:
+                wrapped_details = wrapped_details[:max_lines]
+
+                last_line = wrapped_details [-1]
+
+                while last_line and detail_font.size(last_line + "...")[0] > max_width:
+                    last_line = last_line[:-1]
+
+                wrapped_details[-1] = last_line + "..."
+            #Draws textssssasdaddwasd:
+
+            for index, line in enumerate(wrapped_details):
+                detail_text = detail_font.render(
+                    line, True,
+                    self.text_color
+                )
+
                 screen.blit(
-                    detail_text, (panel_rect.x + 12, panel_rect.y + 60 + index * 35)
+                    detail_text,
+                    (text_x, text_y + index * line_height)
                 )
+
         else:
             inspect_hint = pygame.font.Font(None, 24).render(
                 "Select an item to inspect.",
