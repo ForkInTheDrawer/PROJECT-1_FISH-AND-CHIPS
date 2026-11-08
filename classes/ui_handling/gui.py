@@ -132,28 +132,31 @@ class InventoryWindow:
         words = str(text).split()
         lines = []
         current_line = ""
+
         for word in words:
-            if current_line:
-                lines.append(current_line)
-                current_line = ""
-                chunk = ""
+            test_line = (
+                word if not current_line
+                else current_line + " " + word
+            )
 
-                for char in word:
-                    if font.size(chunk + char)[0] <= max_width:
-                        chunk += char
+            if font.size(test_line)[0] <= max_width:
+                current_line = test_line
+            else:
+                if current_line:
+                    lines.append(current_line)
 
-                current_line = chunk
-                continue
-        test_line = (
-            word if not current_line
-            else current_line + "" + word
-        )
-        if font.size(test_line)[0] <= max_width:
-            current_line = test_line
-
-        else:
-            lines.append(current_line)
-            current_line = word
+                if font.size(word)[0] > max_width:
+                    chunk = ""
+                    for char in word:
+                        if font.size(chunk + char)[0] <= max_width:
+                            chunk+= char
+                        else:
+                            if chunk:
+                                lines.append(chunk)
+                            chunk = char
+                    current_line = chunk
+                else:
+                    current_line = word
         if current_line:
             lines.append(current_line)
         return lines
@@ -208,7 +211,7 @@ class InventoryWindow:
             details = [
                 f"Name: {selected_item.get('name', 'Unknown')}",
                 f"Category: {selected_item.get('category', 'Unknown')}",
-                f"Rarity: {selected_item.get('rarity', 'Unknown')}",
+                f"Rarity: {selected_item.get('rarity', 'Common')}",
                 f"Mutation: {selected_item.get('mutation', 'None')}",
                 f"Weight: {selected_item.get('weight', 'N/A')}",
                 f"Locked: {'Yes' if selected_item.get('locked' ,False) else 'No'}",
