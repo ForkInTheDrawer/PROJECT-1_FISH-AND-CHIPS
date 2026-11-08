@@ -10,8 +10,6 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
 
 NOTE TO PLAYERS: Cash Saving doesnt work yet, only the Inventory does.
 
-
-
 ## How to Play
 MOVEMENT
 - **W** — Move up
@@ -28,5 +26,9 @@ OTHERS
 - **E** - Fish (In the dock)
 - **F** - Open & Close Shop
 
+
+NTS:
+
+I made this game because i thought of a fishing game originally, but when I asked a friend of mine for a game name idea, he said "Fish N Chips", "Chips" reminded me of casino chips, so... Why not make a game with gambling elements? It'll be CRAAAZY
 
 

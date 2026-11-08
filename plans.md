@@ -169,7 +169,7 @@ Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
 
 And submit These as a zip file:
     * .exe file
-    * README.txt file
+    *NOTE: Just update the  README.md file, since it tracks that
 
 once submitted, you can delete the rest.
 
