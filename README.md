@@ -7,7 +7,11 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
 
 - GOAL:
     * Fish, and get rich!!!
-    * Gamble chips to double it or  lose it all...
+    * Gamble chips for Overpowered gears or  lose it all...
+
+Small Showcase (1.0.3 ALPHA)
+
+https://medal.tv/games/screen-capture/clips/nTzI5tTLNakDigeIc?invite=cr-MSxqbTUsNTI0NzE5MzEy
 
 ### NOTE TO PLAYERS: Cash Saving doesnt work yet, only the Inventory does.
 
@@ -31,7 +35,7 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
 | Key / Input | Action |
 |---|---|
 | `P` | Toggle Debug | 
-
+| `esc` | Quit Game | 
 # GAME
 1. Go to the wooden platform (dock)
 2. ```Press E``` to Fish
