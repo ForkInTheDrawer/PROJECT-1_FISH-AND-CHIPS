@@ -6,6 +6,7 @@ from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.animations import easing
 from classes.animations.animation import Animation
 
+
 default_config = {
     "proximity prompt": {
         "size" : (500,100) ,
@@ -133,6 +134,13 @@ class InventoryWindow:
             rect = pygame.Rect(0, 0 ,140, 36)
         )
 
+        self.active_tab = "Items"
+        self.tab_font = pygame.font.Font(None, 32)
+        self.tabs = {
+            "Items" : pygame.Rect(220,75,120,40),
+            "Gear" : pygame.Rect(345, 75, 120, 40)
+        }
+
 
 
     def wrap_text(self, text, font, max_width):
@@ -168,11 +176,15 @@ class InventoryWindow:
             lines.append(current_line)
         return lines
 
-
-
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1 :
+            for tab_name, tab_rect in self.tabs.items():
+                if tab_rect.collidepoint(event.pos):
+                    self.active_tab = tab_name
+                    return tab_name
+        return None
 
     def draw(self,screen , inventory, selected_index = None):
-
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -194,6 +206,28 @@ class InventoryWindow:
         #Window Title
         title = self.title_font.render("INVENTORY", True, self.text_color)
         screen.blit(title, (window_rect.x + 25, window_rect.y + 20))
+
+        #Tabs:
+        for tab_name, tab_rect in self.tabs.items():
+
+            color = (
+                (70,120,130)
+                if self.active_tab == tab_name
+                else(25,62,76)
+            )
+
+            pygame.draw.rect(screen,color,tab_rect)
+            pygame.draw.rect(screen,self.background_color, tab_rect, 2)
+
+            tab_text = self.tab_font.render(
+                tab_name, True, self.text_color
+            )
+
+            screen.blit(
+                tab_text,
+                tab_text.get_rect(center = tab_rect.center)
+            )
+
 
         #Item inspection:
 

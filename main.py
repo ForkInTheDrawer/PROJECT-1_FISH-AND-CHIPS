@@ -10,6 +10,7 @@ from function import collisions
 from classes.ui_handling import gui
 from classes.player import character
 from classes.fishing import fishing
+from classes.ui_handling import inventory_sorting
 
 
 from events import keyboard_events
@@ -254,11 +255,17 @@ def main():
                 inventory_open = not inventory_open
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                #Checks dropdown
+                #Checks filtering system
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
 
                 if sort_choice is not None:
+                    items = player_data.inventory["plr_inv"]
+                    player_data.inventory["plr_inv"] = (
+                        inventory_sorting.sort_inventory(items, sort_choice)
+                    )
                     print(f"Selected option: {sort_choice}")
+                    player_data.save_inventory()
+                    selected_inventory_index = None
 
                 else:
                     slot_index = inventory_window.get_slot_index_at_position(
