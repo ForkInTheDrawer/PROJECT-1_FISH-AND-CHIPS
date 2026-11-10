@@ -51,14 +51,15 @@ START HERE:
 - Fix Fish Sectors
     -    Add Animation: 
     * Fish Results Popup Screen Effect
-
+- Inventory Mechanic:
+    * "Lock Item" Mechanic - To stop it from getting sold.
 
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
-    * "Lock Item" Mechanic - To stop it from getting sold.
     * Reorganize the inventory by dragging
     * Filter by: Category, A-Z, Rarity, Weight 
-    * Note that we can expand the inventory size VIA Buying new Backpacks
+    * Note that we can expand the inventory size VIA Buying new Backpacks (will implement scrolling if it happens.)
+    * Separate Tab for Gears
     * On a side panel, you can see your characters:
     NOTE: 1 to 3 are in the bottom of the side panel
         1. Name
@@ -67,9 +68,9 @@ START HERE:
         4. Hat
         5. Ring
         6. Boots
-
-
-
+- Fishing Minigame (During Casting Bait sequence)
+- Catch Fish Minigame
+- Fix Shop UI
 
 ### Future Task:
 
@@ -81,12 +82,6 @@ START HERE:
     * Implement a Boat system ($10,000 for boat access)
     * New fishes in the other island (named "Redwood")
 
-- Fishing Minigame (During Casting Bait sequence)
-- Catch Fish Minigame
-
-
-
-
 
 - Stats on Basic Rod
     * Make a new .py file named "rods"
@@ -95,7 +90,6 @@ START HERE:
             - Durability (Higher Weight chance)
             - Luck (Better Fish Chance)
             - Speed (Faster fishing and Casting time)
-
 
 
 

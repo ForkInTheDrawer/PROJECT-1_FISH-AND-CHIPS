@@ -60,9 +60,6 @@ def main():
     selected_inventory_index = None
 
 
-
-
-
     fish_path = resource_path("data/fishies.json")
     with fish_path.open(encoding="utf-8") as file:
         item_dictionary = json.load(file)
@@ -257,14 +254,21 @@ def main():
                 inventory_open = not inventory_open
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                slot_index = inventory_window.get_slot_index_at_position(
-                    event.pos, screen
-                )
-                items = player_data.inventory["plr_inv"]
-                if slot_index is not None and slot_index < len(items):
-                    selected_inventory_index = slot_index
+                #Checks dropdown
+                sort_choice = inventory_window.sort_dropdown.handle_event(event)
+
+                if sort_choice is not None:
+                    print(f"Selected option: {sort_choice}")
+
                 else:
-                    selected_inventory_index = None
+                    slot_index = inventory_window.get_slot_index_at_position(
+                        event.pos, screen
+                    )
+                    items = player_data.inventory["plr_inv"]
+                    if slot_index is not None and slot_index < len(items):
+                        selected_inventory_index = slot_index
+                    else:
+                        selected_inventory_index = None
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 slot_index = inventory_window.get_slot_index_at_position(
@@ -552,7 +556,7 @@ def main():
         
         #(Fish Cooldown)
         if fish_popup is not None:
-            fish_popup.draw(screen,dt)
+            fish_popup.draw(screen, dt)
 
         if sell_confirmation:
             sell_confirmation.draw(screen, dt)

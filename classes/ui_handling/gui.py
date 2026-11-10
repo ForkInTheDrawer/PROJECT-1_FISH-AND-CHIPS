@@ -1,7 +1,7 @@
 import pygame
 
 
-from classes.ui_handling.button import Button
+from classes.ui_handling.button import Button, DropdownMenu
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.animations import easing
 from classes.animations.animation import Animation
@@ -128,6 +128,11 @@ class InventoryWindow:
         self.title_font = pygame.font.Font(None, 48)
         self.info_font = pygame.font.Font(None, 26)
 
+        self.sort_dropdown = DropdownMenu(
+            options = ["Category", "A-Z", "Rarity", "Weight"],
+            rect = pygame.Rect(0, 0 ,140, 36)
+        )
+
 
 
     def wrap_text(self, text, font, max_width):
@@ -176,8 +181,9 @@ class InventoryWindow:
             0,0,
             self.width, self.height
         )
-
         window_rect.center = screen.get_rect().center
+
+
 
         pygame.draw.rect(
             screen, self.background_color, window_rect
@@ -185,7 +191,6 @@ class InventoryWindow:
         pygame.draw.rect(
             screen, self.border_color, window_rect, 3
         )
-
         #Window Title
         title = self.title_font.render("INVENTORY", True, self.text_color)
         screen.blit(title, (window_rect.x + 25, window_rect.y + 20))
@@ -397,6 +402,15 @@ class InventoryWindow:
                             center = (slot_rect.centerx, slot_rect.bottom - 8)
                         )
                     )
+
+        self.sort_dropdown.rect.topleft = (
+            window_rect.x - self.sort_dropdown.rect.width - 25,
+            window_rect.y + 20
+        )
+                #Dropdown Menu
+        self.sort_dropdown.draw(screen)
+
+
 
         close_hint = self.info_font.render(
             "Press TAB to close.",

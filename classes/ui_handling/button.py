@@ -1,6 +1,7 @@
 import pygame
 
-
+#NOTE: STUFFS INSIDE ARE TEMPLATES THAT ARE REUSABLE.
+# Button, Dropdown, Slider, Etc.
 class Button:
     def __init__ (self, text, text_color, rect, color,  hover_color):
 
@@ -101,7 +102,7 @@ class DropdownMenu:
         surface.blit(
             text_surface,
             text_surface.get_rect(
-                mid_left = (self.rect.x + 10, self.rect.centery)
+                midleft = (self.rect.x + 10, self.rect.centery)
             )
         )
 
@@ -147,12 +148,40 @@ class DropdownMenu:
                 surface.blit(
                     option_text,
                     option_text.get_rect(
-                        mid_left = (
+                        midleft = (
                             option_rect.x + 10,
                             option_rect.centery
                         )
                     )
                 )
-        def handle_event(self, event):
-            pass # NOTE: WORK ON THIS TOMORROW
-        
+    def handle_event(self, event):
+        if event.type != pygame.MOUSEBUTTONDOWN:
+            return None
+
+        if event.button != 1:
+            return None
+
+        if self.is_open:
+
+            for index, option_rect in enumerate(self.get_option_rects()):
+                if option_rect.collidepoint(event.pos):
+                    self.selected_option = self.options[index]
+                    self.close()
+                    return self.selected_option
+
+            if self.rect.collidepoint(event.pos):
+                self.close()
+                return None
+
+        if self.rect.collidepoint(event.pos):
+            self.is_open = True
+
+        return None
+
+    def get_selected(self):
+        return self.selected_option
+
+    def close(self):
+        self.is_open = False
+
+                
