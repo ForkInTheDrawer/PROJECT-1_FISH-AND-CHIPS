@@ -141,8 +141,6 @@ class InventoryWindow:
             "Gear" : pygame.Rect(345, 75, 120, 40)
         }
 
-
-
     def wrap_text(self, text, font, max_width):
         words = str(text).split()
         lines = []
@@ -209,6 +207,11 @@ class InventoryWindow:
 
         #Tabs:
         for tab_name, tab_rect in self.tabs.items():
+
+            tab_rect.topleft = (
+                window_rect.x + (300 if tab_name == "Items" else 430),
+                window_rect.y + 30
+            )
 
             color = (
                 (70,120,130)
@@ -492,12 +495,6 @@ class InventoryWindow:
             if slot_rect.collidepoint(mouse_pos):
                 return slot_index
         return None
-
-
-
-
-
-
 
 class FishPopUp(GUI):   
     def __init__(self,caught_fish , position=(350,260), size=(500,280), skip_key=pygame.K_SPACE):

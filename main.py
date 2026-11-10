@@ -262,7 +262,7 @@ def main():
                     items = player_data.inventory["plr_inv"]
                     player_data.inventory["plr_inv"] = (
                         inventory_sorting.sort_inventory(items, sort_choice)
-                    )
+                    )   
                     print(f"Selected option: {sort_choice}")
                     player_data.save_inventory()
                     selected_inventory_index = None
