@@ -255,6 +255,9 @@ def main():
                 inventory_open = not inventory_open
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if inventory_window.handle_event(event) is not None:
+                    continue
+
                 #Checks filtering system
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
 

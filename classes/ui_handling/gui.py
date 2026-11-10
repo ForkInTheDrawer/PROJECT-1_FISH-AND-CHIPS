@@ -83,7 +83,8 @@ class ProximityPrompt(GUI):
         pygame.draw.rect(
             popup_surface,
             self.fill_color,
-            popup_surface.get_rect()
+            popup_surface.get_rect(),
+            border_radius = 10
         )
         text = self.font.render(self.label, True, (255,255,255))
 
@@ -196,10 +197,10 @@ class InventoryWindow:
 
 
         pygame.draw.rect(
-            screen, self.background_color, window_rect
+            screen, self.background_color, window_rect, border_radius = 10
         )
         pygame.draw.rect(
-            screen, self.border_color, window_rect, 3
+            screen, self.border_color, window_rect, 3, border_radius = 10
         )
         #Window Title
         title = self.title_font.render("INVENTORY", True, self.text_color)
@@ -219,8 +220,8 @@ class InventoryWindow:
                 else(25,62,76)
             )
 
-            pygame.draw.rect(screen,color,tab_rect)
-            pygame.draw.rect(screen,self.background_color, tab_rect, 2)
+            pygame.draw.rect(screen,color,tab_rect, border_radius = 10)
+            pygame.draw.rect(screen,self.background_color, tab_rect, 2, border_radius = 10)
 
             tab_text = self.tab_font.render(
                 tab_name, True, self.text_color
@@ -231,223 +232,274 @@ class InventoryWindow:
                 tab_text.get_rect(center = tab_rect.center)
             )
 
+        if self.active_tab == "Items":
 
-        #Item inspection:
 
-        panel_rect = pygame.Rect(
-            window_rect.x + 25,
-            window_rect.y + 120,
-            240,
-            350
-        )
-        pygame.draw.rect(screen, (25,62,76), panel_rect)
-        pygame.draw.rect(screen, self.border_color, panel_rect, 2)
+            #Item inspection Tab:
 
-        panel_title = self.info_font.render(
-            "ITEM DETAILS",
-            True,
-            self.text_color
-        )
-        screen.blit( panel_title, (panel_rect.x + 12, panel_rect.y + 15))
+            panel_rect = pygame.Rect(
+                window_rect.x + 25,
+                window_rect.y + 120,
+                240,
+                350
+            )
+            pygame.draw.rect(screen, (25,62,76), panel_rect, border_radius = 10)
+            pygame.draw.rect(screen, self.border_color, panel_rect, 2, border_radius = 10)
 
-        items = inventory["plr_inv"]
+            panel_title = self.info_font.render(
+                "ITEM DETAILS",
+                True,
+                self.text_color
+            )
+            screen.blit( panel_title, (panel_rect.x + 12, panel_rect.y + 15))
 
-        if selected_index is not None and selected_index < len(items):
-            selected_item = items[selected_index]
-            details = [
-                f"Name: {selected_item.get('name', 'Unknown')}",
-                f"Category: {selected_item.get('category', 'Unknown')}",
-                f"Rarity: {selected_item.get('rarity', 'Common')}",
-                f"Mutation: {selected_item.get('mutation', 'None')}",
-                f"Weight: {selected_item.get('weight', 'N/A')}",
-                f"Locked: {'Yes' if selected_item.get('locked' ,False) else 'No'}",
-            ]
+            items = inventory["plr_inv"]
 
-            for color_key in ("COLOR_1", "COLOR_2"):
-                if color_key in selected_item:
-                    details.append(f"Color {color_key[-1]}: {selected_item[color_key]}")
+            if selected_index is not None and selected_index < len(items):
+                selected_item = items[selected_index]
+                details = [
+                    f"Name: {selected_item.get('name', 'Unknown')}",
+                    f"Category: {selected_item.get('category', 'Unknown')}",
+                    f"Rarity: {selected_item.get('rarity', 'Common')}",
+                    f"Mutation: {selected_item.get('mutation', 'None')}",
+                    f"Weight: {selected_item.get('weight', 'N/A')}",
+                    f"Locked: {'Yes' if selected_item.get('locked' ,False) else 'No'}",
+                ]
 
-            if "price" in selected_item:
-                details.append(f"Price {selected_item['price']}")
-            if "base_price" in selected_item:
-                details.append(F"Base Price: {selected_item['base_price']}")
-            
-            
-            # Wrap inspection details:
-            detail_font = pygame.font.Font(None,20)
+                for color_key in ("COLOR_1", "COLOR_2"):
+                    if color_key in selected_item:
+                        details.append(f"Color {color_key[-1]}: {selected_item[color_key]}")
 
-            text_x = panel_rect.x + 12
-            text_y = panel_rect.y + 60
+                if "price" in selected_item:
+                    details.append(f"Price {selected_item['price']}")
+                if "base_price" in selected_item:
+                    details.append(F"Base Price: {selected_item['base_price']}")
+                
+                
+                # Wrap inspection details:
+                detail_font = pygame.font.Font(None,20)
 
-            max_width = panel_rect.width - 24
-            line_height = 24
+                text_x = panel_rect.x + 12
+                text_y = panel_rect.y + 60
 
-            max_lines = (
-                panel_rect.bottom - 12 - text_y
-            ) // line_height
-            wrapped_details = []
-            for detail in details:
-                wrapped_details.extend(
-                    self.wrap_text( detail, detail_font, max_width)
-                )
+                max_width = panel_rect.width - 24
+                line_height = 24
 
-            #prevents overflow
+                max_lines = (
+                    panel_rect.bottom - 12 - text_y
+                ) // line_height
+                wrapped_details = []
+                for detail in details:
+                    wrapped_details.extend(
+                        self.wrap_text( detail, detail_font, max_width)
+                    )
 
-            if len(wrapped_details) > max_lines:
-                wrapped_details = wrapped_details[:max_lines]
+                #prevents overflow
 
-                last_line = wrapped_details [-1]
+                if len(wrapped_details) > max_lines:
+                    wrapped_details = wrapped_details[:max_lines]
 
-                while last_line and detail_font.size(last_line + "...")[0] > max_width:
-                    last_line = last_line[:-1]
+                    last_line = wrapped_details [-1]
 
-                wrapped_details[-1] = last_line + "..."
-            #Draws textssssasdaddwasd:
+                    while last_line and detail_font.size(last_line + "...")[0] > max_width:
+                        last_line = last_line[:-1]
 
-            for index, line in enumerate(wrapped_details):
-                detail_text = detail_font.render(
-                    line, True,
+                    wrapped_details[-1] = last_line + "..."
+                #Draws textssssasdaddwasd:
+
+                for index, line in enumerate(wrapped_details):
+                    detail_text = detail_font.render(
+                        line, True,
+                        self.text_color
+                    )
+
+                    screen.blit(
+                        detail_text,
+                        (text_x, text_y + index * line_height)
+                    )
+
+            else:
+                inspect_hint = pygame.font.Font(None, 24).render(
+                    "Select an item to inspect.",
+                    True,
                     self.text_color
                 )
-
                 screen.blit(
-                    detail_text,
-                    (text_x, text_y + index * line_height)
+                    inspect_hint,
+                    inspect_hint.get_rect(center = panel_rect.center)
                 )
 
+
+
+
+            #slot count
+            item_count = len(inventory["plr_inv"])
+            maximum_slots = inventory["maximum_slots"]
+
+            slot_text = self.info_font.render(
+                f"Slots: {item_count} / {maximum_slots}",
+                True,
+                self.text_color
+            )
+
+            screen.blit(
+                slot_text,
+                (window_rect.x + 28, window_rect.y + 80)
+            )
+
+            #TEMPORARY Placeholder:
+
+            items = inventory["plr_inv"]
+
+            slot_width = 80
+            slot_height = 80
+            slot_gap = 8
+            columns = 5
+            rows = 4
+
+            grid_x = window_rect.x + 300
+            grid_y = window_rect.y + 90
+
+            for slot_index in range(columns*rows):
+                column = slot_index % columns
+                row = slot_index // columns
+
+                slot_rect = pygame.Rect(
+                    grid_x + column * (slot_width + slot_gap),
+                    grid_y + row * (slot_height + slot_gap),
+                    slot_width,
+                    slot_height
+                )
+
+                #SLOT BG AND BORDER:
+                pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
+                if slot_index == selected_index:
+                    pygame.draw.rect(
+                        screen, 
+                        (255, 210, 90),
+                        slot_rect,
+                        4,
+                        border_radius = 5
+                    )
+                else:
+                    pygame.draw.rect(
+                        screen,
+                        self.border_color,
+                        slot_rect,
+                        2,
+                        border_radius = 5
+                    )
+
+                if slot_index < len(items):
+                    #Item info
+                    item = items[slot_index]
+
+                    item_name = item.get("name", "Unknown")
+                    item_rarity = item.get("rarity", "No Rarity")
+                    item_category = item.get("category", "FISH")
+                    is_locked = item.get("locked", False)
+
+                    name_font = pygame.font.Font(None, 19)
+                    detail_font = pygame.font.Font(None, 17)
+
+                    #Helper Func
+                    def fit_text(text, font, max_width):
+                        text = str(text)
+
+                        # Keep the original text if it already fits.
+                        if font.size(text)[0] <= max_width:
+                            return font.render(text, True, self.text_color)
+
+                        # Shorten the text until it fits with an ellipsis.
+                        while text and font.size(text + "...")[0] > max_width:
+                            text = text[:-1]
+
+                        return font.render(text + "...", True, self.text_color)
+
+                    #Text Render:
+
+                    name_text = fit_text(item_name,name_font,slot_width - 10)
+                    rarity_text = fit_text(item_rarity,detail_font,slot_width - 10)
+                    category_text = fit_text(item_category,detail_font,slot_width - 10)
+
+                    screen.blit(name_text, name_text.get_rect(
+                        center = (slot_rect.centerx, slot_rect.y + 20)
+                    ))
+
+                    screen.blit(rarity_text, rarity_text.get_rect(
+                        center = (slot_rect.centerx, slot_rect.y + 43)
+                    ))
+
+                    screen.blit(category_text, category_text.get_rect(
+                        center = (slot_rect.centerx, slot_rect.y + 65)
+                    ))
+
+                    if is_locked:
+                        lock_text = self.info_font.render(
+                            "LOCKED" , True, (255,190,70)
+                        )
+                        screen.blit(
+                            lock_text ,
+                            lock_text.get_rect(
+                                center = (slot_rect.centerx, slot_rect.bottom - 8)
+                            )
+                        )
+
+            self.sort_dropdown.rect.topleft = (
+                window_rect.x - self.sort_dropdown.rect.width - 25,
+                window_rect.y + 20
+            )
+                    #Dropdown Menu
+            self.sort_dropdown.draw(screen)
+
         else:
-            inspect_hint = pygame.font.Font(None, 24).render(
-                "Select an item to inspect.",
+            #GEARS TAB:
+
+            gear_area = pygame.Rect(
+                window_rect.x + 25,
+                window_rect.y + 120,
+                self.width - 50,
+                self.height -180
+            )
+
+            pygame.draw.rect(
+                screen,
+                (25,62,76),
+                gear_area,
+                border_radius = 10
+            )
+
+            pygame.draw.rect(
+                screen,
+                self.border_color,
+                gear_area,
+                2,
+                border_radius = 10
+            )
+
+            gear_title = self.title_font.render(
+                "GEARS:",
+                True,
+                self.text_color
+            )
+            gear_hint = self.info_font.render(
+                "Your Erquipment will appear here (WIP)",
                 True,
                 self.text_color
             )
             screen.blit(
-                inspect_hint,
-                inspect_hint.get_rect(center = panel_rect.center)
-            )
+                gear_title,
+                gear_title.get_rect(
+                    center = (gear_area.centerx , gear_area.centery - 25)
 
-
-
-
-        #slot count
-        item_count = len(inventory["plr_inv"])
-        maximum_slots = inventory["maximum_slots"]
-
-        slot_text = self.info_font.render(
-            f"Slots: {item_count} / {maximum_slots}",
-            True,
-            self.text_color
-        )
-
-        screen.blit(
-            slot_text,
-            (window_rect.x + 28, window_rect.y + 80)
-        )
-
-        #TEMPORARY Placeholder:
-
-        items = inventory["plr_inv"]
-
-        slot_width = 80
-        slot_height = 80
-        slot_gap = 8
-        columns = 5
-        rows = 4
-
-        grid_x = window_rect.x + 300
-        grid_y = window_rect.y + 90
-
-        for slot_index in range(columns*rows):
-            column = slot_index % columns
-            row = slot_index // columns
-
-            slot_rect = pygame.Rect(
-                grid_x + column * (slot_width + slot_gap),
-                grid_y + row * (slot_height + slot_gap),
-                slot_width,
-                slot_height
-            )
-
-            #SLOT BG AND BORDER:
-            pygame.draw.rect(screen, (25,62,76), slot_rect)
-            if slot_index == selected_index:
-                pygame.draw.rect(
-                    screen, 
-                    (255, 210, 90),
-                    slot_rect,
-                    4
                 )
-            else:
-                pygame.draw.rect(
-                    screen,
-                    self.border_color,
-                    slot_rect,
-                    2
+            )
+            screen.blit(
+                gear_hint,
+                gear_hint.get_rect(
+                    center = (gear_area.centerx , gear_area.centery + 20)
                 )
-
-            if slot_index < len(items):
-                #Item info
-                item = items[slot_index]
-
-                item_name = item.get("name", "Unknown")
-                item_rarity = item.get("rarity", "No Rarity")
-                item_category = item.get("category", "FISH")
-                is_locked = item.get("locked", False)
-
-                name_font = pygame.font.Font(None, 19)
-                detail_font = pygame.font.Font(None, 17)
-
-                #Helper Func
-                def fit_text(text, font, max_width):
-                    text = str(text)
-
-                    # Keep the original text if it already fits.
-                    if font.size(text)[0] <= max_width:
-                        return font.render(text, True, self.text_color)
-
-                    # Shorten the text until it fits with an ellipsis.
-                    while text and font.size(text + "...")[0] > max_width:
-                        text = text[:-1]
-
-                    return font.render(text + "...", True, self.text_color)
-
-                #Text Render:
-
-                name_text = fit_text(item_name,name_font,slot_width - 10)
-                rarity_text = fit_text(item_rarity,detail_font,slot_width - 10)
-                category_text = fit_text(item_category,detail_font,slot_width - 10)
-
-                screen.blit(name_text, name_text.get_rect(
-                    center = (slot_rect.centerx, slot_rect.y + 20)
-                ))
-
-                screen.blit(rarity_text, rarity_text.get_rect(
-                    center = (slot_rect.centerx, slot_rect.y + 43)
-                ))
-
-                screen.blit(category_text, category_text.get_rect(
-                    center = (slot_rect.centerx, slot_rect.y + 65)
-                ))
-
-                if is_locked:
-                    lock_text = self.info_font.render(
-                        "LOCKED" , True, (255,190,70)
-                    )
-                    screen.blit(
-                        lock_text ,
-                        lock_text.get_rect(
-                            center = (slot_rect.centerx, slot_rect.bottom - 8)
-                        )
-                    )
-
-        self.sort_dropdown.rect.topleft = (
-            window_rect.x - self.sort_dropdown.rect.width - 25,
-            window_rect.y + 20
-        )
-                #Dropdown Menu
-        self.sort_dropdown.draw(screen)
-
-
+            )
 
         close_hint = self.info_font.render(
             "Press TAB to close.",
@@ -460,8 +512,13 @@ class InventoryWindow:
             True,
             self.text_color
         )
-
-        screen.blit(lock_hint, (window_rect.x + 25, window_rect.bottom - 60))
+        
+        
+        if self.active_tab == "Items":
+            screen.blit(
+                lock_hint,
+                (window_rect.x + 25, window_rect.bottom - 60)
+            )
 
         screen.blit(
             close_hint,
@@ -612,7 +669,8 @@ class FishPopUp(GUI):
         pygame.draw.rect(
             popup_surface,
             self.fill_color,
-            popup_surface.get_rect()
+            popup_surface.get_rect(),
+            border_radius = 5
         )
 
         #TITLE:

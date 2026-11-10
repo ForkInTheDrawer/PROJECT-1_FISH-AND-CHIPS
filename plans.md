@@ -53,11 +53,10 @@ START HERE:
     * Fish Results Popup Screen Effect
 - Inventory Mechanic:
     * "Lock Item" Mechanic - To stop it from getting sold.
-
+    * Filter by: Category, A-Z, Rarity, Weight 
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
     * Reorganize the inventory by dragging
-    * Filter by: Category, A-Z, Rarity, Weight 
     * Note that we can expand the inventory size VIA Buying new Backpacks (will implement scrolling if it happens.)
     * Separate Tab for Gears
     * On a side panel, you can see your characters:
