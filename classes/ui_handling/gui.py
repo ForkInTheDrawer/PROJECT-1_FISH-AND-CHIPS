@@ -362,6 +362,10 @@ class InventoryWindow:
             grid_x = window_rect.x + 300
             grid_y = window_rect.y + 90
 
+            hovered_index = self.get_slot_index_at_position(
+                pygame.mouse.get_pos(), screen
+            )
+
             for slot_index in range(columns*rows):
                 column = slot_index % columns
                 row = slot_index // columns
@@ -375,7 +379,7 @@ class InventoryWindow:
 
                 #SLOT BG AND BORDER:
                 pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
-                if slot_index == selected_index:
+                if is_dragging is not None and slot_index == hovered_index:
                     pygame.draw.rect(
                         screen, 
                         (255, 210, 90),
@@ -392,7 +396,7 @@ class InventoryWindow:
                         border_radius = 5
                     )
 
-                if slot_index < len(items):
+                if slot_index < len(items) and slot_index != is_dragging:
                     #Item info
                     item = items[slot_index]
 
@@ -446,6 +450,58 @@ class InventoryWindow:
                                 center = (slot_rect.centerx, slot_rect.bottom - 8)
                             )
                         )
+
+            #TEMPORARY FLOATING CARD:
+
+            if(
+                is_dragging is not None 
+                and 0 <= is_dragging < len(items)
+            ):
+                dragged_item = items[is_dragging]
+
+                mouse_x , mouse_y = pygame.mouse.get_pos()
+
+                card_width = 160
+                card_height = 65
+
+                card_rect = pygame.Rect(
+                    mouse_x + 14, mouse_y + 14,
+                    card_width, card_height
+                )
+                pygame.draw.rect(
+                    screen,
+                    (25,62,76),
+                    card_rect,
+                    border_radius = 8
+                )
+                pygame.draw.rect(
+                    screen,
+                    (255,210,90),
+                    card_rect,
+                    2,
+                    border_radius = 8
+                )
+
+                drag_name_font = pygame.font.Font(None, 23)
+                drag_name_detail_font = pygame.font.Font(None, 19)
+
+                drag_name = drag_name_font.render(
+                    str(dragged_item.get("name", "Unknown")),
+                    True,
+                    self.text_color
+                )
+
+                drag_rarity = drag_name_detail_font.render(
+                    str(dragged_item.get("rarity", "Common")),
+                    True,
+                    (255,210,90)
+                )
+
+                screen.blit(drag_name, (card_rect.x + 8, card_rect.y + 10))
+                screen.blit(drag_rarity, (card_rect.x + 8,card_rect.y + 36))
+
+
+
 
             self.sort_dropdown.rect.topleft = (
                 window_rect.x - self.sort_dropdown.rect.width - 25,
