@@ -255,7 +255,7 @@ def main():
                 inventory_open = not inventory_open
 
             elif (
-                inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+                inventory_open and event.type == pygame.MOUSEBUTTONUP and event.button == 1
             ):
                 if dragging_inventory_index is not None:
                     target_index = inventory_window.get_slot_index_at_position(
@@ -703,7 +703,8 @@ def main():
             inventory_window.draw(
                 screen, 
                 player_data.inventory,
-                selected_inventory_index
+                selected_inventory_index,
+                dragging_inventory_index
                 )
 
         

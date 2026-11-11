@@ -37,7 +37,7 @@ class player:
         self.luckMult = luck_val
         self.walkspeed = walkspeed
         
-        self.inventory = None        
+        self.inventory = {}        
 
     #----------------
         #NOTE: DO THESE LATER ONCE YOU UNDERSTAND HOW TO IMPLEMENT THEM:

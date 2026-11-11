@@ -24,7 +24,7 @@ class GUI():
        
 
 
-    def draw(self, screen):
+    def draw(self, screen, dt : float = 0.0):
         pygame.draw.rect(screen,self.fill_color, self.rect)
 
     @classmethod
@@ -185,7 +185,7 @@ class InventoryWindow:
                     return tab_name
         return None
 
-    def draw(self,screen , inventory, selected_index = None):
+    def draw(self,screen , inventory, selected_index = None, is_dragging = None):
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -651,7 +651,7 @@ class FishPopUp(GUI):
 
 
 
-    def draw(self , screen, dt = 0): #NOTE: FOR RENDERING
+    def draw(self , screen, dt : float = 0.0): #NOTE: FOR RENDERING
 
         if pygame.time.get_ticks() - self.cooldown_start >= self.cooldown_ms:
             return

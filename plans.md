@@ -110,6 +110,14 @@ START HERE:
         - Reel (+Speed)
         - Handle (+Durability)
 
+- Fish Randomized Economy:
+    * Every 3 minutes, the price for fishes changes (+-40% Max)
+- 
+
+
+
+
+
 - MAP EXPANSION:
     * Implement a Quest System
         - Catch a specific fish Quest
