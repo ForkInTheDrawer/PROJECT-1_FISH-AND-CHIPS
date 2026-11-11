@@ -131,9 +131,11 @@ class InventoryWindow:
         self.info_font = pygame.font.Font(None, 26)
 
         self.sort_dropdown = DropdownMenu(
-            options = ["Category", "A-Z", "Rarity", "Weight"],
+            options = ["Default", "Category", "A-Z", "Rarity", "Weight"],
             rect = pygame.Rect(0, 0 ,140, 36)
         )
+
+        self.sort_dropdown.selected_option = "Default"
 
         self.active_tab = "Items"
         self.tab_font = pygame.font.Font(None, 32)

@@ -59,6 +59,7 @@ def main():
     sell_item_index = None
     inventory_open = False
     selected_inventory_index = None
+    dragging_inventory_index = None
 
 
     fish_path = resource_path("data/fishies.json")
@@ -250,9 +251,31 @@ def main():
             if event.type == pygame.QUIT:
                 game_running = False
 
-
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
                 inventory_open = not inventory_open
+
+            elif (
+                inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+            ):
+                if dragging_inventory_index is not None:
+                    target_index = inventory_window.get_slot_index_at_position(
+                        event.pos, screen
+                    )
+
+                    items = player_data.inventory["plr_inv"]
+
+                    if (
+                        target_index is not None
+                        and target_index < len(items)
+                        and target_index != dragging_inventory_index
+                    ):
+                        if inventory_sorting.swap_inventory_items(
+                            items, dragging_inventory_index, target_index
+                        ):
+                            player_data.save_inventory()
+                    dragging_inventory_index = None
+
+
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if inventory_window.handle_event(event) is not None:
@@ -275,10 +298,13 @@ def main():
                         event.pos, screen
                     )
                     items = player_data.inventory["plr_inv"]
+
                     if slot_index is not None and slot_index < len(items):
                         selected_inventory_index = slot_index
+                        dragging_inventory_index = slot_index
                     else:
                         selected_inventory_index = None
+                        dragging_inventory_index = None
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 slot_index = inventory_window.get_slot_index_at_position(

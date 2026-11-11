@@ -67,9 +67,13 @@ START HERE:
         4. Hat
         5. Ring
         6. Boots
+
 - Fishing Minigame (During Casting Bait sequence)
 - Catch Fish Minigame
 - Fix Shop UI
+- Add "SELL ALL" Option for selling
+- Add "How Much is my Inventory Worth?" (excluding locked items)
+
 
 ### Future Task:
 

@@ -52,3 +52,16 @@ def sort_inventory(items,sort_choice):
                 return float("inf")
         return sorted(items, key = get_weight)
     return items
+
+
+def swap_inventory_items(items, index_a, index_b):
+
+    if(
+        index_a < 0 or index_b < 0
+        or index_a >= len(items) or index_b >= len(items)
+        or index_a == index_b
+    ):
+        return False
+
+    items[index_a], items[index_b] = items[index_b], items[index_a]
+    return True
