@@ -700,10 +700,15 @@ def main():
         #INVENTORY:
 
         if inventory_open:
+
+            hovered_inventory_index = inventory_window.get_slot_index_at_position(
+                pygame.mouse.get_pos(), screen
+            )
+
             inventory_window.draw(
                 screen, 
                 player_data.inventory,
-                selected_inventory_index,
+                hovered_inventory_index,
                 dragging_inventory_index
                 )
 

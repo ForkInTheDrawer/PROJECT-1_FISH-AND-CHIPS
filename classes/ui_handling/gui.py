@@ -185,7 +185,7 @@ class InventoryWindow:
                     return tab_name
         return None
 
-    def draw(self,screen , inventory, selected_index = None, is_dragging = None):
+    def draw(self,screen , inventory, hovered_index = None, is_dragging = None):
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -257,8 +257,8 @@ class InventoryWindow:
 
             items = inventory["plr_inv"]
 
-            if selected_index is not None and selected_index < len(items):
-                selected_item = items[selected_index]
+            if hovered_index is not None and hovered_index < len(items):
+                selected_item = items[hovered_index]
                 details = [
                     f"Name: {selected_item.get('name', 'Unknown')}",
                     f"Category: {selected_item.get('category', 'Unknown')}",
@@ -379,7 +379,7 @@ class InventoryWindow:
 
                 #SLOT BG AND BORDER:
                 pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
-                if is_dragging is not None and slot_index == hovered_index:
+                if slot_index == hovered_index:
                     pygame.draw.rect(
                         screen, 
                         (255, 210, 90),
