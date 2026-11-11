@@ -262,12 +262,8 @@ def main():
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
 
                 if sort_choice is not None:
-                    items = player_data.inventory["plr_inv"]
-                    player_data.inventory["plr_inv"] = (
-                        inventory_sorting.sort_inventory(items, sort_choice)
-                    )   
+                    inventory_window.sort_choice = sort_choice
                     print(f"Selected option: {sort_choice}")
-                    player_data.save_inventory()
                     selected_inventory_index = None
 
                 else:
@@ -275,8 +271,10 @@ def main():
                         event.pos, screen
                     )
                     items = player_data.inventory["plr_inv"]
-                    if slot_index is not None and slot_index < len(items):
-                        selected_inventory_index = slot_index
+                    if slot_index is not None:
+                        selected_inventory_index = (
+                            inventory_window.get_inventory_index(slot_index, items)
+                        )
                     else:
                         selected_inventory_index = None
 
@@ -286,10 +284,14 @@ def main():
                 )
                 items = player_data.inventory["plr_inv"]
 
-                if slot_index is not None and slot_index < len(items):
-                    item = items[slot_index]
-                    item["locked"] = not item.get("locked", False)
-                    player_data.save_inventory()
+                if slot_index is not None:
+                    inventory_index = inventory_window.get_inventory_index(
+                        slot_index, items
+                    )
+                    if inventory_index is not None:
+                        item = items[inventory_index]
+                        item["locked"] = not item.get("locked", False)
+                        player_data.save_inventory()
 
             elif inventory_open:
                 continue
