@@ -1,6 +1,6 @@
 import pygame
 
-from classes.ui_handling import inventory_sorting
+
 from classes.ui_handling.button import Button, DropdownMenu
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.animations import easing
@@ -131,10 +131,9 @@ class InventoryWindow:
         self.info_font = pygame.font.Font(None, 26)
 
         self.sort_dropdown = DropdownMenu(
-            options = ["Default", "Category", "A-Z", "Rarity", "Weight"],
+            options = ["Category", "A-Z", "Rarity", "Weight"],
             rect = pygame.Rect(0, 0 ,140, 36)
         )
-        self.sort_choice = "Default"
 
         self.active_tab = "Items"
         self.tab_font = pygame.font.Font(None, 32)
@@ -142,14 +141,6 @@ class InventoryWindow:
             "Items" : pygame.Rect(220,75,120,40),
             "Gear" : pygame.Rect(345, 75, 120, 40)
         }
-
-    def get_inventory_index(self, slot_index, items):
-        display_indices = inventory_sorting.sort_inventory_indices(
-            items, self.sort_choice
-        )
-        if 0 <= slot_index < len(display_indices):
-            return display_indices[slot_index]
-        return None
 
     def wrap_text(self, text, font, max_width):
         words = str(text).split()
@@ -263,14 +254,6 @@ class InventoryWindow:
             screen.blit( panel_title, (panel_rect.x + 12, panel_rect.y + 15))
 
             items = inventory["plr_inv"]
-            display_indices = inventory_sorting.sort_inventory_indices(
-                items, self.sort_choice
-            )
-            display_selected_index = (
-                display_indices.index(selected_index)
-                if selected_index in display_indices
-                else None
-            )
 
             if selected_index is not None and selected_index < len(items):
                 selected_item = items[selected_index]
@@ -367,9 +350,6 @@ class InventoryWindow:
             #TEMPORARY Placeholder:
 
             items = inventory["plr_inv"]
-            display_indices = inventory_sorting.sort_inventory_indices(
-                items, self.sort_choice
-            )
 
             slot_width = 80
             slot_height = 80
@@ -393,7 +373,7 @@ class InventoryWindow:
 
                 #SLOT BG AND BORDER:
                 pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
-                if slot_index == display_selected_index:
+                if slot_index == selected_index:
                     pygame.draw.rect(
                         screen, 
                         (255, 210, 90),
@@ -410,9 +390,9 @@ class InventoryWindow:
                         border_radius = 5
                     )
 
-                if slot_index < len(display_indices):
+                if slot_index < len(items):
                     #Item info
-                    item = items[display_indices[slot_index]]
+                    item = items[slot_index]
 
                     item_name = item.get("name", "Unknown")
                     item_rarity = item.get("rarity", "No Rarity")
