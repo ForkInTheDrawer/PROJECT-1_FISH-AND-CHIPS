@@ -1,4 +1,3 @@
-
 #SORTING ORDER:
 
 
@@ -52,43 +51,3 @@ def sort_inventory(items,sort_choice):
                 return float("inf")
         return sorted(items, key = get_weight)
     return items
-
-
-def sort_inventory_indices(items, sort_choice):
-    """Return display positions without changing the saved inventory list."""
-    indices = list(range(len(items)))
-
-    if sort_choice == "Default":
-        return indices
-
-    if sort_choice == "Category":
-        return sorted(
-            indices,
-            key=lambda index: CATEGORY_ORDER.get(
-                items[index].get("category", "").upper(), 999
-            )
-        )
-
-    if sort_choice == "A-Z":
-        return sorted(
-            indices,
-            key=lambda index: items[index].get("name", "").casefold()
-        )
-
-    if sort_choice == "Rarity":
-        return sorted(
-            indices,
-            key=lambda index: RARITY_ORDER.get(
-                items[index].get("rarity"), 999
-            )
-        )
-
-    if sort_choice == "Weight":
-        def get_weight(index):
-            try:
-                return -float(items[index]["weight"])
-            except (KeyError, TypeError, ValueError):
-                return float("inf")
-        return sorted(indices, key=get_weight)
-
-    return indices
