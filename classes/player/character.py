@@ -64,6 +64,9 @@ class player:
             with inventory_path.open("w", encoding="utf-8") as file:
                 json.dump(inventory_dict, file, indent=4)
 
+        for position, item in enumerate(inventory_dict["plr_inv"]):
+            item.setdefault("slot_order", position)
+
         self.inventory = inventory_dict
      
     #----------------
@@ -85,11 +88,11 @@ class player:
 
         #New items unlocked:
         item["locked"] = False
-
+        item["slot_order"] = max(
+            (i.get("slot_order", -1) for i in items), default = -1
+        ) + 1
 
         items.append(item)
-        self.save_inventory()
-        return True
 
 
 

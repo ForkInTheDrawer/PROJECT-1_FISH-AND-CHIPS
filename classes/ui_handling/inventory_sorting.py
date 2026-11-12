@@ -20,7 +20,12 @@ RARITY_ORDER = {
 
 def sort_inventory(items,sort_choice):
 
-    if sort_choice == "Category":
+    if sort_choice == "Default":
+        return sorted(
+            items, key = lambda item: item.get("slot_order", 0)
+            )
+
+    elif sort_choice == "Category":
         return sorted(
             items,
             key=lambda item: CATEGORY_ORDER.get(
@@ -52,7 +57,7 @@ def sort_inventory(items,sort_choice):
         return sorted(items, key = get_weight)
     return items
 
-def swap_inventory_items(items, index_a, index_b):
+def swap_inventory_items(items, index_a, index_b, swap_default_order = False):
     if (
         index_a < 0 or index_b < 0
         or index_a >= len(items) or index_b >= len(items)
@@ -61,4 +66,9 @@ def swap_inventory_items(items, index_a, index_b):
         return False
 
     items[index_a], items[index_b] = items[index_b], items[index_a]
+    
+    if swap_default_order:
+        items[index_a]["slot_order"], items[index_b]["slot_order"] = (
+            items[index_b]["slot_order"], items[index_a]["slot_order"]
+        )
     return True

@@ -1,1 +1,0 @@
-if slot_index

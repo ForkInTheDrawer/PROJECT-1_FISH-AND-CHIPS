@@ -270,7 +270,8 @@ def main():
                         and target_index != dragging_inventory_index
                     ):
                         if inventory_sorting.swap_inventory_items(
-                            items, dragging_inventory_index, target_index
+                            items, dragging_inventory_index, target_index,
+                            swap_default_order = (inventory_window.sort_dropdown.selected_option == "Default")
                         ):
                             player_data.save_inventory()
                     dragging_inventory_index = None
@@ -289,7 +290,6 @@ def main():
                     player_data.inventory["plr_inv"] = (
                         inventory_sorting.sort_inventory(items, sort_choice)
                     )   
-                    print(f"Selected option: {sort_choice}")
                     player_data.save_inventory()
                     selected_inventory_index = None
 
