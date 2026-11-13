@@ -61,6 +61,7 @@ def main():
     inventory_open = False
     selected_inventory_index = None
     dragging_inventory_index = None
+    shop_prompt_was_visible = False
 
 
     fish_path = resource_path("data/fishies.json")
@@ -80,7 +81,7 @@ def main():
     )
 
     casting_minigame = None
-    casting_result = None
+    casting_result = 1.0
 
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -149,7 +150,7 @@ def main():
     )
 
     #NOTE: Store Info + Location + Proximity:
-            # vendor store is where you buy gear
+            # vendor store is where you Sell
     vendor_store = pygame.Rect(
         fish_island.centerx - 100, 
         fish_island.top + 20,
@@ -158,7 +159,7 @@ def main():
     )
     vendor_proximity = vendor_store.inflate(10, 50)
 
-            #Fishing supplies Shop is where you sell
+            #Fishing supplies Shop is where you Buy
     
     fishing_shop = pygame.Rect(
         fish_island.left  + 30 ,
@@ -362,8 +363,13 @@ def main():
                     if casting_minigame.finished:
                         if not casting_minigame.cancelled:
                             casting_result = casting_minigame.result
+                            fishing_system.start()
+                        else:
+                            casting_result = 1.0
+
                         casting_minigame = None
                     continue
+
 
                 if keyboard_events.quit_game_key(event):
                     game_running = False
@@ -372,26 +378,16 @@ def main():
                 
                 # NOTE: CASTING MINIGAME SYSTEM
                 
-                if casting_minigame is not None:
-                    casting_minigame.handle_event(event)
-
-                    if casting_minigame.finished:
-                        if not casting_minigame.cancelled:
-                            casting_result = casting_minigame.result
-
-                        casting_minigame = None
-                    continue
-
                 elif(
                     event.key == pygame.K_e
                     and dock.colliderect(player_world_rect)
                     and fish_popup is None
+                    and not fishing_system.is_fishing
+                    and not fishing_system.is_casting
                     and len(player_data.inventory["plr_inv"])
                     < player_data.inventory["maximum_slots"]
                 ):
                     casting_minigame = CastingMinigame(WIDTH, HEIGHT)
-                    continue
-
 
                 fish_popup = keyboard_events.popup_skip_key(event, fish_popup)
 
@@ -448,11 +444,14 @@ def main():
         
     #FISHING RESULTS
         if fishing_system.update():
-            caught_fish = fishing_system.choose_fish()
+            caught_fish = fishing_system.choose_fish(
+                luck_multi= casting_result
+            )
+            casting_result = 1.0
 
             if not player_data.add_to_inventory(caught_fish):
-                print("INVENTORY FULL!!")
-            
+                print("Inventory Full.")
+                        
             fish_popup = gui.FishPopUp(caught_fish)
            
         if(
@@ -693,6 +692,18 @@ def main():
         else:
                 sell_prompt_was_visible = False
 
+        #OPENS SHOP
+        shop_prompt_conditions = fishing_shop_proximity.colliderect(player_world_rect)
+
+        if shop_prompt_conditions and not shop_open:
+            if not shop_prompt_was_visible:
+                shop_prompt.start_animation()
+
+            shop_prompt_was_visible = True
+            shop_prompt.draw(screen,dt)
+
+        else:
+            shop_prompt_was_visible = False
 
 
 

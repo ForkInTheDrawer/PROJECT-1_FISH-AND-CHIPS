@@ -86,7 +86,7 @@ class Fishing:
 
         return random.choices(mutations, weights = weights, k = 1)[0]
 
-    def choose_fish(self): #Readys the fish to be caught
+    def choose_fish(self, luck_multi = 1.0): #Readys the fish to be caught
 
         category = self.choose_category()
 
@@ -141,10 +141,25 @@ class Fishing:
             "APEX": 0.099,
             "SECRET": 0.001
         }
+        rarity_order = {
+            "Common" : 0,
+            "Rare" : 1,
+            "Epic" : 2,
+            "Legendary" : 3,
+            "Endangered" : 4,
+            "APEX" : 5,
+            "SECRET" : 6
+        }
+
+        luck_adjusted_weights = [
+            rarity_weights[rarity] * luck_multi
+            for rarity in available_rarities
+        ]
+
 
         fish_rarity = random.choices(
             available_rarities,
-            weights = [rarity_weights[rarity] for rarity in available_rarities],
+            weights = luck_adjusted_weights,
             k = 1
         )[0]
         

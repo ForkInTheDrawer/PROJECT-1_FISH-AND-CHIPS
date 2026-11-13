@@ -56,7 +56,7 @@ START HERE:
     * Filter by: Category, A-Z, Rarity, Weight 
     * Separate Tab for Gears
     * Reorganize the inventory by dragging
-
+- Casting Minigame (During Casting Bait sequence)
 
 
 ### Work In Progress:
@@ -70,11 +70,6 @@ START HERE:
         4. Hat
         5. Ring
         6. Boots
-
-
-- Casting Minigame (During Casting Bait sequence)
-
-
 
 - Catch Fish Minigame
 
