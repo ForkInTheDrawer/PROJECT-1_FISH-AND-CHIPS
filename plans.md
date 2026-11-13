@@ -54,11 +54,14 @@ START HERE:
 - Inventory Mechanic:
     * "Lock Item" Mechanic - To stop it from getting sold.
     * Filter by: Category, A-Z, Rarity, Weight 
+    * Separate Tab for Gears
+    * Reorganize the inventory by dragging
+
+
+
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
-    * Reorganize the inventory by dragging
     * Note that we can expand the inventory size VIA Buying new Backpacks (will implement scrolling if it happens.)
-    * Separate Tab for Gears
     * On a side panel, you can see your characters:
     NOTE: 1 to 3 are in the bottom of the side panel
         1. Name
@@ -68,8 +71,14 @@ START HERE:
         5. Ring
         6. Boots
 
-- Fishing Minigame (During Casting Bait sequence)
+
+- Casting Minigame (During Casting Bait sequence)
+
+
+
 - Catch Fish Minigame
+
+
 - Fix Shop UI
 - Add "SELL ALL" Option for selling
 - Add "How Much is my Inventory Worth?" (excluding locked items)
@@ -94,8 +103,6 @@ START HERE:
             - Luck (Better Fish Chance)
             - Speed (Faster fishing and Casting time)
 
-
-
 - Shops and Fishing Upgrades:
     * Shop System
         * Put 3 Testing Fishing Rods + Backpack
@@ -113,9 +120,6 @@ START HERE:
 - Fish Randomized Economy:
     * Every 3 minutes, the price for fishes changes (+-40% Max)
 - 
-
-
-
 
 
 - MAP EXPANSION:

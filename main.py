@@ -10,6 +10,7 @@ from function import collisions
 from classes.ui_handling import gui
 from classes.player import character
 from classes.fishing import fishing
+from classes.fishing.casting_minigame import CastingMinigame
 from classes.ui_handling import inventory_sorting
 
 
@@ -77,6 +78,10 @@ def main():
         scrap_dictionary,
         stones_dictionary
     )
+
+    casting_minigame = None
+    casting_result = None
+
     #NOTE: Windows + Game version
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -240,6 +245,9 @@ def main():
         dt = clock.tick(FPS) / 1000
         sell_notifications.update(dt)
 
+        if casting_minigame is not None:
+            casting_minigame.update(dt)
+
 
         #NOTE: Event Handling System
 
@@ -348,16 +356,41 @@ def main():
             elif event.type == pygame.KEYDOWN: #Key pressed events
 
                 #NOTE: When Escape key is pressed
+                if casting_minigame is not None:
+                    casting_minigame.handle_event(event)
+
+                    if casting_minigame.finished:
+                        if not casting_minigame.cancelled:
+                            casting_result = casting_minigame.result
+                        casting_minigame = None
+                    continue
+
                 if keyboard_events.quit_game_key(event):
                     game_running = False
                     print('Player had quit the game.')
+    
+                
+                # NOTE: CASTING MINIGAME SYSTEM
+                
+                if casting_minigame is not None:
+                    casting_minigame.handle_event(event)
 
-                
-                # NOTE: FISHING SYSTEM
-                
-                keyboard_events.fishing_key(
-                    event, dock, player_world_rect, fish_popup, player_data, fishing_system
-                )
+                    if casting_minigame.finished:
+                        if not casting_minigame.cancelled:
+                            casting_result = casting_minigame.result
+
+                        casting_minigame = None
+                    continue
+
+                elif(
+                    event.key == pygame.K_e
+                    and dock.colliderect(player_world_rect)
+                    and fish_popup is None
+                    and len(player_data.inventory["plr_inv"])
+                    < player_data.inventory["maximum_slots"]
+                ):
+                    casting_minigame = CastingMinigame(WIDTH, HEIGHT)
+                    continue
 
 
                 fish_popup = keyboard_events.popup_skip_key(event, fish_popup)
@@ -445,7 +478,7 @@ def main():
             keys[pygame.K_s] - keys[pygame.K_w] #Y Axis
         )
 
-        if inventory_open:
+        if inventory_open or casting_minigame is not None:
             direction.update(0,0)
 
         if direction.length_squared() > 0:
@@ -589,6 +622,10 @@ def main():
 
         #--------------------------------------#
         #NOTE: GUIS
+
+       #Casting Minigame
+        if casting_minigame is not None:
+            casting_minigame.draw(screen)
         
         #(Fish Cooldown)
         if fish_popup is not None:
@@ -623,7 +660,7 @@ def main():
             and fish_popup is None
             and fishing_prompt_delay_start is not None
             and pygame.time.get_ticks() - fishing_prompt_delay_start >= 500
-            
+            and casting_minigame is None
         ) 
         if fishing_prompt_conditions:
             if len(player_data.inventory["plr_inv"]) >= player_data.inventory["maximum_slots"]:
