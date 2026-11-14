@@ -1,7 +1,7 @@
 from classes.fishing import fish_prices
 from classes.ui_handling import gui
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
-
+from classes.ui_handling.sales.sell_confirmation import Sell_Confirmation
 
 
 # FOR SELLING
@@ -110,4 +110,4 @@ def sell_regular_item(player_data, item, item_index):
 
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
-    return gui.Sell_Confirmation(item["name"])
+    return Sell_Confirmation(item["name"])

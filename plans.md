@@ -57,7 +57,7 @@ START HERE:
     * Separate Tab for Gears
     * Reorganize the inventory by dragging
 - Casting Minigame (During Casting Bait sequence)
-
+- Fix Shop UI
 
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
@@ -74,7 +74,7 @@ START HERE:
 - Catch Fish Minigame
 
 
-- Fix Shop UI
+
 - Add "SELL ALL" Option for selling
 - Add "How Much is my Inventory Worth?" (excluding locked items)
 

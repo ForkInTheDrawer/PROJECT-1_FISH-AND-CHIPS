@@ -9,12 +9,22 @@ import sys
 #Imports from other files   
 
 from function import collisions
+
 from classes.ui_handling import gui
+
 from classes.player import character
+
 from classes.fishing import fishing
 from classes.fishing.casting_minigame import CastingMinigame
+
 from classes.ui_handling import inventory_sorting
-from classes.ui_handling.button import Button
+
+from classes.ui_handling.fishing_ui.inventory_full import InventoryFull
+from classes.ui_handling.fishing_ui.inventory_window import InventoryWindow
+from classes.ui_handling.fishing_ui.fish_popup import FishPopUp
+from classes.ui_handling.sales.shop_window import ShopWindow
+from classes.ui_handling.sales.sell_notif import Sell_Notification
+
 
 from events import keyboard_events
 from events import mouse_events
@@ -199,10 +209,10 @@ def main():
 
     shop_prompt = gui.GUI.proximity_prompt("open shop!" , key=pygame.K_f)
 
-    inventory_full_prompt = gui.InventoryFull()
-    sell_notifications = gui.Sell_Notification()
-    inventory_window = gui.InventoryWindow()
-    shop_window = gui.ShopWindow()
+    inventory_full_prompt = InventoryFull()
+    sell_notifications = Sell_Notification()
+    inventory_window = InventoryWindow()
+    shop_window = ShopWindow()
  #--------------------------------------------
 
        
@@ -472,7 +482,7 @@ def main():
             if not player_data.add_to_inventory(caught_fish):
                 print("Inventory Full.")
                         
-            fish_popup = gui.FishPopUp(caught_fish)
+            fish_popup = FishPopUp(caught_fish)
            
         if(
             fish_popup is not None
