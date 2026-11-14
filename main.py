@@ -4,6 +4,8 @@ import pygame
 import json
 import sys
 
+
+
 #Imports from other files   
 
 from function import collisions
@@ -12,7 +14,7 @@ from classes.player import character
 from classes.fishing import fishing
 from classes.fishing.casting_minigame import CastingMinigame
 from classes.ui_handling import inventory_sorting
-
+from classes.ui_handling.button import Button
 
 from events import keyboard_events
 from events import mouse_events
@@ -200,6 +202,7 @@ def main():
     inventory_full_prompt = gui.InventoryFull()
     sell_notifications = gui.Sell_Notification()
     inventory_window = gui.InventoryWindow()
+    shop_window = gui.ShopWindow()
  #--------------------------------------------
 
        
@@ -335,9 +338,6 @@ def main():
                 if choice == "no":
                     selling_events.cancel_sell_stone(player_data, sell_item_index)
                     sell_confirmation = False
-
-
-
                 elif choice == "yes":
                     sale_info = selling_events.accept_sell_stone(player_data, sell_item_index)
 
@@ -351,6 +351,26 @@ def main():
                     sell_confirmation = False
 
 
+            #SHOP MECHANIC:
+
+            if shop_open:
+                purchase = shop_window.handle_event(event)
+                if purchase is not None:
+                    item_name, item_price = purchase
+
+                    if player_data.cash >= item_price:
+                        player_data.cash -= item_price
+
+                        sell_notifications.add_notif(
+                            message = f"Purchased {item_name}",
+                            border_color = (70,200, 120)
+                        )
+                    else:
+                        sell_notifications.add_notif(
+                            message = f"Not enough cash!",
+                            border_color = (255,70,70),
+                            shake = True
+                        )
             
 
             #---------------
@@ -634,13 +654,7 @@ def main():
             sell_confirmation.draw(screen, dt)
 
         if shop_open:
-            shop_rect = pygame.Rect(200, 300 , 800, 400)
-
-                #Shop BG:
-            pygame.draw.rect(screen, (90, 118, 125), shop_rect)
-
-                #Shop Border:
-            pygame.draw.rect(screen, (125, 97, 90) , shop_rect, 4)
+            shop_window.draw(screen)
         
 
         if fish_popup is None:
