@@ -142,11 +142,11 @@ def sell_all_unlocked(player_data):
 
             else:
                 mutation_data = SCRAP_MUTATIONS.get(mutation)
-                mutliplier = (
+                multiplier = (
                     mutation_data["multiplier"]
                     if mutation_data else 1.0
                 )
-                sale_price = round(item["price"] * mutliplier)
+                sale_price = round(item["price"] * multiplier)
                 total_coins += sale_price
         else:
             sale_price = fish_prices.price_calculator(item)
