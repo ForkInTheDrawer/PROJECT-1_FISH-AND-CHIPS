@@ -169,13 +169,21 @@ Chips = Special currency to buy a buff w/ a debuff in the "BLACK MARKET"
 
 # NOTE: When making a demo link, do:
 
-"python -m PyInstaller --onefile --windowed main.py"
+- this must ALWAYS be in main.spec:
+
+datas=[
+    ('data/fishies.json', 'data'),
+],
+
+
+- Next:
+"python -m PyInstaller --clean --noconfirm main.spec"
 
 And submit These as a zip file:
     * .exe file
     *NOTE: Just update the  README.md file, since it tracks that
 
-once submitted, you can delete the rest.
+- once submitted, you can delete the rest of the files.
 
 
 
