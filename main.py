@@ -24,6 +24,7 @@ from classes.ui_handling.fishing_ui.inventory_window import InventoryWindow
 from classes.ui_handling.fishing_ui.fish_popup import FishPopUp
 from classes.ui_handling.sales.shop_window import ShopWindow
 from classes.ui_handling.sales.sell_notif import Sell_Notification
+from classes.ui_handling.sales.sell_menu import SellMenu
 
 
 from events import keyboard_events
@@ -65,6 +66,9 @@ clock = pygame.time.Clock()
 #BELOW THIS IS LOCAL TO main()
 def main():
     pygame.init()
+
+    #Initializing stuff lol
+
     fish_popup = None
     fishing_prompt_delay_start = None #TRACKS WHEN POPUP APPEAR
     shop_open = False
@@ -74,6 +78,7 @@ def main():
     selected_inventory_index = None
     dragging_inventory_index = None
     shop_prompt_was_visible = False
+    sell_menu_open = False
 
 
     fish_path = resource_path("data/fishies.json")
@@ -213,6 +218,7 @@ def main():
     sell_notifications = Sell_Notification()
     inventory_window = InventoryWindow()
     shop_window = ShopWindow()
+    sell_menu = SellMenu()
  #--------------------------------------------
 
        
@@ -343,6 +349,13 @@ def main():
                 continue
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                choice = sell_menu.handle_event(event)
+
+                if choice is not None:
+                    print(f"Sell Menu Choice: {choice}")
+                    sell_menu_open = False
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
 
                 if choice == "no":
@@ -423,44 +436,21 @@ def main():
 
 
                 if event.key == pygame.K_q: #For selling Fishes (ALSO ADD SCRAPS AND GEMSTONES FUCTION)
-                    
-
-                    if keyboard_events.sell_key(event, debug_mode, vendor_proximity, player_world_rect):
-                            sell_result = keyboard_events.get_item_to_sell(player_data)
-
-                            if sell_result is None:
-                                items = player_data.inventory["plr_inv"]
-                                if items:
-                                    message = "All items are Locked."
-                                else:
-                                    message = "Nothing to sell."
-                                sell_notifications.add_notif(
-                                    message=message,
-                                    border_color=(255, 70, 70),
-                                    shake = True
-                                )
-                            else:
-                                sell_item_index , sold_fish = sell_result
-
-                                if keyboard_events.is_stone(sold_fish):
-                                    sell_confirmation = selling_events.open_sell_confirmation(sold_fish)
-
-                                else:
-                                    sale_info = selling_events.sell_regular_item(player_data, sold_fish, sell_item_index)
-
-                                    if sale_info is not None:
-                                        sell_notifications.add_notif(
-                                            sale_info["name"],
-                                            sale_info["price"],
-                                            sale_info["currency"]
-                                        )
+                    if keyboard_events.sell_key(
+                        event,
+                        debug_mode,
+                        vendor_proximity,
+                        player_world_rect
+                    ):
+                        sell_menu_open = True
                     else:
                         sell_notifications.add_notif(
-                            message = "You need to be near the Fishing Shop to Sell!",
-                            border_color= (255, 70, 70),
+                            message = "You need to be near the Selling Vendor!",
+                            border_color = (255, 70, 70),
                             shake = True
                         )
 
+                    
                 debug_mode = keyboard_events.debug_key(event, debug_mode, fishing_system)
 
 
@@ -507,7 +497,7 @@ def main():
             keys[pygame.K_s] - keys[pygame.K_w] #Y Axis
         )
 
-        if inventory_open or casting_minigame is not None:
+        if inventory_open or casting_minigame is not None or sell_menu_open:
             direction.update(0,0)
 
         if direction.length_squared() > 0:
@@ -662,6 +652,9 @@ def main():
 
         if sell_confirmation:
             sell_confirmation.draw(screen, dt)
+
+        if sell_menu_open:
+            sell_menu.draw(screen)
 
         if shop_open:
             shop_window.draw(screen)

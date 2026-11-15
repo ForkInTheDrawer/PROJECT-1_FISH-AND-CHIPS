@@ -111,3 +111,63 @@ def sell_regular_item(player_data, item, item_index):
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
     return Sell_Confirmation(item["name"])
+
+
+
+def sell_all_unlocked(player_data):
+    items = player_data.inventory["plr_inv"]
+
+    total_coins = 0
+    total_chips = 0
+    sold_count = 0
+    remaining_items = []
+
+    for item in items:
+        if item.get("locked", False):
+            remaining_items.append(item)
+            continue
+
+        category = item.get("category")
+
+        if category == "STONES":
+            sale_price = round(calculate_stone_price(item, None))
+            total_chips += sale_price
+
+        elif category == "SCRAP":
+            mutation = item.get("mutation")
+
+            if mutation=="Glitched":
+                sale_price = round(item["price"])
+                total_chips += sale_price
+
+            else:
+                mutation_data = SCRAP_MUTATIONS.get(mutation)
+                mutliplier = (
+                    mutation_data["multiplier"]
+                    if mutation_data else 1.0
+                )
+                sale_price = round(item["price"] * mutliplier)
+                total_coins += sale_price
+        else:
+            sale_price = fish_prices.price_calculator(item)
+
+            if sale_price is None:
+                remaining_items.append(item)
+                continue
+
+            sale_price = round(sale_price)
+            total_coins += sale_price
+        sold_count += 1
+    if sold_count > 0:
+        player_data.inventory["plr_inv"] = remaining_items
+
+        player_data.cash += total_coins
+        player_data.chips += total_chips
+
+        player_data.save_inventory()
+
+    return{
+        "count" : sold_count,
+        "coins" : total_coins,
+        "chips" : total_chips
+    }

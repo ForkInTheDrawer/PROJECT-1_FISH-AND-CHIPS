@@ -7,14 +7,14 @@ from classes.animations.animation import Animation
 
 
 class Sell_Confirmation(GUI):
-    def __init__ (self, item_name):
+    def __init__ (self, message):
         super().__init__(
             position = (300,280),
             size = (600,240),
             fill_color = (30,30,30)
         )
 
-        self.item_name = item_name
+        self.message = message
         self.font = pygame.font.Font(None, 35)
         self.button_font = pygame.font.Font(None,32)
 
@@ -62,7 +62,7 @@ class Sell_Confirmation(GUI):
         )
 
         title = self.font.render(
-            f'Sell {self.item_name}?',
+            self.message,
             True,
             (255,255,255)
         )
