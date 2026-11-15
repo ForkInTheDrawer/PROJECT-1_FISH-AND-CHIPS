@@ -394,7 +394,7 @@ def main():
                             sell_notifications.add_notif(
                                 message = (
                                     f"Sold {sale_info['count']} items! "
-                                    f"+{sale_info["coins"]:,} Coins, "
+                                    f"+{sale_info['coins']:,} Coins, "
                                     f"+{sale_info['chips']:,} Chips"
                                 ),
                                 border_color = (70, 200, 120)
@@ -411,7 +411,7 @@ def main():
                         if sale_info is not None:
                             sell_notifications.add_notif(
                                 sale_info["name"],
-                                sale_info["[price]"],
+                                sale_info["price"],
                                 sale_info["currency"]
                             )
                     sell_confirmation = False

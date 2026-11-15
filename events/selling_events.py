@@ -184,7 +184,7 @@ def calculate_unlocked_val(player_data):
         if item.get("locked", False):
             continue
 
-        category = item.get("catergory")
+        category = item.get("category")
 
         if category == "STONES":
             sale_price = round(calculate_stone_price(item, None))
@@ -215,8 +215,8 @@ def calculate_unlocked_val(player_data):
 
         item_count += 1
 
-        return {
-            "count" : item_count,
-            "coins" : total_coins,
-            "chips" : total_chips
-        }
+    return {
+        "count" : item_count,
+        "coins" : total_coins,
+        "chips" : total_chips
+    }
