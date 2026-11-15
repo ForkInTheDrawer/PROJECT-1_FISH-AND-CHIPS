@@ -171,3 +171,52 @@ def sell_all_unlocked(player_data):
         "coins" : total_coins,
         "chips" : total_chips
     }
+
+
+def calculate_unlocked_val(player_data):
+    items = player_data.inventory["plr_inv"]
+
+    total_coins = 0
+    total_chips = 0
+    item_count = 0
+
+    for item in items:
+        if item.get("locked", False):
+            continue
+
+        category = item.get("catergory")
+
+        if category == "STONES":
+            sale_price = round(calculate_stone_price(item, None))
+            total_chips += sale_price
+
+        elif category =="SCRAP":
+            mutation = item.get("mutation")
+
+            if mutation == "Glitched":
+                sale_price = round(item["price"])
+                total_chips += sale_price
+            else:
+                mutation_data = SCRAP_MUTATIONS.get(mutation)
+                multiplier = (
+                    mutation_data["multiplier"]
+                    if mutation_data else 1.0
+                )
+                sale_price = round(item["price"] * multiplier)
+                total_coins += sale_price
+        else:
+            sale_price = fish_prices.price_calculator(item)
+
+            if sale_price is None:
+                continue
+
+            sale_price = round(sale_price)
+            total_coins += sale_price
+
+        item_count += 1
+
+        return {
+            "count" : item_count,
+            "coins" : total_coins,
+            "chips" : total_chips
+        }

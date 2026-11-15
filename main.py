@@ -359,29 +359,63 @@ def main():
                     )
                     sell_confirmation_action = "everything"
                     sell_menu_open = False
+                elif choice == "worth":
+                    value_info = selling_events.calculate_unlocked_val(player_data)
+                    sell_notifications.add_notif(
+                        message = (
+                            f"Inventory Worth: {value_info['coins']:,} Coins, "
+                            f"{value_info['chips']:,} Chips"
+                        ),
+                        border_color= (70,200,120)
+                    )
+                    sell_menu_open = False
+
                 elif choice == "cancel":
                     sell_menu_open = False
+
                 elif choice is not None:
                     print(f"Sell Menu Choice: {choice}")
                     sell_menu_open = False
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif sell_confirmation and event.type == pygame.MOUSEBUTTONDOWN:
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
 
                 if choice == "no":
-                    selling_events.cancel_sell_stone(player_data, sell_item_index)
+                    if sell_confirmation_action is None:
+                        selling_events.cancel_sell_stone(player_data, sell_item_index)
                     sell_confirmation = False
+                    sell_confirmation_action = None
+
                 elif choice == "yes":
-                    sale_info = selling_events.accept_sell_stone(player_data, sell_item_index)
+                    if sell_confirmation_action == "everything":
+                        sale_info = selling_events.sell_all_unlocked(player_data)
 
-                    if sale_info is not None:
-                        sell_notifications.add_notif(
-                            sale_info["name"],
-                            sale_info["price"],
-                            sale_info["currency"]
+                        if sale_info["count"] > 0:
+                            sell_notifications.add_notif(
+                                message = (
+                                    f"Sold {sale_info['count']} items! "
+                                    f"+{sale_info["coins"]:,} Coins, "
+                                    f"+{sale_info['chips']:,} Chips"
+                                ),
+                                border_color = (70, 200, 120)
+                            )
+                        else:
+                            sell_notifications.add_notif(
+                                message = "There are no unlocked items to sell.",
+                                border_color= (255, 70, 70)
+                            )
+                    else:
+                        sale_info = selling_events.accept_sell_stone(
+                            player_data, sell_item_index
                         )
-
+                        if sale_info is not None:
+                            sell_notifications.add_notif(
+                                sale_info["name"],
+                                sale_info["[price]"],
+                                sale_info["currency"]
+                            )
                     sell_confirmation = False
+                    sell_confirmation_action = None
 
 
             #SHOP MECHANIC:

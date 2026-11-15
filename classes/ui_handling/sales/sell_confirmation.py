@@ -15,7 +15,7 @@ class Sell_Confirmation(GUI):
         )
 
         self.message = message
-        self.font = pygame.font.Font(None, 35)
+        self.font = pygame.font.Font(None, 32)
         self.button_font = pygame.font.Font(None,32)
 
         self.yes_button = Button( 
