@@ -36,7 +36,7 @@ class SellMenu:
             ),
 
             "worth" : Button(
-                "How much is this Worth?",
+                "How much is my inventory worth?",
                 (255,255,255),
                 pygame.Rect( 0,0, 620, 60),
                 (49, 132, 92),

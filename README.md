@@ -9,11 +9,15 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
     * Fish, and get rich!!!
     * Gamble chips for Overpowered gears or  lose it all...
 
-Small Showcase (1.0.3 ALPHA)
+Small Showcase (1.0.4 ALPHA)
 
-https://medal.tv/games/screen-capture/clips/nTzI5tTLNakDigeIc?invite=cr-MSxqbTUsNTI0NzE5MzEy
+https://medal.tv/games/screen-capture/clips/nW5ZPFeaqggQ1XBKU?invite=cr-MSxiTjMsNTI0NzE5MzEy 
 
-### NOTE TO PLAYERS: Cash Saving doesnt work yet, only the Inventory does.
+
+### NOTE TO PLAYERS: 
+- Cash Saving doesnt work yet, only the Inventory does.
+- "I want to sell something in my inventory" doesnt work yet, will do next week.
+- Shop Items doesnt do anything yet.
 
 
 # HOW TO RUN FISH N' CHIPS:

@@ -54,7 +54,7 @@ from pathlib import Path
 #Screen Dimensions + update version Number when you release a new version
 WIDTH = 1200
 HEIGHT = 800
-GAME_VERSION = "1.0.3 ALPHA"
+GAME_VERSION = "1.0.4 ALPHA"
 
 
 FPS = 60
