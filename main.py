@@ -25,6 +25,7 @@ from classes.ui_handling.fishing_ui.fish_popup import FishPopUp
 from classes.ui_handling.sales.shop_window import ShopWindow
 from classes.ui_handling.sales.sell_notif import Sell_Notification
 from classes.ui_handling.sales.sell_menu import SellMenu
+from classes.ui_handling.sales.sell_confirmation import Sell_Confirmation
 
 
 from events import keyboard_events
@@ -79,6 +80,7 @@ def main():
     dragging_inventory_index = None
     shop_prompt_was_visible = False
     sell_menu_open = False
+    sell_confirmation_action = None
 
 
     fish_path = resource_path("data/fishies.json")
@@ -348,10 +350,18 @@ def main():
             elif inventory_open:
                 continue
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif sell_menu_open and event.type == pygame.MOUSEBUTTONDOWN:
                 choice = sell_menu.handle_event(event)
 
-                if choice is not None:
+                if choice == "everything":
+                    sell_confirmation = Sell_Confirmation(
+                        "Are you sure you want to sell ALL Unlocked Items?"
+                    )
+                    sell_confirmation_action = "everything"
+                    sell_menu_open = False
+                elif choice == "cancel":
+                    sell_menu_open = False
+                elif choice is not None:
                     print(f"Sell Menu Choice: {choice}")
                     sell_menu_open = False
 
