@@ -401,14 +401,14 @@ class InventoryWindow:
                 window_rect.x + 25,
                 window_rect.y + 120,
                 self.width - 50,
-                self.height -180
+                self.height - 180
             )
 
             pygame.draw.rect(
                 screen,
                 (25,62,76),
                 gear_area,
-                border_radius = 10
+                border_radius= 10
             )
 
             pygame.draw.rect(
@@ -416,32 +416,137 @@ class InventoryWindow:
                 self.border_color,
                 gear_area,
                 2,
-                border_radius = 10
+                border_radius=10
             )
 
-            gear_title = self.title_font.render(
-                "GEARS:",
+            #CHAR PREVIEW:
+
+            preview_rect = pygame.Rect(
+                gear_area.x + 15,
+                gear_area.y + 15,
+                250,
+                gear_area.height - 30
+            )
+            pygame.draw.rect(
+                screen,
+                (16,43,58),
+                preview_rect,
+                border_radius= 10
+            )
+            pygame.draw.rect(
+                screen, 
+                self.border_color,
+                preview_rect,
+                2,
+                border_radius= 10
+            )
+
+            preview_title = self.info_font.render(
+                "CHARACTER",
                 True,
                 self.text_color
             )
-            gear_hint = self.info_font.render(
-                "Your Erquipment will appear here (WIP)",
+
+            screen.blit(
+                preview_title,
+                preview_title.get_rect(
+                    center = (preview_rect.centerx, preview_rect.y + 35)
+                )
+            )
+
+            #NOTE: PLACEHOLDER
+            char_placeholder = pygame.Rect(
+                0,0, 110, 110
+            )
+            char_placeholder.center = (
+                preview_rect.centerx,
+                preview_rect.centery + 15
+            )
+
+            pygame.draw.rect(
+                screen,
+                (210,55,55),
+                char_placeholder,
+                border_radius= 5
+            )
+
+            #Equipment Slots:
+            equipment_title = self.info_font.render(
+                "EQUIPMENT",
                 True,
                 self.text_color
             )
-            screen.blit(
-                gear_title,
-                gear_title.get_rect(
-                    center = (gear_area.centerx , gear_area.centery - 25)
 
-                )
-            )
+            equipment_x = preview_rect.right + 15
+
             screen.blit(
-                gear_hint,
-                gear_hint.get_rect(
-                    center = (gear_area.centerx , gear_area.centery + 20)
-                )
+                equipment_title,
+                (equipment_x, gear_area.y + 18)
             )
+            equipment_slots = ["Head", "Body", "Ring", "Boots"]
+
+            slot_width = 190
+            slot_height = 135
+            slot_gap = 12
+
+            slot_start_y = gear_area.y + 55
+            for index, slot_name in enumerate(equipment_slots):
+                column = index % 2
+                row = index // 2
+
+                slot_rect = pygame.Rect(
+                    equipment_x + column * (slot_width + slot_gap),
+                    slot_start_y + row * (slot_height + slot_gap),
+                    slot_width,
+                    slot_height
+                )
+
+                #SLOT BG:
+                pygame.draw.rect(
+                    screen,
+                    (16,43,58),
+                    slot_rect,
+                    border_radius= 8
+                )
+
+                pygame.draw.rect(
+                    screen,
+                    self.border_color,
+                    slot_rect,
+                    2,
+                    border_radius= 8
+                )
+
+                slot_text = self.info_font.render(
+                    slot_name,
+                    True,
+                    self.text_color
+                )
+
+                screen.blit(
+                    slot_text,
+                    slot_text.get_rect(
+                        center = (slot_rect.centerx , slot_rect.y + 35)
+                    )
+                )
+
+
+                #Empty slot:
+
+                empty_text = pygame.font.Font(None, 22).render(
+                    "Empty",
+                    True,
+                    (170, 190, 190)
+                )
+
+                screen.blit(
+                    empty_text,
+                    empty_text.get_rect(
+                        center = (slot_rect.centerx, slot_rect.centery + 20)
+                    )
+                )
+
+
 
         close_hint = self.info_font.render(
             "Press TAB to close.",
