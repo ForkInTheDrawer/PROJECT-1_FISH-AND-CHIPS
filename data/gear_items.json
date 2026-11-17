@@ -1,0 +1,35 @@
+{
+    "GEAR" : {
+        "HEAD" : {
+            "Bucket Hat" : {
+                "Rarity" : "Common",
+                "Description" : "A simple hat to keep the heat away!",
+                "Stats" : {
+                    "Luck" : {
+                        "Randomized" : true,
+                        "Min" : 0.5,
+                        "Max" : 2.0
+                    }
+                },
+                "Price" : "100"
+            }
+            
+        },
+        "BODY" : {},
+        "RING" : {},
+        "BOOTS" : {
+            "Study Boots" : {
+                "Rarity" : "Common",
+                "Description" : "A sturdy pair of boots to keep you grounded.",
+                "Stats" : {
+                    "Walkspeed" : {
+                        "Randomized" : true,
+                        "Min" : 1.0,
+                        "Max" : 5.0
+                    }
+                }
+            }
+        }
+    },
+    "CONSUMABLES" : {}
+}

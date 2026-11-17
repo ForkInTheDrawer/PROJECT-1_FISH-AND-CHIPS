@@ -507,94 +507,89 @@ class InventoryWindow:
                     )
                 )
 
-                #Gear slot
+            #Gear slot
 
-                items = inventory["plr_inv"]
+            items = inventory["plr_inv"]
 
-                slot_width = 80
-                slot_height = 80
-                slot_gap = 8
-                columns = 5
-                rows = 4
+            slot_width = 76
+            slot_height = 76
+            slot_gap = 8
+            columns = 5
+            rows = 4
 
-                grid_x = window_rect.x + 300
-                grid_y = window_rect.y + 90
+            grid_x = window_rect.x + 300
+            grid_y = window_rect.y + 90
 
-                for slot_index in range(columns * rows):
+            for slot_index in range(columns * rows):
 
-                    column = slot_index % columns
-                    row = slot_index // columns
+                column = slot_index % columns
+                row = slot_index // columns
 
-                    slot_rect = pygame.Rect(
-                        grid_x + column * (slot_width + slot_gap),
-                        grid_y + row * (slot_height + slot_gap),
-                        slot_width,
-                        slot_height
+                slot_rect = pygame.Rect(
+                    grid_x + column * (slot_width + slot_gap),
+                    grid_y + row * (slot_height + slot_gap),
+                    slot_width,
+                    slot_height
+                )
+
+                pygame.draw.rect(
+                    screen,
+                    (25, 62, 76),
+                    slot_rect,
+                    border_radius=5
+                )
+
+                pygame.draw.rect(
+                    screen,
+                    self.border_color,
+                    slot_rect,
+                    2,
+                    border_radius=5
+                )
+
+                if slot_index < len(items):
+
+                    item = items[slot_index]
+
+                    item_name = str(item.get("name", "Unknown"))
+                    item_category = str(
+                        item.get("category", "Unknown")
                     )
 
-                    pygame.draw.rect(
-                        screen,
-                        (25,62, 76),
-                        slot_rect,
-                        border_radius = 5
+                    name_font = pygame.font.Font(None, 19)
+                    detail_font = pygame.font.Font(None, 17)
+
+                    name_text = name_font.render(
+                        item_name[:10],
+                        True,
+                        self.text_color
                     )
 
-                    pygame.draw.rect(
-                        screen,
-                        self.border_color,
-                        slot_rect,
-                        2,
-                        border_radius = 5
+                    category_text = detail_font.render(
+                        item_category[:12],
+                        True,
+                        self.text_color
                     )
 
-                    if slot_index < len(items):
-
-                        item = items[slot_index]
-
-                        item_name = str(item.get("name", "Unknown"))
-                        item_category = str(
-                            item.get("category", "Unknown")
-                        )
-
-                        name_font = pygame.font.Font(None, 19)
-                        detail_font = pygame.font.Font(None, 17)
-
-                        name_text = name_font.render(
-                            item_name[:10],
-                            True,
-                            self.text_color
-                        )
-
-                        category_text = detail_font.render(
-                            item_category[:12],
-                            True,
-                            self.text_color
-                        )
-                        screen.blit(
-                            name_text,
-                            name_text.get_rect(
-                                center = (
-                                    slot_rect.centerx,
-                                    slot_rect.y + 27
-                                )
+                    screen.blit(
+                        name_text,
+                        name_text.get_rect(
+                            center=(
+                                slot_rect.centerx,
+                                slot_rect.y + 25
                             )
                         )
+                    )
 
-                        screen.blit(
-                            category_text,
-                            category_text.get_rect(
-                                center =(
-                                    slot_rect.centerx,
-                                    slot_rect.y + 53
-                                )
+                    screen.blit(
+                        category_text,
+                        category_text.get_rect(
+                            center=(
+                                slot_rect.centerx,
+                                slot_rect.y + 50
                             )
                         )
-
-            
-            
-
-
-
+                    )
         close_hint = self.info_font.render(
             "Press TAB to close.",
             True,
