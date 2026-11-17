@@ -58,6 +58,9 @@ START HERE:
     * Reorganize the inventory by dragging
 - Casting Minigame (During Casting Bait sequence)
 - Fix Shop UI
+- Add "SELL ALL" Option for selling
+- Add "How Much is my Inventory Worth?" (excluding locked items)
+
 
 ### Work In Progress:
 - Inventory Icon + Inventory Mechanic
@@ -73,13 +76,29 @@ START HERE:
 
 - Catch Fish Minigame
 
-
-
-- Add "SELL ALL" Option for selling
-- Add "How Much is my Inventory Worth?" (excluding locked items)
+- Toolbar (press 1-3 to equip.)
+    * Only shows Gears / Consumables
 
 
 ### Future Task:
+- Shop Rework:
+    * BEGINNER ISLAND
+    
+    | Consumable Name | Description | Price |
+    | --- | --- | --- |
+    | "Basic Bait" | 10% More luck. Lasts 5 casts | $50 |
+    | "Lucky Bait" | 50% More Luck, Lasts 3 Casts | $ 200 |
+    | "Fish Net" |  Place near the dock. Automatically catches Fishes for you. MAX: 5 fishes | $600 |
+    | "Fish Basket" | A Basket where you can store 5 Fishes. | $ 100 |
+
+    | Backpack Name | Utility | Price |
+    | --- | --- | --- |
+    | "Satchel" | +5 slots | $100 |
+    | "Medium Backpack" | +10 slots| $ 500 |
+    | "Large Backpack" | +15 slots| $900 |
+    | "Ice Box" | +20 slots | $ 2500 |
+
+
 
 - Placeholder Fishing Rods:
     * "Better Rod" - +10 stats on everything
@@ -122,6 +141,18 @@ START HERE:
         - Catch a specific fish Quest
         - Bring a Scrap Quest
         - Return a stone Quest
+
+- New Items:
+    * Treasure Chest: It's a scrap, 1% of getting.
+        * You get to roll whats inside.
+        * Items:
+            1. 10% Luck
+            2. Artifact (Stones)
+            3. Gilded Rod
+
+
+
+
 
 
 
