@@ -64,9 +64,15 @@ class player:
             with inventory_path.open("w", encoding="utf-8") as file:
                 json.dump(inventory_dict, file, indent=4)
 
+        inventory_dict.setdefault("equipped_gear", {
+            "Head" : None,
+            "Body" : None,
+            "Ring" : None,
+            "Boots": None        
+            })
+
         for position, item in enumerate(inventory_dict["plr_inv"]):
             item.setdefault("slot_order", position)
-
         self.inventory = inventory_dict
      
     #----------------
