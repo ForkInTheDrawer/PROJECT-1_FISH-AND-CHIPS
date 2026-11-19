@@ -108,6 +108,45 @@ def sell_regular_item(player_data, item, item_index):
             "currency" : currency.title()
         }
 
+def sell_selected_items(player_data, selected_indexes):
+    items = player_data.inventory["plr_inv"]
+
+    total_coins = 0
+    total_chips = 0
+    sold_count = 0
+
+    for index in sorted(set(selected_indexes), reverse = True):
+        if not 0 <= index < len(items):
+            continue
+
+        item = items[index]
+
+        if item.get("locked", False):
+            continue
+        if item.get("category") == "STONES":
+            result = accept_sell_stone(player_data, index)
+        else:
+            result = sell_regular_item(player_data, item, index)
+
+        if result is None:
+            continue
+
+        sold_count += 1
+
+        if result["currency"] == "Chips":
+            total_chips += result["price"]
+        else:
+            total_coins += result["price"]
+    return {
+        "count" : sold_count,
+        "coins" : total_coins,
+        "chips" : total_chips
+    }
+
+
+
+
+
 def open_sell_confirmation(item):
     print("Rare Material Detected.")
     return Sell_Confirmation(item["name"])

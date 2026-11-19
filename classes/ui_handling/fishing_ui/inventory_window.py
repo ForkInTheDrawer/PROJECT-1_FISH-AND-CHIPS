@@ -69,7 +69,7 @@ class InventoryWindow:
                     return tab_name
         return None
 
-    def draw(self,screen , inventory, hovered_index = None, is_dragging = None):
+    def draw(self,screen , inventory, hovered_index = None, is_dragging = None, selected_indexes = None, manual_sell_mode = False, selected_count = 0):
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -263,7 +263,9 @@ class InventoryWindow:
 
                 #SLOT BG AND BORDER:
                 pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
-                if slot_index == hovered_index:
+                if slot_index == hovered_index or (
+                    selected_indexes is not None and slot_index in selected_indexes
+                ):
                     pygame.draw.rect(
                         screen, 
                         (255, 210, 90),
@@ -590,6 +592,89 @@ class InventoryWindow:
                             )
                         )
                     )
+
+        if manual_sell_mode:
+            panel_rect = pygame.Rect(
+                window_rect.x + 25,
+                window_rect.bottom - 115,
+                self.width - 50,
+                95
+            )
+            pygame.draw.rect(
+                screen, (25,62,76), panel_rect, border_radius=10
+            )
+
+            pygame.draw.rect(
+                screen, (255,210,90), panel_rect, 2, border_radius=10
+            )
+
+            sell_text = self.info_font.render(
+                f"You are about to sell {selected_count} items.",
+                True,
+                self.text_color
+            )
+            screen.blit(
+                sell_text,
+                (panel_rect.x + 20, panel_rect.y + 32)
+            )
+
+            #Sell Button For confirmation (in Manual selling):
+
+            self.manual_sell_button_rect = pygame.Rect(
+                panel_rect.right - 235,
+                panel_rect.y + 25,
+                100,
+                45
+            )
+            pygame.draw.rect(
+                screen,
+                (55,145,95),
+                self.manual_sell_button_rect,
+                border_radius= 8
+            )
+
+            sell_button_text = self.info_font.render(
+                "SELL", 
+                True, 
+                (255,255,255)
+            )
+
+            screen.blit(
+                sell_button_text,
+                sell_button_text.get_rect(
+                    center = self.manual_sell_button_rect.center
+                )
+            )
+
+            #Cancel
+
+            self.manual_cancel_button_rect = pygame.Rect(
+                panel_rect.right - 120,
+                panel_rect.y + 25,
+                100,
+                45
+            )
+
+            pygame.draw.rect(
+                screen,
+                (150,65,65),
+                self.manual_cancel_button_rect,
+                border_radius= 8
+            )
+
+            cancel_button_text = self.info_font.render(
+                "CANCEL",
+                True,
+                (255,255,255)
+            )
+
+            screen.blit(
+                cancel_button_text,
+                cancel_button_text.get_rect(
+                    center = self.manual_cancel_button_rect.center
+                )
+            )
+
         close_hint = self.info_font.render(
             "Press TAB to close.",
             True,

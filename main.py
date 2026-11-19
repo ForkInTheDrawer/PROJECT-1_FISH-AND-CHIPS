@@ -78,6 +78,8 @@ def main():
     inventory_open = False
     selected_inventory_index = None
     dragging_inventory_index = None
+    manual_sell_mode = False
+    manual_sell_selected = set()
     shop_prompt_was_visible = False
     sell_menu_open = False
     sell_confirmation_action = None
@@ -311,6 +313,20 @@ def main():
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if inventory_window.handle_event(event) is not None:
                     continue
+                if manual_sell_mode:
+                    slot_index = inventory_window.get_slot_index_at_position(
+                        event.pos, screen
+                    )
+                    items = player_data.inventory["plr_inv"]
+
+                    if slot_index is not None and slot_index < len(items):
+                        if not items[slot_index].get("locked", False):
+                            if slot_index in manual_sell_selected:
+                                manual_sell_selected.remove(slot_index)
+                            else:
+                                manual_sell_selected.add(slot_index)
+                    dragging_inventory_index = None
+                    continue
 
                 #Checks filtering system
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
@@ -373,10 +389,14 @@ def main():
                 elif choice == "cancel":
                     sell_menu_open = False
 
-                elif choice is not None:
-                    print(f"Sell Menu Choice: {choice}")
+                elif choice == "manual":
+                    manual_sell_mode = True
+                    manual_sell_selected.clear()
+                    inventory_open = True
                     sell_menu_open = False
-
+                elif choice is not None:
+                    print(f"Sell Menu CChoice: {choice}")
+                    sell_menu_open = False
             elif sell_confirmation and event.type == pygame.MOUSEBUTTONDOWN:
                 choice = mouse_events.confirmation_click(event, sell_confirmation)
 
@@ -818,7 +838,8 @@ def main():
                 screen, 
                 player_data.inventory,
                 hovered_inventory_index,
-                dragging_inventory_index
+                dragging_inventory_index,
+                selected_indexes= manual_sell_selected
                 )
 
         
