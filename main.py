@@ -319,12 +319,15 @@ def main():
                     )
                     items = player_data.inventory["plr_inv"]
 
-                    if slot_index is not None and slot_index < len(items):
-                        if not items[slot_index].get("locked", False):
-                            if slot_index in manual_sell_selected:
-                                manual_sell_selected.remove(slot_index)
+                    inventory_index = inventory_window.get_inv_index_at_slot(slot_index)
+
+                    if inventory_index is not None and inventory_index < len(items):
+                        if not items[inventory_index].get("locked", False):
+                            if inventory_index in manual_sell_selected:
+                                manual_sell_selected.remove(inventory_index)
                             else:
-                                manual_sell_selected.add(slot_index)
+                                manual_sell_selected.add(inventory_index)
+
                     dragging_inventory_index = None
                     continue
 
@@ -839,7 +842,9 @@ def main():
                 player_data.inventory,
                 hovered_inventory_index,
                 dragging_inventory_index,
-                selected_indexes= manual_sell_selected
+                selected_indexes= manual_sell_selected,
+                manual_sell_mode= manual_sell_mode,
+                selected_count=len(manual_sell_selected)
                 )
 
         

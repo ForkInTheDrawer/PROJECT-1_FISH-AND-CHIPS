@@ -22,11 +22,20 @@ class InventoryWindow:
         self.sort_dropdown.selected_option = "Default"
 
         self.active_tab = "Items"
+        self.visible_inventory_indexes = []
         self.tab_font = pygame.font.Font(None, 32)
         self.tabs = {
             "Items" : pygame.Rect(220,75,120,40),
             "Gear" : pygame.Rect(345, 75, 120, 40)
         }
+
+    def get_inv_index_at_slot(self, slot_index):
+        if slot_index is None:
+            return None
+
+        if 0 <= slot_index < len(self.visible_inventory_indexes):
+            return self.visible_inventory_indexes[slot_index]
+        return None
 
     def wrap_text(self, text, font, max_width):
         words = str(text).split()
@@ -235,8 +244,20 @@ class InventoryWindow:
 
             #TEMPORARY Placeholder:
 
-            items = inventory["plr_inv"]
+            all_items = inventory["plr_inv"]
 
+            if manual_sell_mode:
+                self.visible_inventory_indexes = [
+                    index for index, item in enumerate(all_items)
+                    if not item.get("locked", False)
+                    ]
+                items = [
+                    all_items[index]
+                    for index in self.visible_inventory_indexes
+                ]
+            else:
+                self.visible_inventory_indexes = list(range(len(all_items)))
+                items = all_items
             slot_width = 80
             slot_height = 80
             slot_gap = 8
@@ -263,8 +284,11 @@ class InventoryWindow:
 
                 #SLOT BG AND BORDER:
                 pygame.draw.rect(screen, (25,62,76), slot_rect, border_radius = 5)
+
                 if slot_index == hovered_index or (
-                    selected_indexes is not None and slot_index in selected_indexes
+                    selected_indexes is not None 
+                    and slot_index < len(self.visible_inventory_indexes)
+                    and self.visible_inventory_indexes[slot_index] in selected_indexes
                 ):
                     pygame.draw.rect(
                         screen, 
@@ -687,17 +711,17 @@ class InventoryWindow:
             self.text_color
         )
         
-        
-        if self.active_tab == "Items":
-            screen.blit(
-                lock_hint,
-                (window_rect.x + 25, window_rect.bottom - 60)
-            )
+        if not manual_sell_mode:
+            if self.active_tab == "Items":
+                screen.blit(
+                    lock_hint,
+                    (window_rect.x + 25, window_rect.bottom - 60)
+                )
 
-        screen.blit(
-            close_hint,
-            (window_rect.x + 25, window_rect.bottom - 40)
-        )
+            screen.blit(
+                close_hint,
+                (window_rect.x + 25, window_rect.bottom - 40)
+            )
 
     def get_slot_index_at_position(self, mouse_pos, screen):
         window_rect = pygame.Rect( 0, 0, self.width, self.height)
