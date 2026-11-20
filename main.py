@@ -314,6 +314,13 @@ def main():
                 if inventory_window.handle_event(event) is not None:
                     continue
                 if manual_sell_mode:
+                    if inventory_window.manual_cancel_button_rect.collidepoint(event.pos):
+                        inventory_open = False
+                        manual_sell_mode = False
+                        manual_sell_selected.clear()
+                        dragging_inventory_index = None
+                        selected_inventory_index = None
+                        continue
                     slot_index = inventory_window.get_slot_index_at_position(
                         event.pos, screen
                     )
