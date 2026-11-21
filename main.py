@@ -1,5 +1,5 @@
 "GAME NAME: Fish n Chips"
-#Hi this is the game lol
+#Hi this is the game
 import pygame
 import json
 import sys

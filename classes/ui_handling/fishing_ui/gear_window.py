@@ -113,8 +113,24 @@ class GearWindow:
                     )
                 )
             )
-        # grid
-        items = inventory["plr_inv"]
+        # grid + filter
+        gear_categories = {
+            "HEAD",
+            "BODY",
+            "RING",
+            "BOOTS",
+            "GEAR"
+        }
+        consumable_categories = {
+            "CONSUMABLE",
+            "CONSUMABLES"
+        }
+
+        items = [
+            item for item in inventory["plr_inv"]
+            if str(item.get("category", "")).upper()
+            in gear_categories | consumable_categories
+        ]
 
         slot_width = 76
         slot_height = 76
@@ -122,7 +138,7 @@ class GearWindow:
         columns = 5
         rows = 4
 
-        grid_x = window_rect.x + 30
+        grid_x = window_rect.x + 300
         grid_y = window_rect.y + 90
 
         for slot_index in range(columns * rows):
