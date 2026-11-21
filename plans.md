@@ -76,8 +76,16 @@ START HERE:
 
 - Catch Fish Minigame
 - Fix manual selling mode
-- Toolbar (press 1-3 to equip.)
+- Toolbar (press 1-5 to equip.)
+    * 1 is reserved for the fishing Rod, the rest is for gears and consumables
     * Only shows Gears / Consumables
+
+
+    * if you open the gear tab of the inventory, you can see yoru gears and consumables.
+        *  we will use that tab  to equip gears that are equippable(such as hats, body, boots, etc)
+        * To equip, It should be dragged into the equipment positions, but while holding, the available slot will highlight (color yellow) to show that the equipment should be put there
+        * The toolbar can still be seen, and wont be affected by screen darkening.
+    * To arrange consumables, You can see the toolbars below the inventory panel, and you can directly drag and drop it there. 
 
 
 ### Future Task:

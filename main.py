@@ -370,7 +370,7 @@ def main():
                     else:
                         dragging_inventory_index = None
 
-            elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+            elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and not manual_sell_mode:
                 slot_index = inventory_window.get_slot_index_at_position(
                     event.pos, screen
                 )
@@ -878,6 +878,12 @@ def main():
                 pygame.mouse.get_pos(), screen
             )
 
+
+            selected_sale_total = selling_events.calculate_selected_sale_total(
+                player_data,
+                manual_sell_selected
+            )
+
             inventory_window.draw(
                 screen, 
                 player_data.inventory,
@@ -885,7 +891,8 @@ def main():
                 dragging_inventory_index,
                 selected_indexes= manual_sell_selected,
                 manual_sell_mode= manual_sell_mode,
-                selected_count=len(manual_sell_selected)
+                selected_count=len(manual_sell_selected),
+                selected_sale_total = selected_sale_total
                 )
 
         

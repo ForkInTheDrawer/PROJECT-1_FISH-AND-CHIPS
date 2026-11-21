@@ -97,7 +97,10 @@ class InventoryWindow:
                     return tab_name
         return None
 
-    def draw(self,screen , inventory, hovered_index = None, is_dragging = None, selected_indexes = None, manual_sell_mode = False, selected_count = 0):
+    def draw(self,screen , inventory, 
+             hovered_index = None, is_dragging = None, 
+             selected_indexes = None, manual_sell_mode = False, 
+             selected_count = 0, selected_sale_total = None):
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -679,6 +682,28 @@ class InventoryWindow:
                 sell_text,
                 (panel_rect.x + 20, panel_rect.y + 32)
             )
+
+            if selected_sale_total is not None:
+                total_coins = selected_sale_total["coins"]
+                total_chips = selected_sale_total["chips"]
+
+                if total_chips > 0:
+                    price_text = self.info_font.render(
+                        f"for {total_coins} Coins and {total_chips} Chips",
+                        True,
+                        self.text_color
+                    )
+                else:
+                    price_text = self.info_font.render(
+                        f"for {total_coins} Coins",
+                        True,
+                        self.text_color
+                    )
+
+                screen.blit(
+                    price_text,
+                    (panel_rect.x + 20, panel_rect.y + 58)
+                )
 
             #Sell Button For confirmation (in Manual selling):
             #Positions
