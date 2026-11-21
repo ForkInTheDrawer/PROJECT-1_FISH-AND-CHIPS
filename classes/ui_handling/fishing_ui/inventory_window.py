@@ -1,3 +1,5 @@
+#Main Inventory panel, Itam tab & manual selling
+
 import pygame
 
 from classes.ui_handling.button import DropdownMenu, Button

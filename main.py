@@ -1,5 +1,5 @@
 "GAME NAME: Fish n Chips"
-
+#Hi this is the game lol
 import pygame
 import json
 import sys
@@ -529,7 +529,9 @@ def main():
                     game_running = False
                     print('Player had quit the game.')
     
-                
+                #Toolbar Slot selection:
+                if pygame.K_1 <= event.key <= pygame.K_5:
+                    toolbar.select_slot(event.key - pygame.K_1)
                 # NOTE: CASTING MINIGAME SYSTEM
                 
                 elif(
@@ -540,6 +542,7 @@ def main():
                     and not fishing_system.is_casting
                     and len(player_data.inventory["plr_inv"])
                     < player_data.inventory["maximum_slots"]
+                    and toolbar.selected_slot == 0
                 ):
                     casting_minigame = CastingMinigame(WIDTH, HEIGHT)
 
@@ -898,7 +901,7 @@ def main():
                 selected_sale_total = selected_sale_total
                 )
 
-        toolbar.draw(screen)
+        toolbar.draw(screen, dt)
 
 
 
