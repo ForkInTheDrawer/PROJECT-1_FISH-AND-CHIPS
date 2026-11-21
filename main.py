@@ -22,6 +22,8 @@ from classes.ui_handling import inventory_sorting
 from classes.ui_handling.fishing_ui.inventory_full import InventoryFull
 from classes.ui_handling.fishing_ui.inventory_window import InventoryWindow
 from classes.ui_handling.fishing_ui.fish_popup import FishPopUp
+from classes.ui_handling.fishing_ui.user_toolbar import Toolbar
+
 from classes.ui_handling.sales.shop_window import ShopWindow
 from classes.ui_handling.sales.sell_notif import Sell_Notification
 from classes.ui_handling.sales.sell_menu import SellMenu
@@ -221,6 +223,7 @@ def main():
     inventory_full_prompt = InventoryFull()
     sell_notifications = Sell_Notification()
     inventory_window = InventoryWindow()
+    toolbar = Toolbar()
     shop_window = ShopWindow()
     sell_menu = SellMenu()
  #--------------------------------------------
@@ -895,7 +898,7 @@ def main():
                 selected_sale_total = selected_sale_total
                 )
 
-        
+        toolbar.draw(screen)
 
 
 
