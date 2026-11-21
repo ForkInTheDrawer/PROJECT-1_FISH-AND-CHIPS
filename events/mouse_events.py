@@ -1,5 +1,7 @@
 import pygame
 
+
+#For confirmation UI
 def confirmation_click(event, sell_confirmation):
     if not sell_confirmation:
         return None
