@@ -284,7 +284,8 @@ def main():
                 game_running = False
 
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
-                inventory_open = not inventory_open
+                if not manual_sell_mode:
+                    inventory_open = not inventory_open
 
             elif (
                 inventory_open and event.type == pygame.MOUSEBUTTONUP and event.button == 1

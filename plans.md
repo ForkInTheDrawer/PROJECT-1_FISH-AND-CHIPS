@@ -75,7 +75,7 @@ START HERE:
         6. Boots
 
 - Catch Fish Minigame
-
+- Fix manual selling mode
 - Toolbar (press 1-3 to equip.)
     * Only shows Gears / Consumables
 

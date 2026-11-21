@@ -1,5 +1,4 @@
 from classes.fishing import fish_prices
-from classes.ui_handling import gui
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.ui_handling.sales.sell_confirmation import Sell_Confirmation
 
@@ -108,6 +107,47 @@ def sell_regular_item(player_data, item, item_index):
             "currency" : currency.title()
         }
 
+
+def calculate_selected_sale_total(player_data, selected_indexes):
+    items = player_data.inventory["plr_inv"]
+    total_coins = 0
+    total_chips = 0
+
+    for index in sorted(set(selected_indexes), reverse = True):
+        if not 0 <= index < len(items):
+            continue
+
+        item = items[index]
+
+        if item.get("locked", False):
+            continue
+
+        if item.get("category") == "STONES":
+            sale_price = round(calculate_stone_price(item, index))
+            total_chips += sale_price
+
+        elif item.get("category") == "SCRAP":
+            mutation = item.get("mutation")
+
+            if mutation == "Glitched":
+                sale_price = round(item["price"])
+                total_chips += sale_price
+            else:
+                mutation_data = SCRAP_MUTATIONS.get(mutation)
+                multiplier = mutation_data["multiplier"] if mutation_data else 1.0
+                sale_price = round(item["price"] * multiplier)
+                total_coins += sale_price
+        else:
+            sale_price = fish_prices.price_calculator(item)
+
+            if sale_price is not None:
+                total_coins += round(sale_price)
+    return{
+        "coins" : total_coins,
+        "chips" : total_chips
+    }
+
+
 def sell_selected_items(player_data, selected_indexes):
     items = player_data.inventory["plr_inv"]
 
@@ -142,7 +182,6 @@ def sell_selected_items(player_data, selected_indexes):
         "coins" : total_coins,
         "chips" : total_chips
     }
-
 
 
 

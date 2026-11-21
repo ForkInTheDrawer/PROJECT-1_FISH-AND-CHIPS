@@ -1,7 +1,6 @@
 import pygame
 
-from classes.ui_handling.button import DropdownMenu
-
+from classes.ui_handling.button import DropdownMenu, Button
 
 class InventoryWindow:
     def __init__(self, size = (760, 560)):
@@ -21,6 +20,26 @@ class InventoryWindow:
 
         self.sort_dropdown.selected_option = "Default"
 
+
+        self.manual_sell_button = Button(
+            "SELL",
+            (255,255,255),
+            pygame.Rect( 0,0, 100, 45),
+            (55, 145, 95),
+            (40, 120, 80),
+            border_radius=8
+        )
+        self.manual_cancel_button = Button(
+            "CANCEL",
+            (255,255,255),
+            pygame.Rect(0,0,100,45),
+            (150,65,65),
+            (120,45,45),
+            border_radius=8
+        ) 
+
+        self.manual_sell_button.font = self.info_font
+        self.manual_cancel_button.font = self.info_font
         self.active_tab = "Items"
         self.visible_inventory_indexes = []
         self.tab_font = pygame.font.Font(None, 32)
@@ -150,8 +169,27 @@ class InventoryWindow:
 
             items = inventory["plr_inv"]
 
-            if hovered_index is not None and hovered_index < len(items):
-                selected_item = items[hovered_index]
+
+            if manual_sell_mode:
+                visible_indexes = [
+                    index for index, item in enumerate(items)
+                    if not item.get("locked", False)
+                ]
+
+                hovered_inv_index = (
+                    visible_indexes[hovered_index]
+                    if hovered_index is not None
+                    and 0 <= hovered_index < len(visible_indexes)
+                    else None
+                )
+            else:
+                hovered_inv_index = hovered_index
+
+            if (
+                hovered_inv_index is not None 
+                and 0 <= hovered_inv_index < len(items)
+            ):
+                selected_item = items[hovered_inv_index]
                 details = [
                     f"Name: {selected_item.get('name', 'Unknown')}",
                     f"Category: {selected_item.get('category', 'Unknown')}",
@@ -643,61 +681,23 @@ class InventoryWindow:
             )
 
             #Sell Button For confirmation (in Manual selling):
-
-            self.manual_sell_button_rect = pygame.Rect(
+            #Positions
+            self.manual_sell_button.rect.topleft = (
                 panel_rect.right - 235,
-                panel_rect.y + 25,
-                100,
-                45
-            )
-            pygame.draw.rect(
-                screen,
-                (55,145,95),
-                self.manual_sell_button_rect,
-                border_radius= 8
+                panel_rect.y + 25
             )
 
-            sell_button_text = self.info_font.render(
-                "SELL", 
-                True, 
-                (255,255,255)
-            )
-
-            screen.blit(
-                sell_button_text,
-                sell_button_text.get_rect(
-                    center = self.manual_sell_button_rect.center
-                )
-            )
-
-            #Cancel
-
-            self.manual_cancel_button_rect = pygame.Rect(
+            self.manual_cancel_button.rect.topleft = (
                 panel_rect.right - 120,
-                panel_rect.y + 25,
-                100,
-                45
+                panel_rect.y + 25
             )
+            self.manual_sell_button_rect = self.manual_sell_button.rect
+            self.manual_cancel_button_rect = self.manual_cancel_button.rect
 
-            pygame.draw.rect(
-                screen,
-                (150,65,65),
-                self.manual_cancel_button_rect,
-                border_radius= 8
-            )
+            #Draw
+            self.manual_sell_button.draw(screen)
+            self.manual_cancel_button.draw(screen)
 
-            cancel_button_text = self.info_font.render(
-                "CANCEL",
-                True,
-                (255,255,255)
-            )
-
-            screen.blit(
-                cancel_button_text,
-                cancel_button_text.get_rect(
-                    center = self.manual_cancel_button_rect.center
-                )
-            )
 
         close_hint = self.info_font.render(
             "Press TAB to close.",

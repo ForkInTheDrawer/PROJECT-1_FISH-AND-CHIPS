@@ -3,7 +3,7 @@ import pygame
 #NOTE: STUFFS INSIDE ARE TEMPLATES THAT ARE REUSABLE.
 # Button, Dropdown, Slider, Etc.
 class Button:
-    def __init__ (self, text, text_color, rect, color,  hover_color):
+    def __init__ (self, text, text_color, rect, color,  hover_color, border_radius = 0):
 
         self.text = text
         self.text_color = text_color
@@ -12,6 +12,7 @@ class Button:
         self.width, self.height = rect.size
         self.color = color
         self.hover_color = hover_color
+        self.border_radius = border_radius
 
         self.font = pygame.font.Font(None, 30)
 
@@ -23,7 +24,7 @@ class Button:
 
         current_color = ( self.hover_color if self.rect.collidepoint(mouse_pos) else self.color)
 
-        pygame.draw.rect(surface, current_color, self.rect) #draws bg
+        pygame.draw.rect(surface, current_color, self.rect, border_radius=self.border_radius) #draws bg
 
 
         text_surface = self.font.render(self.text, True, self.text_color)
