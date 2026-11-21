@@ -1,3 +1,5 @@
+# basically the selling system
+
 from classes.fishing import fish_prices
 from classes.fishing.scrap_mutations import SCRAP_MUTATIONS
 from classes.ui_handling.sales.sell_confirmation import Sell_Confirmation

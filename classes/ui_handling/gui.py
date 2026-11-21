@@ -1,3 +1,5 @@
+# UI templates
+
 import pygame
 
 

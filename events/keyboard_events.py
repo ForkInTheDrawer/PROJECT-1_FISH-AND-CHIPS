@@ -1,3 +1,5 @@
+# Keybinds for events
+
 import pygame
 
 def debug_key(event, debug_mode, fishing_system): # debug toggle

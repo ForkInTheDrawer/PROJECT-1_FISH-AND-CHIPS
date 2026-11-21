@@ -1,3 +1,5 @@
+# Notifications
+
 import pygame
 
 from classes.ui_handling.gui import GUI

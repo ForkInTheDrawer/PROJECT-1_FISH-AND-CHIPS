@@ -1,3 +1,5 @@
+#Button Templates
+
 import pygame
 
 #NOTE: STUFFS INSIDE ARE TEMPLATES THAT ARE REUSABLE.

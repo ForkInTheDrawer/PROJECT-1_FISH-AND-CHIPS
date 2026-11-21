@@ -1,3 +1,5 @@
+# Mouse events that trigger smth
+
 import pygame
 
 

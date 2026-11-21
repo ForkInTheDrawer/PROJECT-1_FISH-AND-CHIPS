@@ -1,3 +1,5 @@
+# Shopping stuffs
+
 import pygame
 from classes.ui_handling.button import Button
 

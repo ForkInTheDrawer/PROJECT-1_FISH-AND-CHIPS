@@ -1,3 +1,5 @@
+#shows inventory full notif
+
 import pygame
 from classes.ui_handling.gui import GUI
 
