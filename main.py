@@ -901,7 +901,11 @@ def main():
                 selected_sale_total = selected_sale_total
                 )
 
-        toolbar.draw(screen, dt)
+        toolbar.draw(
+            screen,
+            dt,
+            player_data.inventory["toolbar_slots"]
+            )
 
 
 

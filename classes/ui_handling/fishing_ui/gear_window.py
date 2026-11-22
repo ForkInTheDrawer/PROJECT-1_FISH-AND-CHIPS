@@ -119,7 +119,8 @@ class GearWindow:
             "BODY",
             "RING",
             "BOOTS",
-            "GEAR"
+            "GEAR",
+            "ROD"
         }
         consumable_categories = {
             "CONSUMABLE",
@@ -131,6 +132,14 @@ class GearWindow:
             if str(item.get("category", "")).upper()
             in gear_categories | consumable_categories
         ]
+
+        toolbar_items = [
+            item for item in inventory.get("toolbar_slots", [])
+            if item is not None
+            and str(item.get("category", "")).upper() == "ROD"
+        ]
+
+        items.extend(toolbar_items)
 
         slot_width = 76
         slot_height = 76

@@ -25,7 +25,7 @@ class Toolbar:
         self.selected_scale = 1.0
 
         self.font = pygame.font.Font(None, 22)
-        self.item_font = pygame.font.Font(None, 23)
+        self.item_font = pygame.font.Font(None, 18)
 
     def select_slot(self, index):
         if not 0 <= index < 5:
@@ -43,7 +43,7 @@ class Toolbar:
         )
 
 
-    def draw(self, screen, dt = 0):
+    def draw(self, screen, dt = 0, toolbar_slots = None):
         self.slot_rects = []
 
         total_width = (
@@ -78,17 +78,18 @@ class Toolbar:
                     int(self.slot_size * (self.selected_scale -1)),
                     int(self.slot_size * (self.selected_scale -1))
                 )
-            bg_color = (
-                self.selected_bg_color
-                if is_selected
-                else self.bg_color
-            )
+            item = toolbar_slots[index] if toolbar_slots else None\
 
-            border_color = (
-                self.selected_border_color
-                if is_selected
-                else self.border_color
-            )
+
+            if is_selected:
+                bg_color = self.selected_bg_color
+                border_color = self.selected_border_color
+            elif item is None:
+                bg_color = (55, 72, 76)
+                border_color = (85, 100, 104)
+            else:
+                bg_color = self.bg_color
+                border_color = self.border_color
             
             pygame.draw.rect(
                 screen,
@@ -115,14 +116,16 @@ class Toolbar:
                 (draw_rect.x + 5, draw_rect.y + 4)
             )
 
-            if index == 0 :
-                rod_text = self.item_font.render(
-                    "ROD",
+            if index == 0 and item is None:
+                item_name = str(item.get("name", "item"))
+                item_text = self.item_font.render(
+                    item_name,
                     True,
                     self.text_color
                 )
-
                 screen.blit(
-                    rod_text,
-                    rod_text.get_rect(center = draw_rect.center)
+                    item_text,
+                    item_text.get_rect(
+                        center = draw_rect.center
+                    )
                 )

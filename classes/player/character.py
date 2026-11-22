@@ -71,6 +71,20 @@ class player:
             "Boots": None        
             })
 
+        inventory_dict.setdefault("toolbar_slots", [
+            {
+                "name" : "Starter Rod",
+                "category" : "FISHING ROD",
+                "description" : "I woke up with this in my hand.",
+                "stats" : {},
+                "quantity" : 1
+            },
+            None,
+            None,
+            None,
+            None
+        ])
+
         for position, item in enumerate(inventory_dict["plr_inv"]):
             item.setdefault("slot_order", position)
         self.inventory = inventory_dict
