@@ -143,6 +143,10 @@ class GearWindow:
 
         grid_x = window_rect.x + 300
         grid_y = window_rect.y + 90
+        hovered_index = self.get_slot_index_at_pos(
+            pygame.mouse.get_pos(),
+            window_rect
+        )
 
         for slot_index in range(columns * rows):
 
@@ -162,14 +166,22 @@ class GearWindow:
                 slot_rect,
                 border_radius= 5
             )
-
-            pygame.draw.rect(
-                screen,
-                border_color,
-                slot_rect,
-                2,
-                border_radius= 5
-            )
+            if slot_index == hovered_index:
+                pygame.draw.rect(
+                    screen,
+                    (255, 210, 90),
+                    slot_rect,
+                    4,
+                    border_radius= 5
+                )
+            else:
+                pygame.draw.rect(
+                    screen,
+                    border_color,
+                    slot_rect,
+                    2,
+                    border_radius= 5
+                )
 
             if slot_index < len(items):
                 item = items[slot_index]

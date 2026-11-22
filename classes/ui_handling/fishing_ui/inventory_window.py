@@ -177,7 +177,31 @@ class InventoryWindow:
             )
             screen.blit( panel_title, (panel_rect.x + 12, panel_rect.y + 15))
 
-            items = inventory["plr_inv"]
+            all_items = inventory["plr_inv"]
+            gear_categories = {
+                "HEAD",
+                "BODY",
+                "RING",
+                "BOOTS",
+                "GEAR",
+                "FISHING ROD",
+                "CONSUMABLE",
+                "CONSUMABLES"
+            }
+            self.visible_inventory_indexes = [
+                index for index, item in enumerate(all_items)
+                if str(item.get("category", "")).upper()
+                not in gear_categories
+            ]
+            if manual_sell_mode:
+                self.visible_inventory_indexes = [
+                    index for index in self.visible_inventory_indexes
+                    if not all_items[index].get("locked", False)
+                ]
+            items = [
+                all_items[index]
+                for index in self.visible_inventory_indexes
+            ]
 
 
             if manual_sell_mode:

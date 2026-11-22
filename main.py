@@ -1001,6 +1001,7 @@ def main():
 
         
         pygame.display.flip()
+        player_data.save_inventory()
     pygame.quit()
 
 
