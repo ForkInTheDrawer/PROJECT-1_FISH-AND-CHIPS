@@ -120,7 +120,7 @@ class GearWindow:
             "RING",
             "BOOTS",
             "GEAR",
-            "ROD"
+            "FISHING ROD"
         }
         consumable_categories = {
             "CONSUMABLE",
@@ -136,7 +136,7 @@ class GearWindow:
         toolbar_items = [
             item for item in inventory.get("toolbar_slots", [])
             if item is not None
-            and str(item.get("category", "")).upper() == "ROD"
+            and str(item.get("category", "")).upper() == "FISHING ROD"
         ]
 
         items.extend(toolbar_items)
@@ -189,18 +189,17 @@ class GearWindow:
 
                 detail_font = pygame.font.Font(None, 17)
 
-                name_text = name_font.render(
-                    item_name[:10],
-                    True,
-                    text_color
-                )
+                def fit_text(text, font, max_width):
+                    text = str(text)
 
-                category_text = detail_font.render(
-                    item_category[:12],
-                    True, 
-                    text_color
-                )
-
+                    while text and font.size(text + "...")[0] > max_width:
+                        text = text[:-1]
+                    if text != str(item_name) and font.size(text + "...")[0] <= max_width:
+                        text += "..."
+                    return font.render(text, True, text_color)
+                name_text = fit_text(item_name, name_font, slot_width - 10)
+                category_text = fit_text(item_category, detail_font, slot_width - 10)
+                
                 screen.blit(
                     name_text,
                     name_text.get_rect(

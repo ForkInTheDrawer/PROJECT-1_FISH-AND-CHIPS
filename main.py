@@ -80,6 +80,7 @@ def main():
     inventory_open = False
     
     dragging_inventory_index = None
+    dragging_toolbar_index = None
     manual_sell_mode = False
     manual_sell_selected = set()
     shop_prompt_was_visible = False
