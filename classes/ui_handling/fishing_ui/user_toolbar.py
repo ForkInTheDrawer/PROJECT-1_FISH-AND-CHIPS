@@ -116,7 +116,7 @@ class Toolbar:
                 (draw_rect.x + 5, draw_rect.y + 4)
             )
 
-            if index == 0 and item is None:
+            if index == 0 and item is not None:
                 item_name = str(item.get("name", "item"))
                 item_text = self.item_font.render(
                     item_name,

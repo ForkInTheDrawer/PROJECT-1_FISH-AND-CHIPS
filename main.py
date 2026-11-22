@@ -590,6 +590,10 @@ def main():
                     and len(player_data.inventory["plr_inv"])
                     < player_data.inventory["maximum_slots"]
                     and toolbar.selected_slot == 0
+                    and player_data.inventory["toolbar_slots"][0] is not None
+                    and str(
+                        player_data.inventory["toolbar_slots"][0].get("category", "")
+                    ).upper() == "FISHING ROD"
                 ):
                     casting_minigame = CastingMinigame(WIDTH, HEIGHT)
 
