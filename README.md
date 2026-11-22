@@ -9,7 +9,7 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
     * Fish, and get rich!!!
     * Gamble chips for Overpowered gears or  lose it all...
 
-Small Showcase (1.0.4 ALPHA)
+New updates Showcase (1.0.4 ALPHA)
 
 https://medal.tv/games/screen-capture/clips/nYWndnijGtOjJWQ0A?invite=cr-MSxYcEYsNTI0NzE5MzEy 
 
