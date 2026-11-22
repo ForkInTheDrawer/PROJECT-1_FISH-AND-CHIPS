@@ -11,12 +11,13 @@ Buy upgrades, or gamble it for more. The choice is yours to catch!
 
 Small Showcase (1.0.4 ALPHA)
 
-https://medal.tv/games/screen-capture/clips/nW5ZPFeaqggQ1XBKU?invite=cr-MSxiTjMsNTI0NzE5MzEy 
+https://medal.tv/games/screen-capture/clips/nYWndnijGtOjJWQ0A?invite=cr-MSxYcEYsNTI0NzE5MzEy 
 
 
 ### NOTE TO PLAYERS: 
 - Cash Saving doesnt work yet, only the Inventory does.
-- "I want to sell something in my inventory" doesnt work yet, will do next week.
+- Dragging the starter rod to the gear inventory doesnt show any reaction, but it DOES get dragged. 
+- Starter Rod only goes to slot 1 (slot 1 is reserved for the rod.)
 - Shop Items doesnt do anything yet.
 
 
