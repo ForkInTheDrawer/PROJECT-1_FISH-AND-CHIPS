@@ -100,11 +100,50 @@ class player:
         with inventory_path.open("w", encoding="utf-8") as file:
             json.dump(self.inventory, file, indent=4)
 
+    def is_gear_storage_item(self, item):
+        gear_categories = {
+            "HEAD",
+            "BODY",
+            "RING",
+            "BOOTS",
+            "GEAR",
+            "FISHING ROD",
+            "CONSUMABLE",
+            "CONSUMABLES"
+        }
+        return str(item.get("category", "")).upper() in gear_categories
+
+    def get_gear_storage_count(self):
+        return sum(
+            1 for item in self.inventory["plr_inv"]
+            if self.is_gear_storage_item(item)
+        )
+
+    def get_regular_inventory_count(self):
+        return sum(
+            1 for item in self.inventory["plr_inv"]
+            if not self.is_gear_storage_item(item)
+        )
+
     def add_to_inventory(self, item):
         items = self.inventory["plr_inv"]
+        
+        #GEAR STORAGE LIMIT
+        if self.is_gear_storage_item(item):
+            if self.get_gear_storage_count() >= 20:
+                return False
+        #REGULAR INVENTORY (uses maximum slots in json)
 
-        if len(items) >= self.inventory["maximum_slots"]:
-            return False
+        else:
+            if self.get_regular_inventory_count() >= self.inventory["maximum_slots"]:
+                return False
+
+        item["locked"] = False
+        item["slot_order"] = max(
+            (i.get("slot_order", -1) for i in items),
+            default=-1
+        ) + 1
+
 
         #New items unlocked:
         item["locked"] = False
