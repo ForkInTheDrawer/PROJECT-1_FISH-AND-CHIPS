@@ -410,9 +410,22 @@ def main():
                     player_data.save_inventory()
 
                 else:
-                    slot_index = inventory_window.get_slot_index_at_position(
-                        event.pos, screen
-                    )
+                    if inventory_window.active_tab == "Gear":
+                        window_rect = pygame.Rect(
+                            0,0,
+                            inventory_window.width,
+                            inventory_window.height
+                        )
+                        window_rect.center = screen.get_rect().center
+                        slot_index = inventory_window.gear_window.get_inv_index_at_pos(
+                            event.pos,
+                            window_rect,
+                            player_data.inventory
+                        )
+                    else:
+                        slot_index = inventory_window.get_inv_index_at_slot(
+                            event.pos(screen)
+                        )
                     items = player_data.inventory["plr_inv"]
 
                     if slot_index is not None and slot_index < len(items):

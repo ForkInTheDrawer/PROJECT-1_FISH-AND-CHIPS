@@ -245,3 +245,32 @@ class GearWindow:
                 return slot_index
 
         return None
+
+    def get_inv_index_at_pos(self, mouse_pos, window_rect, inventory):
+        gear_categories = {
+            "HEAD",
+            "BODY",
+            "RING",
+            "BOOTS",
+            "GEAR",
+            "FISHING ROD"
+        }
+
+        consumable_categories = {
+            "CONSUMABLE",
+            "CATEGORIES"
+        }
+
+        visible_indexes = [
+            index for index, item in enumerate(inventory["plr_inv"])
+            if str(item.get("category", "")).upper()
+            in gear_categories | consumable_categories
+        ]
+
+
+        slot_index = self.get_slot_index_at_pos(mouse_pos, window_rect)
+
+        if slot_index is None or slot_index >= len(visible_indexes):
+            return None
+
+        return visible_indexes[slot_index]
