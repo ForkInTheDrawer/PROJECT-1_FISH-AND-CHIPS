@@ -331,7 +331,7 @@ def main():
                     items = player_data.inventory["plr_inv"]
 
                     if (
-                        target_index is None
+                        target_index is not None
                         and target_index < len(items)
                         and target_index != dragging_inventory_index
                     ):
@@ -342,7 +342,7 @@ def main():
                             )
                         ):
                             player_data.save_inventory()
-                    dragging_indentory_index = None
+                    dragging_inventory_index = None
 
 
 
