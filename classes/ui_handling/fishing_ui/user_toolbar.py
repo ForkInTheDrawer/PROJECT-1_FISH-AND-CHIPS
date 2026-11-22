@@ -130,9 +130,9 @@ class Toolbar:
                     )
                 )
 
-def get_slot_index_at_pos(self, mouse_pos):
-    for index, slot_text in enumerate(self.slot_rects):
-        if slot_rect.collidepoint(mouse_pos):
-            return index
+    def get_slot_index_at_pos(self, mouse_pos):
+        for index, slot_text in enumerate(self.slot_rects):
+            if slot_text.collidepoint(mouse_pos):
+                return index
 
-    return None
+        return None

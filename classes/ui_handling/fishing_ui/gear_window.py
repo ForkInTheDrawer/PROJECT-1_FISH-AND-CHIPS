@@ -199,7 +199,7 @@ class GearWindow:
                     return font.render(text, True, text_color)
                 name_text = fit_text(item_name, name_font, slot_width - 10)
                 category_text = fit_text(item_category, detail_font, slot_width - 10)
-                
+
                 screen.blit(
                     name_text,
                     name_text.get_rect(
@@ -219,3 +219,28 @@ class GearWindow:
                         )
                     )
                 )
+
+                def get_slot_index_at_pos(self, mouse_pos, window_rect):
+                    slot_width = 76
+                    slot_height = 76
+                    slot_gap = 8
+                    columns = 5
+                    rows = 4
+
+                    grid_x = window_rect.x + 300
+                    grid_y = window_rect.y + 90
+
+                    for slot_index in range(columns * rows):
+                        column = slot_index % columns
+                        row = slot_index // columns
+
+                        slot_rect = pygame.Rect(
+                            grid_x + column * (slot_width + slot_gap),
+                            grid_y + row * (slot_height + slot_gap),
+                            slot_width,
+                            slot_height
+                        )
+
+                        if slot_rect.collidepoint(mouse_pos):
+                            return slot_index
+                    return None

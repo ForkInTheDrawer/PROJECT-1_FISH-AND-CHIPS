@@ -294,7 +294,34 @@ def main():
             elif (
                 inventory_open and event.type == pygame.MOUSEBUTTONUP and event.button == 1
             ):
-                if dragging_inventory_index is not None:
+                if dragging_toolbar_index is not None:
+                    if inventory_window.active_tab == "Gear":
+                        window_rect = pygame.Rect(
+                            0 , 0,
+                            inventory_window.width,
+                            inventory_window.height
+                        )
+                        window_rect.center = screen.get_rect().center
+                        target_index = inventory_window.get_slot_index_at_position(
+                            event.pos, window_rect
+                        )
+
+                        toolbar_slots = player_data.inventory["tollbar_slots"]
+                        rod = toolbar_slots[dragging_toolbar_index]
+
+                        if(
+                            target_index is not None
+                            and rod is not None
+                            and str(rod.get("category", "")).upper() == "FISHING ROD"
+                            and len(player_data.inventory["plr_inv"])
+                            < player_data.inventory["maimum_slots"]
+                        ):
+                            player_data.add_to_inventory(rod)
+                            toolbar_slots[dragging_toolbar_index] = None
+                            player_data.save_inventory()
+                    dragging_toolbar_index = None
+                
+                elif dragging_inventory_index is not None:
                     target_index = inventory_window.get_slot_index_at_position(
                         event.pos, screen
                     )
@@ -302,16 +329,18 @@ def main():
                     items = player_data.inventory["plr_inv"]
 
                     if (
-                        target_index is not None
+                        target_index is None
                         and target_index < len(items)
                         and target_index != dragging_inventory_index
                     ):
                         if inventory_sorting.swap_inventory_items(
                             items, dragging_inventory_index, target_index,
-                            swap_default_order = (inventory_window.sort_dropdown.selected_option == "Default")
+                            swap_default_order=(
+                                inventory_window.sort_dropdown.selected_option == "Default"
+                            )
                         ):
                             player_data.save_inventory()
-                    dragging_inventory_index = None
+                    dragging_indentory_index = None
 
 
 
@@ -354,6 +383,21 @@ def main():
                     continue
 
                 #Checks filtering system
+                #NOTE: WORK ON THIS
+                
+                if inventory_window.active_tab == "Gear":
+                    toolbar_index = toolbar.get_slot_index_at_pos(event.pos)
+                    toolbar_slots = player_data.inventory["toolbar_slots"]
+
+                    if (
+                        toolbar_index is not None
+                        and toolbar_slots[toolbar_index] is not None
+                        and str(toolbar_slots[toolbar_index].get("category", "")).upper()
+                        == "FISHING ROD"
+                    ):
+                        dragging_toolbar_index = toolbar_index
+                        continue
+                    
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
 
                 if sort_choice is not None:
