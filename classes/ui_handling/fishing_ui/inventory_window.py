@@ -315,21 +315,6 @@ class InventoryWindow:
             )
 
             #TEMPORARY Placeholder:
-
-            all_items = inventory["plr_inv"]
-
-            if manual_sell_mode:
-                self.visible_inventory_indexes = [
-                    index for index, item in enumerate(all_items)
-                    if not item.get("locked", False)
-                    ]
-                items = [
-                    all_items[index]
-                    for index in self.visible_inventory_indexes
-                ]
-            else:
-                self.visible_inventory_indexes = list(range(len(all_items)))
-                items = all_items
             slot_width = 80
             slot_height = 80
             slot_gap = 8
