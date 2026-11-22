@@ -297,28 +297,30 @@ def main():
                 if dragging_toolbar_index is not None:
                     if inventory_window.active_tab == "Gear":
                         window_rect = pygame.Rect(
-                            0 , 0,
+                            0, 0,
                             inventory_window.width,
                             inventory_window.height
                         )
                         window_rect.center = screen.get_rect().center
-                        target_index = inventory_window.get_slot_index_at_position(
+
+                        target_index = inventory_window.gear_window.get_slot_index_at_pos(
                             event.pos, window_rect
                         )
 
-                        toolbar_slots = player_data.inventory["tollbar_slots"]
+                        toolbar_slots = player_data.inventory["toolbar_slots"]
                         rod = toolbar_slots[dragging_toolbar_index]
 
-                        if(
+                        if (
                             target_index is not None
                             and rod is not None
                             and str(rod.get("category", "")).upper() == "FISHING ROD"
-                            and len(player_data.inventory["plr_inv"])
-                            < player_data.inventory["maimum_slots"]
                         ):
-                            player_data.add_to_inventory(rod)
-                            toolbar_slots[dragging_toolbar_index] = None
-                            player_data.save_inventory()
+                            added = player_data.add_to_inventory(rod)
+
+                            if added is not False:
+                                toolbar_slots[dragging_toolbar_index] = None
+                                player_data.save_inventory()
+
                     dragging_toolbar_index = None
                 
                 elif dragging_inventory_index is not None:
@@ -397,7 +399,7 @@ def main():
                     ):
                         dragging_toolbar_index = toolbar_index
                         continue
-                    
+
                 sort_choice = inventory_window.sort_dropdown.handle_event(event)
 
                 if sort_choice is not None:
