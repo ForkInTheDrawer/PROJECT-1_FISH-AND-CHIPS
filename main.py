@@ -625,7 +625,7 @@ def main():
                     and fish_popup is None
                     and not fishing_system.is_fishing
                     and not fishing_system.is_casting
-                    and len(player_data.inventory["plr_inv"])
+                    and player_data.get_regular_inventory_count()
                     < player_data.inventory["maximum_slots"]
                     and toolbar.selected_slot == 0
                     and player_data.inventory["toolbar_slots"][0] is not None
@@ -882,7 +882,7 @@ def main():
             and casting_minigame is None
         ) 
         if fishing_prompt_conditions:
-            if len(player_data.inventory["plr_inv"]) >= player_data.inventory["maximum_slots"]:
+            if player_data.get_regular_inventory_count() >= player_data.inventory["maximum_slots"]:
                 inventory_full_prompt.draw(screen)
                 fishing_prompt_was_visible = False
 

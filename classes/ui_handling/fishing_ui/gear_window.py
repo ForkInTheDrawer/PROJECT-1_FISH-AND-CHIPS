@@ -226,6 +226,103 @@ class GearWindow:
                     )
                 )
 
+                #Gear item inspection
+                if hovered_index is not None and 0 <= hovered_index < len(items):
+                    selected_item = items[hovered_index]
+
+                    pygame.draw.rect(
+                        screen,
+                        (25,62,76),
+                        panel_rect,
+                        border_radius = 10
+                    )
+
+                    pygame.draw.rect(
+                        screen,
+                        border_color,
+                        panel_rect,
+                        2,
+                        border_radius = 10
+                    )
+
+                    panel_title = info_font.render(
+                        "GEAR DETAILS",
+                        True,
+                        text_color
+                    )
+                    screen.blit(
+                        panel_title,
+                        (panel_rect.x + 12, panel_rect.y + 15)
+                    )
+
+
+                    details_font = pygame.font.Font(None, 20)
+                    text_x = panel_rect.x + 12
+                    text_y = panel_rect.y + 55
+                    max_width = panel_rect.width - 24
+                    line_height = 23
+
+                    details = [
+                        ("Name: ", selected_item.get("name", "Unknown")),
+                        ("Category: ", selected_item.get("category", "Unknown")),
+                        ("Description: ", selected_item.get("description", "No description available."))
+                    ]
+                    stats = selected_item.get("stats", {})
+
+                    if stats:
+                        details.append(("Stats:", ""))
+                        for stat_name, stat_value in stats.items():
+                            details.append((f"{stat_name}: ", stat_value))
+
+                    if "quantity" in selected_item:
+                        details.append(("Quantity: ", selected_item["quantity"]))
+
+                    # Wrapping lines
+
+                    wrapped_lines = []
+
+                    for label, value in details:
+                        prefix = label
+                        words = str(value).split()
+                        current_line = prefix
+                        continuation_indent = details_font.size(prefix)[0]
+                        current_indent = 0
+
+                        for word in words:
+                            test_line = (
+                                current_line + word
+                                if current_line == prefix
+                                else current_line + " " + word
+                            )
+
+                            if details_font.size(test_line)[0] <= max_width:
+                                current_line = test_line
+                            else:
+                                wrapped_lines.append((current_line, current_indent))
+                                current_line = word
+                                current_indent = continuation_indent
+
+                        wrapped_lines.append((current_line, current_indent))
+
+                    # Drawing it
+
+                    for index, (line, indent) in enumerate(wrapped_lines):
+                        if text_y + index * line_height > panel_rect.bottom - 20:
+                            break
+
+                        detail_text = details_font.render(
+                            line,
+                            True,
+                            text_color
+                        )
+
+                        screen.blit(
+                            detail_text,
+                            (text_x + indent, text_y + index * line_height)
+                        )
+
+
+
     def get_slot_index_at_pos(self, mouse_pos, window_rect):
         slot_width = 76
         slot_height = 76
@@ -249,8 +346,10 @@ class GearWindow:
 
             if slot_rect.collidepoint(mouse_pos):
                 return slot_index
-
+        
         return None
+
+        
 
     def get_inv_index_at_pos(self, mouse_pos, window_rect, inventory):
         gear_categories = {

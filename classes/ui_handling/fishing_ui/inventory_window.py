@@ -171,7 +171,7 @@ class InventoryWindow:
             pygame.draw.rect(screen, self.border_color, panel_rect, 2, border_radius = 10)
 
             panel_title = self.info_font.render(
-                "ITEM DETAILS",
+                "CATCH DETAILS",
                 True,
                 self.text_color
             )
