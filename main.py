@@ -444,8 +444,12 @@ def main():
                             player_data.inventory
                         )
                     else:
+                        slot_index = inventory_window.get_slot_index_at_position(
+                            event.pos, screen
+                        )
+
                         slot_index = inventory_window.get_inv_index_at_slot(
-                            event.pos
+                            slot_index
                         )
                     items = player_data.inventory["plr_inv"]
 
