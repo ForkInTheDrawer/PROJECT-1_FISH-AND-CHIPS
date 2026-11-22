@@ -324,24 +324,45 @@ def main():
                     dragging_toolbar_index = None
                 
                 elif dragging_inventory_index is not None:
-                    target_index = inventory_window.get_slot_index_at_position(
-                        event.pos, screen
-                    )
-
                     items = player_data.inventory["plr_inv"]
 
-                    if (
-                        target_index is not None
-                        and target_index < len(items)
-                        and target_index != dragging_inventory_index
-                    ):
-                        if inventory_sorting.swap_inventory_items(
-                            items, dragging_inventory_index, target_index,
-                            swap_default_order=(
-                                inventory_window.sort_dropdown.selected_option == "Default"
-                            )
+                    if inventory_window.active_tab == "Gear":
+                        toolbar_target_index = toolbar.get_slot_index_at_pos(event.pos)
+
+                        if (
+                            toolbar_target_index == 0
+                            and 0 <= dragging_inventory_index < len(items)
                         ):
-                            player_data.save_inventory()
+                            item = items[dragging_inventory_index]
+                            toolbar_slots = player_data.inventory["toolbar_slots"]
+
+                            if (
+                                str(item.get("category", "")).upper() == "FISHING ROD"
+                                and toolbar_slots[0] is None
+                            ):
+                                toolbar_slots[0] = items.pop(dragging_inventory_index)
+                                player_data.save_inventory()
+
+                    else:
+                        target_index = inventory_window.get_slot_index_at_position(
+                            event.pos, screen
+                        )
+
+                        if (
+                            target_index is not None
+                            and target_index < len(items)
+                            and target_index != dragging_inventory_index
+                        ):
+                            if inventory_sorting.swap_inventory_items(
+                                items,
+                                dragging_inventory_index,
+                                target_index,
+                                swap_default_order=(
+                                    inventory_window.sort_dropdown.selected_option == "Default"
+                                )
+                            ):
+                                player_data.save_inventory()
+
                     dragging_inventory_index = None
 
 
@@ -424,7 +445,7 @@ def main():
                         )
                     else:
                         slot_index = inventory_window.get_inv_index_at_slot(
-                            event.pos(screen)
+                            event.pos
                         )
                     items = player_data.inventory["plr_inv"]
 
