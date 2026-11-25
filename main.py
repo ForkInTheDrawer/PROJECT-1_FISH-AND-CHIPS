@@ -323,74 +323,49 @@ def main():
 
                     dragging_toolbar_index = None
                 
+                elif dragging_inventory_index is not None:
+                    items = player_data.inventory["plr_inv"]
 
-            elif dragging_inventory_index is not None:
-                items = player_data.inventory["plr_inv"]
-
-                if inventory_window.active_tab == "Gear":
-                    toolbar_target_index = toolbar.get_slot_index_at_pos(event.pos)
-
-                    if (
-                        toolbar_target_index == 0
-                        and 0 <= dragging_inventory_index < len(items)
-                    ):
-                        item = items[dragging_inventory_index]
-                        toolbar_slots = player_data.inventory["toolbar_slots"]
+                    if inventory_window.active_tab == "Gear":
+                        toolbar_target_index = toolbar.get_slot_index_at_pos(event.pos)
 
                         if (
-                            str(item.get("category", "")).upper() == "FISHING ROD"
-                            and toolbar_slots[0] is None
+                            toolbar_target_index == 0
+                            and 0 <= dragging_inventory_index < len(items)
                         ):
-                            toolbar_slots[0] = items.pop(dragging_inventory_index)
-                            player_data.save_inventory()
+                            item = items[dragging_inventory_index]
+                            toolbar_slots = player_data.inventory["toolbar_slots"]
 
-                    elif toolbar_target_index is None:
-                        window_rect = pygame.Rect(
-                            0, 0,
-                            inventory_window.width,
-                            inventory_window.height
-                        )
-                        window_rect.center = screen.get_rect().center
+                            if (
+                                str(item.get("category", "")).upper() == "FISHING ROD"
+                                and toolbar_slots[0] is None
+                            ):
+                                toolbar_slots[0] = items.pop(dragging_inventory_index)
+                                player_data.save_inventory()
 
-                        target_inv_index = (
-                            inventory_window.gear_window.get_inv_index_at_pos(
-                                event.pos,
-                                window_rect,
-                                player_data.inventory
-                            )
+                    else:
+                        target_index = inventory_window.get_slot_index_at_position(
+                            event.pos, screen
                         )
 
                         if (
-                            target_inv_index is not None
-                            and target_inv_index != dragging_inventory_index
+                            target_index is not None
+                            and target_index < len(items)
+                            and target_index != dragging_inventory_index
                         ):
-                            items[dragging_inventory_index], items[target_inv_index] = (
-                                items[target_inv_index],
-                                items[dragging_inventory_index]
-                            )
-                            player_data.save_inventory()
+                            if inventory_sorting.swap_inventory_items(
+                                items,
+                                dragging_inventory_index,
+                                target_index,
+                                swap_default_order=(
+                                    inventory_window.sort_dropdown.selected_option == "Default"
+                                )
+                            ):
+                                player_data.save_inventory()
 
-                else:
-                    target_index = inventory_window.get_slot_index_at_position(
-                        event.pos, screen
-                    )
+                    dragging_inventory_index = None
 
-                    if (
-                        target_index is not None
-                        and target_index < len(items)
-                        and target_index != dragging_inventory_index
-                    ):
-                        if inventory_sorting.swap_inventory_items(
-                            items,
-                            dragging_inventory_index,
-                            target_index,
-                            swap_default_order=(
-                                inventory_window.sort_dropdown.selected_option == "Default"
-                            )
-                        ):
-                            player_data.save_inventory()
 
-                dragging_inventory_index = None
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if inventory_window.handle_event(event) is not None:
