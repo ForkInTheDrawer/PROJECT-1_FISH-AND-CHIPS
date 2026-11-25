@@ -60,9 +60,31 @@ START HERE:
 - Fix Shop UI
 - Add "SELL ALL" Option for selling
 - Add "How Much is my Inventory Worth?" (excluding locked items)
+- Fix manual selling mode
+- Toolbar (press 1-5 to equip.)
+    * 1 is reserved for the fishing Rod, the rest is for gears and consumables
 
+
+- Gear Tab:
+    * The toolbar can still be seen, and wont be affected by screen darkening.
 
 ### Work In Progress:
+- Catch Fish Minigame
+
+- Toolbar (press 1-5 to equip.)
+
+    * Add "You must equip your fishing rod to fish!" when you try to fish without a rod.
+
+    * Only shows Gears / Consumables
+
+    * To arrange consumables, You can see the toolbars below the inventory panel, and you can directly drag and drop it there. 
+
+- Gear Tab:
+    * Only shows Gears / Consumables
+        *  Lets you equip gears that are equippable(such as hats, body, boots, etc)
+        * Drag to the correct equipment position (it will be highlighted as a yellow outline.) 
+
+### Future Task:
 - Inventory Icon + Inventory Mechanic
     * Note that we can expand the inventory size VIA Buying new Backpacks (will implement scrolling if it happens.)
     * On a side panel, you can see your characters:
@@ -74,21 +96,6 @@ START HERE:
         5. Ring
         6. Boots
 
-- Catch Fish Minigame
-- Fix manual selling mode
-- Toolbar (press 1-5 to equip.)
-    * 1 is reserved for the fishing Rod, the rest is for gears and consumables
-    * Only shows Gears / Consumables
-
-
-    * if you open the gear tab of the inventory, you can see yoru gears and consumables.
-        *  we will use that tab  to equip gears that are equippable(such as hats, body, boots, etc)
-        * To equip, It should be dragged into the equipment positions, but while holding, the available slot will highlight (color yellow) to show that the equipment should be put there
-        * The toolbar can still be seen, and wont be affected by screen darkening.
-    * To arrange consumables, You can see the toolbars below the inventory panel, and you can directly drag and drop it there. 
-
-
-### Future Task:
 - Shop Rework:
     * BEGINNER ISLAND
     

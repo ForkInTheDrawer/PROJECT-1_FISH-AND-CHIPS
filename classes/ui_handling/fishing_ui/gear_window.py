@@ -363,7 +363,7 @@ class GearWindow:
 
         consumable_categories = {
             "CONSUMABLE",
-            "CATEGORIES"
+            "CONSUMABLES"
         }
 
         visible_indexes = [
