@@ -127,11 +127,7 @@ class GearWindow:
             "CONSUMABLES"
         }
 
-        items = [
-            item for item in inventory["plr_inv"]
-            if str(item.get("category", "")).upper()
-            in gear_categories | consumable_categories
-        ]
+        items_by_slot = self.get_visible_items_by_slot(inventory)
 
 
 
@@ -147,7 +143,7 @@ class GearWindow:
             pygame.mouse.get_pos(),
             window_rect
         )
-
+        #Grid
         for slot_index in range(columns * rows):
 
             column = slot_index % columns
@@ -183,14 +179,11 @@ class GearWindow:
                     border_radius= 5
                 )
 
-            if slot_index < len(items):
-                item = items[slot_index]
+            if slot_index in items_by_slot:
+                _, item = items_by_slot[slot_index]
 
                 item_name = str(item.get("name", "Unknown"))
-                item_category = str(
-                    item.get("category", "Unknown")
-                )
-
+                item_category = str(item.get("category", "Unknown"))
                 name_font = pygame.font.Font(None, 19)
 
                 detail_font = pygame.font.Font(None, 17)
@@ -227,8 +220,8 @@ class GearWindow:
                 )
 
                 #Gear item inspection
-                if hovered_index is not None and 0 <= hovered_index < len(items):
-                    selected_item = items[hovered_index]
+                if hovered_index is not None and hovered_index in items_by_slot:
+                    _, selected_item = items_by_slot[hovered_index]
 
                     pygame.draw.rect(
                         screen,
@@ -352,6 +345,22 @@ class GearWindow:
         
 
     def get_inv_index_at_pos(self, mouse_pos, window_rect, inventory):
+        slot_index = self.get_slot_index_at_pos(
+            mouse_pos,
+            window_rect
+        )
+
+        if slot_index is None:
+            return None
+
+        visible_items = self.get_visible_items_by_slot(inventory)
+        if slot_index not in visible_items:
+            return None
+
+        return visible_items[slot_index][0]
+
+
+    def get_visible_items_by_slot(self, inventory):
         gear_categories = {
             "HEAD",
             "BODY",
@@ -366,16 +375,26 @@ class GearWindow:
             "CONSUMABLES"
         }
 
-        visible_indexes = [
-            index for index, item in enumerate(inventory["plr_inv"])
-            if str(item.get("category", "")).upper()
-            in gear_categories | consumable_categories
-        ]
+        visible_items = {}
+        next_slot = 0
 
+        for inv_index, item in enumerate(inventory["plr_inv"]):
+            category = str(item.get("category", "")).upper()
 
-        slot_index = self.get_slot_index_at_pos(mouse_pos, window_rect)
+            if category not in gear_categories | consumable_categories:
+                continue
 
-        if slot_index is None or slot_index >= len(visible_indexes):
-            return None
+            gear_slot = item.get("gear_slot")
 
-        return visible_indexes[slot_index]
+            if (
+                not isinstance(gear_slot, int)
+                or not 0 <= gear_slot < 20
+                or gear_slot in visible_items
+            ):
+                while next_slot in visible_items:
+                    next_slot += 1
+                gear_slot = next_slot
+
+            visible_items[gear_slot] = (inv_index, item)
+            next_slot = max(next_slot, gear_slot + 1)
+        return visible_items

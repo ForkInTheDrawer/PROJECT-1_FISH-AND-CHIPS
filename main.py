@@ -315,6 +315,7 @@ def main():
                             and rod is not None
                             and str(rod.get("category", "")).upper() == "FISHING ROD"
                         ):
+                            rod["gear_slot"] = target_index
                             added = player_data.add_to_inventory(rod)
 
                             if added is not False:
