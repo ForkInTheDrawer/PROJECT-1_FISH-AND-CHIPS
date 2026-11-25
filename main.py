@@ -322,6 +322,44 @@ def main():
                                 toolbar_slots[dragging_toolbar_index] = None
                                 player_data.save_inventory()
 
+                            elif toolbar_target_index is None:
+                                window_rect = pygame.Rect(
+                                    0,0,
+                                    inventory_window.width,
+                                    inventory_window.height
+                                )
+                                window_rect.center = screen.get_rect().center
+                                target_slot = inventory_window.gear_window.get_slot_index_at_pos(
+                                    event.pos,
+                                    window_rect
+                                )
+
+                                visible_items = inventory_window.gear_window.get_visible_items_by_slot(
+                                    player_data.inventory
+                                )
+
+                                source_slot = next(
+                                    (
+                                        slot for slot, (inv_index, _) in visible_items.tems()
+                                        if inv_index == dragging_inventory_index
+                                    ),
+                                    None
+                                )
+                                if (
+                                    target_slot is not None
+                                    and source_slot is not None
+                                    and target_slot != source_slot
+                                ): 
+                                    dragged_item = items[dragging_inventory_index]
+
+                                    #if another items occupies the target slot, swap the pos.
+                                    if target_slot in visible_items:
+                                        target_item = visible_items[target_slot][1]
+                                        target_item["gear_slot"] = target_slot
+                                        player_data.save_inventory()
+                                
+                            
+
                     dragging_toolbar_index = None
                 
                 elif dragging_inventory_index is not None:
