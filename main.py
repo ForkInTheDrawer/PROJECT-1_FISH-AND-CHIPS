@@ -323,6 +323,7 @@ def main():
 
                     dragging_toolbar_index = None
                 
+
             elif dragging_inventory_index is not None:
                 items = player_data.inventory["plr_inv"]
 
@@ -343,31 +344,32 @@ def main():
                             toolbar_slots[0] = items.pop(dragging_inventory_index)
                             player_data.save_inventory()
 
-                elif toolbar_target_index is None:
-                    window_rect = pygame.Rect(
-                        0,0,
-                        inventory_window.width,
-                        inventory_window.height
-                    )
-                    window_rect.center = screen.get_rect().center
+                    elif toolbar_target_index is None:
+                        window_rect = pygame.Rect(
+                            0, 0,
+                            inventory_window.width,
+                            inventory_window.height
+                        )
+                        window_rect.center = screen.get_rect().center
 
-                    target_inv_index = (
-                        inventory_window.gear_window.get_inv_index_at_pos(
-                        event.pos,
-                        window_rect,
-                        player_data.inventory
+                        target_inv_index = (
+                            inventory_window.gear_window.get_inv_index_at_pos(
+                                event.pos,
+                                window_rect,
+                                player_data.inventory
+                            )
                         )
-                    )
-                    if(
-                        target_inv_index is not None
-                        and target_inv_index != dragging_inventory_index
-                    ):
-                        items[dragging_inventory_index], items[target_inv_index] = (
-                            items[target_inv_index],
-                            items[dragging_inventory_index]
-                        )
-                        player_data.save_inventory()
-                
+
+                        if (
+                            target_inv_index is not None
+                            and target_inv_index != dragging_inventory_index
+                        ):
+                            items[dragging_inventory_index], items[target_inv_index] = (
+                                items[target_inv_index],
+                                items[dragging_inventory_index]
+                            )
+                            player_data.save_inventory()
+
                 else:
                     target_index = inventory_window.get_slot_index_at_position(
                         event.pos, screen
@@ -388,9 +390,7 @@ def main():
                         ):
                             player_data.save_inventory()
 
-                    dragging_inventory_index = None
-
-
+                dragging_inventory_index = None
 
             elif inventory_open and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if inventory_window.handle_event(event) is not None:
