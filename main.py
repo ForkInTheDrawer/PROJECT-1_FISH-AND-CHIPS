@@ -1044,6 +1044,36 @@ def main():
             player_data.inventory["toolbar_slots"]
             )
 
+        if dragging_toolbar_index is not None:
+            dragged_item = player_data.inventory["toolbar_slots"][
+                dragging_toolbar_index
+            ]
+
+        elif dragging_inventory_index is not None:
+            items = player_data.inventory["plr_inv"]
+
+            if 0 <= dragging_inventory_index < len(items):
+                dragged_item = items[dragging_inventory_index]
+
+        if dragged_item is not None:
+            inventory_window.gear_window.draw_drag_card(
+                screen,
+                dragged_item,
+                inventory_window.text_color
+            )
+
+
+        if (
+            inventory_open
+            and inventory_window.active_tab == "Gear"
+            and dragging_inventory_index is not None
+        ):
+            inventory_window.gear_window.draw_floating_card(
+                screen,
+                player_data.inventory,
+                dragging_inventory_index,
+                inventory_window.text_color
+            )
 
 
 

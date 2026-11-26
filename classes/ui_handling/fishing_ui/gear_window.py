@@ -235,119 +235,119 @@ class GearWindow:
                     )
                 )
 
-                #GEar item inspection (updated)
+        # Gear item inspection
 
-                selected_item = None
+        selected_item = None
 
-                if dragging_inventory_index is None:
+        if dragging_inventory_index is None:
 
-                    #First priority
+            # First priority: item hovered in Gear grid
+            if hovered_index is not None and hovered_index in items_by_slot:
+                _, selected_item = items_by_slot[hovered_index]
 
-                    if hovered_index is not None and hovered_index in items_by_slot:
-                        _, selected_item = items_by_slot[hovered_index]
+            # Second priority: item hovered in toolbar slot 1
+            elif (
+                hovered_toolbar_index == 0
+                and toolbar_slots is not None
+                and len(toolbar_slots) > 0
+            ):
+                selected_item = toolbar_slots[0]
 
-                    #Second Priority
+        if selected_item is not None:
 
-                    elif (
-                        hovered_toolbar_index == 0
-                        and toolbar_slots is not None
-                        and len(toolbar_slots) > 0
-                    ):
-                        selected_item = toolbar_slots[0]
-                if selected_item is not None:
-                    pygame.draw.rect(
-                        screen,
-                        (25,62,76),
-                        panel_rect,
-                        border_radius=10
+            pygame.draw.rect(
+                screen,
+                (25, 62, 76),
+                panel_rect,
+                border_radius=10
+            )
+
+            pygame.draw.rect(
+                screen,
+                border_color,
+                panel_rect,
+                2,
+                border_radius=10
+            )
+
+            panel_title = info_font.render(
+                "GEAR DETAILS",
+                True,
+                text_color
+            )
+
+            screen.blit(
+                panel_title,
+                (panel_rect.x + 12, panel_rect.y + 15)
+            )
+
+            details_font = pygame.font.Font(None, 20)
+            text_x = panel_rect.x + 12
+            text_y = panel_rect.y + 55
+            max_width = panel_rect.width - 24
+            line_height = 23
+
+            details = [
+                ("Name: ", selected_item.get("name", "Unknown")),
+                ("Category: ", selected_item.get("category", "Unknown")),
+                ("Description: ", selected_item.get(
+                    "description",
+                    "No description available."
+                ))
+            ]
+
+            stats = selected_item.get("stats", {})
+
+            if stats:
+                details.append(("Stats:", ""))
+
+                for stat_name, stat_value in stats.items():
+                    details.append((f"{stat_name}: ", stat_value))
+
+            if "quantity" in selected_item:
+                details.append(("Quantity: ", selected_item["quantity"]))
+
+            # Wrap text
+            wrapped_lines = []
+
+            for label, value in details:
+                prefix = label
+                words = str(value).split()
+                current_line = prefix
+                continuation_indent = details_font.size(prefix)[0]
+                current_indent = 0
+
+                for word in words:
+                    test_line = (
+                        current_line + word
+                        if current_line == prefix
+                        else current_line + " " + word
                     )
 
-                    pygame.draw.rect(
-                        screen, 
-                        border_color,
-                        panel_rect,
-                        2,
-                        border_radius=10
-                    )
-
-                    panel_title = info_font.render(
-                        "GEAR DETAILS",
-                        True,
-                        text_color
-                    )
-
-                    screen.blit(
-                        panel_title,
-                        (panel_rect.x + 12, panel_rect.y + 15)
-                    )
-
-                    details_font = pygame.font.Font(None, 20)
-                    text_x = panel_rect.x + 12
-                    text_y = panel_rect.y + 55
-                    max_width = panel_rect.width - 24
-                    line_height = 23
-
-                    details = [
-                        ("Name: ", selected_item.get("name", "Unknown")),
-                        ("Category: ", selected_item.get("category", "Unknown")),
-                        ("Description: ", selected_item.get(
-                            "description",
-                            "No Description Available."
-                        ))
-                    ]
-
-                    stats = selected_item.get("stats", {})
-
-                    if stats:
-                        details.append(("stats", ""))
-
-                        for stat_name, start_value in stats.items():
-                            details.append((f"{stat_name}", stat_value))
-
-                    if "quantity" in selected_item:
-                        details.append(("Quantity: ", selected_item["quantity"]))
-
-                        #Wrapping lines
-                    wrapped_lines = []
-
-                    for label, value in details:
-                        prefix = label
-                        words = str(value).split()
-                        current_line = prefix
-                        continuation_indent = details_font.size(prefix)[0]
-                        current_indent = 0
-
-                        for word in words:
-                            test_line = (
-                                current_line + word
-                                if current_line == prefix
-                                else current_line + " " + word
-                            )
-
-                            if details_font.size(test_line)[0] <= max_width:
-                                current_line = test_line
-                            else:
-                                wrapped_lines.append((current_line, current_indent))
-                                current_line = word
-                                current_indent = continuation_indent
-                        
+                    if details_font.size(test_line)[0] <= max_width:
+                        current_line = test_line
+                    else:
                         wrapped_lines.append((current_line, current_indent))
-                    #Drawing Detailsss
+                        current_line = word
+                        current_indent = continuation_indent
 
-                    for index, (line, indent) in enumerate(wrapped_lines):
-                        if text_y + index * line_height > panel_rect.bottom - 20:
-                            break
+                wrapped_lines.append((current_line, current_indent))
 
-                        detail_text = detail_font.render(
-                            line,
-                            True,
-                            text_color
-                        )
+            # Draw details
+            for index, (line, indent) in enumerate(wrapped_lines):
+                if text_y + index * line_height > panel_rect.bottom - 20:
+                    break
 
-                        screen.blit(
-                            detail_text,
-                            (text_x + indent, text_y + index * line_height)
-                        )
+                detail_text = details_font.render(
+                    line,
+                    True,
+                    text_color
+                )
+
+                screen.blit(
+                    detail_text,
+                    (text_x + indent, text_y + index * line_height)
+                )
 
         #Floating Card (dragging)
 
@@ -402,6 +402,97 @@ class GearWindow:
                     drag_text,
                     drag_text.get_rect(center = card_rect.center)
                 )
+
+    def draw_floating_card(self, screen, inventory, dragging_inventory_index, text_color):
+        if dragging_inventory_index is None:
+            return
+        items = inventory["plr_inv"]
+
+        if not 0 <= dragging_inventory_index < len(items):
+            return
+        dragged_item = items[dragging_inventory_index]
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        card_rect = pygame.Rect(
+            mouse_x + 12,
+            mouse_y + 12,
+            115,
+            45
+        )
+
+        pygame.draw.rect(
+            screen,
+            (25,62,76),
+            card_rect,
+            border_radius = 7
+        )
+
+        pygame.draw.rect(
+            screen,
+            (255, 210, 90),
+            card_rect,
+            2,
+            border_radius = 7
+        )
+
+        drag_font = pygame.font.Font(None, 21)
+        item_name = str(dragged_item.get("name", "Unknown"))
+
+        while item_name and drag_font.size(item_name)[0] > card_rect.width-12:
+            item_name = item_name[:-1]
+
+        if item_name != dragged_item.get("name", "Unknown"):
+            item_name += "..."
+
+        drag_text = drag_font.render(
+            item_name,
+            True,
+            text_color
+        )
+
+        screen.blit(
+            drag_text,
+            drag_text.get_rect(
+                center = card_rect.center
+            )
+        )
+
+    def draw_drag_card(self, screen, dragged_item, text_color):
+        if dragged_item is None:
+            return
+
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        card_rect = pygame.Rect(
+            mouse_x + 12,
+            mouse_y + 12,
+            115,
+            45
+        )
+
+        pygame.draw.rect(
+            screen, (25, 62, 76), card_rect, border_radius = 7
+        )
+        pygame.draw.rect(
+            screen, (255,210, 90), card_rect, 2, border_radius= 7
+        )
+
+        drag_font = pygame.font.Font(None, 21)
+        item_name = str(dragged_item.get("name", "Unknown")) 
+
+        while item_name and drag_font.size(item_name)[0] > card_rect.width - 12:
+            item_name = item_name[:-1]
+
+        if item_name != dragged_item.get("name", "Unknown"):
+            item_name += "..."
+
+        drag_text = drag_font.render(item_name, True, text_color)
+
+        screen.blit(
+            drag_text,
+            drag_text.get_rect(center= card_rect.center)
+        )
+
 
     def get_slot_index_at_pos(self, mouse_pos, window_rect):
         slot_width = 76
