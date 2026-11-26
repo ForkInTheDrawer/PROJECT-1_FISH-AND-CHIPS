@@ -3,7 +3,7 @@
 import pygame
 
 class GearWindow:
-    def draw(self, screen, window_rect, inventory, border_color, info_font, text_color):
+    def draw(self, screen, window_rect, inventory, border_color, info_font, text_color, dragging_inventory_index = None):
         panel_rect = pygame.Rect(
             window_rect.x + 25,
             window_rect.y + 120,
@@ -178,8 +178,11 @@ class GearWindow:
                     2,
                     border_radius= 5
                 )
-
-            if slot_index in items_by_slot:
+            #Grid drawing (again)
+            if (
+                slot_index in items_by_slot
+                and items_by_slot[slot_index][0] != dragging_inventory_index
+                ):
                 _, item = items_by_slot[slot_index]
 
                 item_name = str(item.get("name", "Unknown"))
@@ -220,7 +223,11 @@ class GearWindow:
                 )
 
                 #Gear item inspection
-                if hovered_index is not None and hovered_index in items_by_slot:
+                if (
+                    dragging_inventory_index is None
+                    and hovered_index is not None
+                    and hovered_index in items_by_slot
+                ):
                     _, selected_item = items_by_slot[hovered_index]
 
                     pygame.draw.rect(
@@ -313,8 +320,59 @@ class GearWindow:
                             detail_text,
                             (text_x + indent, text_y + index * line_height)
                         )
+        #Floating Card (dragging)
 
+        if dragging_inventory_index is not None:
+            items = inventory["plr_inv"]
 
+            if 0 <= dragging_inventory_index < len(items):
+                dragged_item = items[dragging_inventory_index]
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+
+                card_rect = pygame.Rect(
+                    mouse_x + 12,
+                    mouse_y + 12,
+                    115,
+                    45
+                )
+
+                pygame.draw.rect(
+                    screen,
+                    (25,62,76),
+                    card_rect,
+                    border_radius= 7
+                )
+
+                pygame.draw.rect(
+                    screen,
+                    (255, 210, 90),
+                    card_rect,
+                    2,
+                    border_radius= 7
+                )
+
+                drag_font = pygame.font.Font(None, 21)
+                item_name = str( dragged_item.get("name", "Unknown"))
+
+                while(
+                    item_name
+                    and
+                    drag_font.size(item_name)[0] > card_rect.width - 12
+                ):
+                    item_name = item_name[:-1]
+                if item_name != dragged_item.get("name", "Unknown"):
+                    item_name += "..."
+
+                drag_text = drag_font.render(
+                    item_name,
+                    True,
+                    text_color
+                )
+
+                screen.blit(
+                    drag_text,
+                    drag_text.get_rect(center = card_rect.center)
+                )
 
     def get_slot_index_at_pos(self, mouse_pos, window_rect):
         slot_width = 76

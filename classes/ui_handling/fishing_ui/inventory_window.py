@@ -107,7 +107,11 @@ class InventoryWindow:
     def draw(self,screen , inventory, 
              hovered_index = None, is_dragging = None, 
              selected_indexes = None, manual_sell_mode = False, 
-             selected_count = 0, selected_sale_total = None):
+             selected_count = 0, selected_sale_total = None,
+             toolbar_slots = None, toolbar_slot_rects = None
+             ):
+
+        
         overlay = pygame.Surface(screen.get_size() , pygame.SRCALPHA)
         overlay.fill((0,0,0,150))
         screen.blit(overlay, (0,0))
@@ -484,7 +488,10 @@ class InventoryWindow:
                 inventory,
                 self.border_color,
                 self.info_font,
-                self.text_color
+                self.text_color,
+                dragging_inventory_index=is_dragging,
+                toolbar_slots = toolbar_slots,
+                toolbar_slot_rects = toolbar_slot_rects
             )
 
         if manual_sell_mode:

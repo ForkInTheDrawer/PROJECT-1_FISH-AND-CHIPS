@@ -56,7 +56,7 @@ from pathlib import Path
 #Screen Dimensions + update version Number when you release a new version
 WIDTH = 1200
 HEIGHT = 800
-GAME_VERSION = "1.0.4 ALPHA"
+GAME_VERSION = "1.0.5 ALPHA"
 
 
 FPS = 60
@@ -1033,7 +1033,9 @@ def main():
                 selected_indexes= manual_sell_selected,
                 manual_sell_mode= manual_sell_mode,
                 selected_count=len(manual_sell_selected),
-                selected_sale_total = selected_sale_total
+                selected_sale_total = selected_sale_total,
+                toolbar_slots=player_data.inventory["toolbar_slots"],
+                toolbar_slot_rects=toolbar.slot_rects
                 )
 
         toolbar.draw(
