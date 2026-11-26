@@ -3,7 +3,12 @@
 import pygame
 
 class GearWindow:
-    def draw(self, screen, window_rect, inventory, border_color, info_font, text_color, dragging_inventory_index = None):
+    def draw(self, screen, window_rect, 
+             inventory, border_color, 
+             info_font, text_color, 
+             dragging_inventory_index = None,
+             toolbar_slots = None,
+             toolbar_slot_rects = None):
         panel_rect = pygame.Rect(
             window_rect.x + 25,
             window_rect.y + 120,
@@ -143,6 +148,14 @@ class GearWindow:
             pygame.mouse.get_pos(),
             window_rect
         )
+        mouse_pos = pygame.mouse.get_pos()
+        hovered_toolbar_index = None
+
+        if toolbar_slot_rects:
+            for index, slot_rect in enumerate(toolbar_slot_rects):
+                if slot_rect.collidepoint(mouse_pos):
+                    hovered_toolbar_index = index
+                    break
         #Grid
         for slot_index in range(columns * rows):
 
@@ -222,27 +235,39 @@ class GearWindow:
                     )
                 )
 
-                #Gear item inspection
-                if (
-                    dragging_inventory_index is None
-                    and hovered_index is not None
-                    and hovered_index in items_by_slot
-                ):
-                    _, selected_item = items_by_slot[hovered_index]
+                #GEar item inspection (updated)
 
+                selected_item = None
+
+                if dragging_inventory_index is None:
+
+                    #First priority
+
+                    if hovered_index is not None and hovered_index in items_by_slot:
+                        _, selected_item = items_by_slot[hovered_index]
+
+                    #Second Priority
+
+                    elif (
+                        hovered_toolbar_index == 0
+                        and toolbar_slots is not None
+                        and len(toolbar_slots) > 0
+                    ):
+                        selected_item = toolbar_slots[0]
+                if selected_item is not None:
                     pygame.draw.rect(
                         screen,
                         (25,62,76),
                         panel_rect,
-                        border_radius = 10
+                        border_radius=10
                     )
 
                     pygame.draw.rect(
-                        screen,
+                        screen, 
                         border_color,
                         panel_rect,
                         2,
-                        border_radius = 10
+                        border_radius=10
                     )
 
                     panel_title = info_font.render(
@@ -250,11 +275,11 @@ class GearWindow:
                         True,
                         text_color
                     )
+
                     screen.blit(
                         panel_title,
                         (panel_rect.x + 12, panel_rect.y + 15)
                     )
-
 
                     details_font = pygame.font.Font(None, 20)
                     text_x = panel_rect.x + 12
@@ -265,20 +290,24 @@ class GearWindow:
                     details = [
                         ("Name: ", selected_item.get("name", "Unknown")),
                         ("Category: ", selected_item.get("category", "Unknown")),
-                        ("Description: ", selected_item.get("description", "No description available."))
+                        ("Description: ", selected_item.get(
+                            "description",
+                            "No Description Available."
+                        ))
                     ]
+
                     stats = selected_item.get("stats", {})
 
                     if stats:
-                        details.append(("Stats:", ""))
-                        for stat_name, stat_value in stats.items():
-                            details.append((f"{stat_name}: ", stat_value))
+                        details.append(("stats", ""))
+
+                        for stat_name, start_value in stats.items():
+                            details.append((f"{stat_name}", stat_value))
 
                     if "quantity" in selected_item:
                         details.append(("Quantity: ", selected_item["quantity"]))
 
-                    # Wrapping lines
-
+                        #Wrapping lines
                     wrapped_lines = []
 
                     for label, value in details:
@@ -301,16 +330,15 @@ class GearWindow:
                                 wrapped_lines.append((current_line, current_indent))
                                 current_line = word
                                 current_indent = continuation_indent
-
+                        
                         wrapped_lines.append((current_line, current_indent))
-
-                    # Drawing it
+                    #Drawing Detailsss
 
                     for index, (line, indent) in enumerate(wrapped_lines):
                         if text_y + index * line_height > panel_rect.bottom - 20:
                             break
 
-                        detail_text = details_font.render(
+                        detail_text = detail_font.render(
                             line,
                             True,
                             text_color
@@ -320,6 +348,7 @@ class GearWindow:
                             detail_text,
                             (text_x + indent, text_y + index * line_height)
                         )
+
         #Floating Card (dragging)
 
         if dragging_inventory_index is not None:
