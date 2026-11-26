@@ -43,7 +43,8 @@ class Toolbar:
         )
 
 
-    def draw(self, screen, dt = 0, toolbar_slots = None):
+    def draw(self, screen, dt = 0,
+            toolbar_slots = None, dragging_toolbar_index = None):
         self.slot_rects = []
 
         total_width = (
@@ -116,7 +117,10 @@ class Toolbar:
                 (draw_rect.x + 5, draw_rect.y + 4)
             )
 
-            if index == 0 and item is not None:
+            if (index == 0 
+                and item is not None
+                and index != dragging_toolbar_index
+                ):
                 item_name = str(item.get("name", "item"))
                 item_text = self.item_font.render(
                     item_name,
