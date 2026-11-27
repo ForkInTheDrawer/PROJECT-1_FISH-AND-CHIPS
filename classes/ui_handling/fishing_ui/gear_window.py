@@ -8,7 +8,23 @@ class GearWindow:
              info_font, text_color, 
              dragging_inventory_index = None,
              toolbar_slots = None,
-             toolbar_slot_rects = None):
+             toolbar_slot_rects = None
+             ):
+
+        dragged_item = None
+
+        if dragging_inventory_index is not None:
+            items = inventory["plr_inv"]
+
+            if 0 <= dragging_inventory_index < len(items):
+                dragged_item = items[dragging_inventory_index]
+
+        #Pulsing animation
+
+        pulse_phase = (pygame.time.get_ticks() % 1200 / 1200)
+        pulse_amount = 1 - abs(2 * pulse_phase - 1)
+
+
         panel_rect = pygame.Rect(
             window_rect.x + 25,
             window_rect.y + 120,
@@ -62,6 +78,29 @@ class GearWindow:
 
         equipment_slots = ["Head", "Body", "Ring", "Boots"]
 
+        equipment_categories = {
+            "HEAD" : "HEAD",
+            "BODY" : "BODY",
+            "RING" : "RING",
+            "BOOTS" : "BOOTS"
+        }
+
+        dragged_category = (
+            str(dragged_item.get("category", "")).upper()
+            if dragged_item is not None
+            else None
+        )
+
+        valid_equipment_category = equipment_categories.get(
+            str(dragged_category)
+        )
+
+        pulse_color = (
+            255,
+            170 + int(40 * pulse_amount),
+            30
+        )
+
         slot_width = 68
         slot_height = 65
         slot_gap = 8
@@ -80,13 +119,23 @@ class GearWindow:
                 slot_height
             )
 
-            pygame.draw.rect(
-                screen,
-                (16,43,58),
-                slot_rect,
-                2,
-                border_radius=7
-            )
+            if slot_name.upper() == valid_equipment_category:
+                pygame.draw.rect(
+                    screen,
+                    pulse_color,
+                    slot_rect,
+                    4,
+                    border_radius= 7
+                )
+            else:
+                pygame.draw.rect(
+                    screen,
+                    (16,43,58),
+                    slot_rect,
+                    2,
+                    border_radius= 7
+                )
+
 
             slot_text = pygame.font.Font(None, 22).render(
                 slot_name,
