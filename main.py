@@ -664,52 +664,62 @@ def main():
                 if pygame.K_1 <= event.key <= pygame.K_5:
                     toolbar.select_slot(event.key - pygame.K_1)
                 # NOTE: CASTING MINIGAME SYSTEM
-                
+            
                 elif(
                     event.key == pygame.K_e
-                    and dock.colliderect(player_world_rect)
                     and fish_popup is None
                     and not fishing_system.is_casting
                     and not fishing_system.is_fishing
                 ):
-                    toolbar_slots = player_data.inventory["toolbar_slots"]
-                    inventory_items = player_data.inventory["plr_inv"]
+                    #checks if player stands on dock
 
-                    #checks rod 
-
-                    rod_in_inv = any(
-                        str(item.get("category", "")).upper() == "FISHING ROD"
-                        for item in inventory_items
-                    )
-
-                    rod_in_toolbar = any(
-                        item is not None
-                        and str(item.get("category", "")).upper() == "FISHING ROD"
-                        for item in toolbar_slots
-                    )
-
-                    has_rod = rod_in_inv or rod_in_toolbar
-
-                    #Checks if fishing rod is equipped or nah (slot 1)
-
-                    rod_equipped = (
-                        toolbar_slots[0] is not None
-                        and str(toolbar_slots[0].get("category", "")).upper()
-                        == "FISHING ROD"
-                        and toolbar.selected_slot == 0
-                    ) 
-
-                    if not has_rod or not rod_equipped:
+                    if not dock.colliderect(player_world_rect):
                         sell_notifications.add_notif(
-                            message= "Equip a Rod to fish!",
-                            border_color = (255, 70, 70),
+                            message = "Stand on the dock to fish!",
+                            border_color = (255, 70,70),
                             shake = True
                         )
-                    elif (
-                        player_data.get_regular_inventory_count()
-                        <player_data.inventory["maximum_slots"]
-                    ):
-                        casting_minigame = CastingMinigame(WIDTH, HEIGHT)
+
+                    else:
+
+                        toolbar_slots = player_data.inventory["toolbar_slots"]
+                        inventory_items = player_data.inventory["plr_inv"]
+                        # Check whether player owns a fishing rod
+                        rod_in_inv = any(
+                            str(item.get("category", "")).upper() == "FISHING ROD"
+                            for item in inventory_items
+                        )
+
+                        rod_in_toolbar = any(
+                            item is not None
+                            and str(item.get("category", "")).upper() == "FISHING ROD"
+                            for item in toolbar_slots
+                        )
+
+                        has_rod = rod_in_inv or rod_in_toolbar
+
+                        # Check if fishing rod is equipped in toolbar slot 1
+                        rod_equipped = (
+                            toolbar_slots[0] is not None
+                            and str(toolbar_slots[0].get("category", "")).upper()
+                            == "FISHING ROD"
+                            and toolbar.selected_slot == 0
+                        )
+
+                        if not has_rod or not rod_equipped:
+                            sell_notifications.add_notif(
+                                message="Equip a Rod to fish!",
+                                border_color=(255, 70, 70),
+                                shake=True
+                            )
+
+                        elif (
+                            player_data.get_regular_inventory_count()
+                            < player_data.inventory["maximum_slots"]
+                        ):
+                            casting_minigame = CastingMinigame(WIDTH, HEIGHT)
+
+
 
                 fish_popup = keyboard_events.popup_skip_key(event, fish_popup)
 
