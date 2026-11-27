@@ -1084,6 +1084,8 @@ def main():
             player_data.inventory["toolbar_slots"],
             dragging_toolbar_index=dragging_toolbar_index
             )
+
+            
         #Floating card
         dragged_item = None
 
