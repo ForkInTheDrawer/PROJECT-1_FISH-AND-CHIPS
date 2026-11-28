@@ -128,6 +128,12 @@ START HERE:
         5. Ring
         6. Boots
 
+- Shop Generation:
+    * Uses gear_item.json as a reference.
+    * Randomized values for stats
+    - Shop Rotation:
+        * Rotates every 2 minutes
+        * Timer ticks down while your offline
 
 
 - Shop Contains this:

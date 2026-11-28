@@ -40,8 +40,9 @@ from events import selling_events
 from pathlib import Path
 
 def resource_path(relative_path):
-    if hasattr(sys, '_MEIPASS'):
-        base_path = Path(sys._MEIPASS)
+    meipass = getattr(sys, '_MEIPASS', None)
+    if meipass:
+        base_path = Path(meipass)
     else:
         base_path = Path(__file__).resolve().parent
 
