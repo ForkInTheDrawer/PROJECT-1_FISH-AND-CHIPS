@@ -1028,32 +1028,32 @@ def main():
 
         #--------HUD BACKGROUND:
 
-        hud_rect = pygame.Rect(20, HEIGHT - 170 , 340, 150)
+        if not shop_open:
+            hud_rect = pygame.Rect(20, HEIGHT - 170, 340, 150)
 
-        #PANEL
-        pygame.draw.rect(screen, (16,43,58),hud_rect)
+            # PANEL
+            pygame.draw.rect(screen, (16, 43, 58), hud_rect)
 
-        #BORDER
-        pygame.draw.rect(screen, (115,226,208),hud_rect,3)
+            # BORDER
+            pygame.draw.rect(screen, (115, 226, 208), hud_rect, 3)
 
-            #HUD TITLE:
-        
-        title_text = hud_font.render(f"FISH N' CHIPS V{GAME_VERSION}", True, (244,231,197))
-        screen.blit(title_text, (35,HEIGHT - 160))
+            # HUD TITLE
+            title_text = hud_font.render(
+                f"FISH N' CHIPS V{GAME_VERSION}", True, (244, 231, 197)
+            )
+            screen.blit(title_text, (35, HEIGHT - 160))
 
-            # CASH:
-        cash_text = hud_font.render( f'CASH: ${player_data.cash:,.0f}' , True, (244, 213, 141))
-        screen.blit(cash_text , (35, HEIGHT-  120))
+            # CASH
+            cash_text = hud_font.render(
+                f'CASH: ${player_data.cash:,.0f}', True, (244, 213, 141)
+            )
+            screen.blit(cash_text, (35, HEIGHT - 120))
 
-
-            # CHIPS:
-        
-        chips_text = hud_font.render( f'CHIPS: {player_data.chips:,.0f}', True , (244,213,141))
-        screen.blit(chips_text, (35, HEIGHT- 80))
-        pass #WORK ON CHIPS SYSTEM
-
-        #SELL NOTIFS:
-        sell_notifications.draw(screen)
+            # CHIPS
+            chips_text = hud_font.render(
+                f'CHIPS: {player_data.chips:,.0f}', True, (244, 213, 141)
+            )
+            screen.blit(chips_text, (35, HEIGHT - 80))
 
 
         #INVENTORY:

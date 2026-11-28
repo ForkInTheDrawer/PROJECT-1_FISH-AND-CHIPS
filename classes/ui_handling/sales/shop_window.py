@@ -8,7 +8,7 @@ from classes.ui_handling.button import Button
 class ShopWindow:
     def __init__(self, stock = None):
 
-        self.rect = pygame.Rect(200,300,800,400)
+        self.rect = pygame.Rect(200,150,800,500)
         self.stock = stock or []
 
         self.title_font = pygame.font.Font(None, 48)
@@ -24,7 +24,7 @@ class ShopWindow:
 
             item_rect = pygame.Rect(
                 220 + column * 250,
-                430 + row * 115,
+                285 + row * 115,
                 230,
                 105
             )
@@ -54,7 +54,7 @@ class ShopWindow:
 
         screen.blit(
             info,
-            info.get_rect(center = (self.rect.centerx, 400))
+            info.get_rect(center = (self.rect.centerx, self.rect.y + 105))
         )
 
         for item, item_rect in zip(self.stock, self.item_rects):
@@ -74,7 +74,7 @@ class ShopWindow:
             )
 
             screen.blit(name, (item_rect.x + 8, item_rect.y + 8))
-            screen.blit(rarity, (item_rect.x + 8, item_rect.y + 8))
+            screen.blit(rarity, (item_rect.x + 8, item_rect.y + 32))
             screen.blit(price, (item_rect.x + 8, item_rect.y + 58))
 
             stats_text = ", ". join (
