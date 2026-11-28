@@ -1117,9 +1117,10 @@ def main():
                     dragged_item = items[dragging_inventory_index]
 
             if dragged_item is not None:
-                inventory_window.gear_window.draw_drag_card(
+                inventory_window.gear_window.draw_floating_card(
                     screen,
-                    dragged_item,
+                    player_data.inventory,
+                    dragging_inventory_index,
                     inventory_window.text_color
                 )
 

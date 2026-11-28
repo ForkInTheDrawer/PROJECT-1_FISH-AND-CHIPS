@@ -11,20 +11,6 @@ class GearWindow:
              toolbar_slot_rects = None
              ):
 
-        dragged_item = None
-
-        if dragging_inventory_index is not None:
-            items = inventory["plr_inv"]
-
-            if 0 <= dragging_inventory_index < len(items):
-                dragged_item = items[dragging_inventory_index]
-
-        #Pulsing animation
-
-        pulse_phase = (pygame.time.get_ticks() % 1200 / 1200)
-        pulse_amount = 1 - abs(2 * pulse_phase - 1)
-
-
         panel_rect = pygame.Rect(
             window_rect.x + 25,
             window_rect.y + 120,
@@ -134,19 +120,6 @@ class GearWindow:
                 )
             )
         # grid + filter
-        gear_categories = {
-            "HEAD",
-            "BODY",
-            "RING",
-            "BOOTS",
-            "GEAR",
-            "FISHING ROD"
-        }
-        consumable_categories = {
-            "CONSUMABLE",
-            "CONSUMABLES"
-        }
-
         items_by_slot = self.get_visible_items_by_slot(inventory)
 
 
@@ -418,44 +391,8 @@ class GearWindow:
                 center = card_rect.center
             )
         )
-
-    def draw_drag_card(self, screen, dragged_item, text_color):
-        if dragged_item is None:
-            return
-
-        mouse_x, mouse_y = pygame.mouse.get_pos()
-
-        card_rect = pygame.Rect(
-            mouse_x + 12,
-            mouse_y + 12,
-            115,
-            45
-        )
-
-        pygame.draw.rect(
-            screen, (25, 62, 76), card_rect, border_radius = 7
-        )
-        pygame.draw.rect(
-            screen, (255,210, 90), card_rect, 2, border_radius= 7
-        )
-
-        drag_font = pygame.font.Font(None, 21)
-        item_name = str(dragged_item.get("name", "Unknown")) 
-
-        while item_name and drag_font.size(item_name)[0] > card_rect.width - 12:
-            item_name = item_name[:-1]
-
-        if item_name != dragged_item.get("name", "Unknown"):
-            item_name += "..."
-
-        drag_text = drag_font.render(item_name, True, text_color)
-
-        screen.blit(
-            drag_text,
-            drag_text.get_rect(center= card_rect.center)
-        )
-
-
+        # I just realized I made 2 functions that do the same thing lol, Remvoed the other one.
+        
     def get_slot_index_at_pos(self, mouse_pos, window_rect):
         slot_width = 76
         slot_height = 76

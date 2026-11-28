@@ -1,3 +1,5 @@
+#handles The Valid Gear Highlight Animation when you try to put gear somewhere
+
 import pygame
 
 class GearHighlight:
@@ -50,8 +52,8 @@ class GearHighlight:
 
         pulse_color = (
             255,
-            165 + int(65 * pulse_amount),
-            25
+            210 + int(45 * pulse_amount),
+            25 + int(230 * pulse_amount)
         )
 
 
