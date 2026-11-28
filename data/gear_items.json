@@ -42,7 +42,8 @@
                         "Randomized" : true,
                         "Min" : 1.5,
                         "Max" : 2
-                    }
+                    },
+                "Price" : 250
                 }
             }
         },

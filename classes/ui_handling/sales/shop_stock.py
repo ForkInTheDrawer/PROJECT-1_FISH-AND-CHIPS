@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 class ShopStock:
-    def __inot__(self):
+    def __init__(self):
 
         project_root = Path(__file__).resolve().parents[3]
         gear_path = project_root / "data" / "gear_items.json"
@@ -14,8 +14,8 @@ class ShopStock:
         with gear_path.open(encoding = "utf-8") as file:
             self.item_data = json.load(file)
 
-        self.gear_templates = json.load(file)["GEAR"]
-        self.consumable_templates = json.load(file)["CONSUMABLES"]
+        self.gear_templates = self.item_data["GEAR"]
+        self.consumable_templates = self.item_data["CONSUMABLES"]
 
 
     def generate_gear(self, category, item_name):
