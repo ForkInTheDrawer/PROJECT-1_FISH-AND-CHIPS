@@ -76,30 +76,7 @@ class GearWindow:
 
         #equipment slots
 
-        equipment_slots = ["Head", "Body", "Ring", "Boots"]
 
-        equipment_categories = {
-            "HEAD" : "HEAD",
-            "BODY" : "BODY",
-            "RING" : "RING",
-            "BOOTS" : "BOOTS"
-        }
-
-        dragged_category = (
-            str(dragged_item.get("category", "")).upper()
-            if dragged_item is not None
-            else None
-        )
-
-        valid_equipment_category = equipment_categories.get(
-            str(dragged_category)
-        )
-
-        pulse_color = (
-            255,
-            170 + int(40 * pulse_amount),
-            30
-        )
 
         slot_width = 68
         slot_height = 65

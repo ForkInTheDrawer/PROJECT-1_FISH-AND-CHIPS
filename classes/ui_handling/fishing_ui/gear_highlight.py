@@ -75,7 +75,7 @@ class GearHighlight:
                 inventory_window.height
             )
 
-            window_rect.center = screen.get_pos().center
+            window_rect.center = screen.get_rect().center
 
             panel_rect = pygame.Rect(
 
@@ -112,7 +112,7 @@ class GearHighlight:
 
         #Fishing rod highlights
 
-        elif category == "FISHING_ROD" : 
+        elif category == "FISHING ROD" : 
 
             if toolbar_slot_rects and len(toolbar_slot_rects) > 0:
                 pygame.draw.rect(
