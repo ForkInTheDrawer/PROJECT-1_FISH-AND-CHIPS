@@ -75,9 +75,6 @@ class GearWindow:
         )
 
         #equipment slots
-
-
-
         slot_width = 68
         slot_height = 65
         slot_gap = 8
@@ -85,7 +82,8 @@ class GearWindow:
         slot_start_y = panel_rect.centery - (
             (4 * slot_height + 3 * slot_gap) // 2
         )
-
+        equipment_slots = ["Head", "Body", "Ring", "Boots"]
+        #Loop for slots
         for index, slot_name in enumerate(equipment_slots):
             slot_rect = pygame.Rect(
                 panel_rect.x + 20,
@@ -96,22 +94,13 @@ class GearWindow:
                 slot_height
             )
 
-            if slot_name.upper() == valid_equipment_category:
-                pygame.draw.rect(
-                    screen,
-                    pulse_color,
-                    slot_rect,
-                    4,
-                    border_radius= 7
-                )
-            else:
-                pygame.draw.rect(
-                    screen,
-                    (16,43,58),
-                    slot_rect,
-                    2,
-                    border_radius= 7
-                )
+            pygame.draw.rect(
+                screen,
+                (16,43,58),
+                slot_rect,
+                2,
+                border_radius= 7
+            )
 
 
             slot_text = pygame.font.Font(None, 22).render(
@@ -375,59 +364,6 @@ class GearWindow:
                     (text_x + indent, text_y + index * line_height)
                 )
 
-        #Floating Card (dragging)
-
-        if dragging_inventory_index is not None:
-            items = inventory["plr_inv"]
-
-            if 0 <= dragging_inventory_index < len(items):
-                dragged_item = items[dragging_inventory_index]
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-
-                card_rect = pygame.Rect(
-                    mouse_x + 12,
-                    mouse_y + 12,
-                    115,
-                    45
-                )
-
-                pygame.draw.rect(
-                    screen,
-                    (25,62,76),
-                    card_rect,
-                    border_radius= 7
-                )
-
-                pygame.draw.rect(
-                    screen,
-                    (255, 210, 90),
-                    card_rect,
-                    2,
-                    border_radius= 7
-                )
-
-                drag_font = pygame.font.Font(None, 21)
-                item_name = str( dragged_item.get("name", "Unknown"))
-
-                while(
-                    item_name
-                    and
-                    drag_font.size(item_name)[0] > card_rect.width - 12
-                ):
-                    item_name = item_name[:-1]
-                if item_name != dragged_item.get("name", "Unknown"):
-                    item_name += "..."
-
-                drag_text = drag_font.render(
-                    item_name,
-                    True,
-                    text_color
-                )
-
-                screen.blit(
-                    drag_text,
-                    drag_text.get_rect(center = card_rect.center)
-                )
 
     def draw_floating_card(self, screen, inventory, dragging_inventory_index, text_color):
         if dragging_inventory_index is None:

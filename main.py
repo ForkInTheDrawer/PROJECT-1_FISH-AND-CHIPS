@@ -24,6 +24,8 @@ from classes.ui_handling.fishing_ui.inventory_window import InventoryWindow
 from classes.ui_handling.fishing_ui.fish_popup import FishPopUp
 from classes.ui_handling.fishing_ui.user_toolbar import Toolbar
 
+from classes.ui_handling.fishing_ui.gear_highlight import GearHighlight
+
 from classes.ui_handling.sales.shop_window import ShopWindow
 from classes.ui_handling.sales.sell_notif import Sell_Notification
 from classes.ui_handling.sales.sell_menu import SellMenu
@@ -215,18 +217,19 @@ def main():
 
     fishing_prompt = gui.GUI.proximity_prompt("fish!", key=pygame.K_e)
     fishing_prompt_was_visible =  False
-
     sell_prompt = gui.GUI.proximity_prompt("sell!" , key=pygame.K_q)
     sell_prompt_was_visible = False
-
     shop_prompt = gui.GUI.proximity_prompt("open shop!" , key=pygame.K_f)
 
+
+    #Custom classes DUmp
     inventory_full_prompt = InventoryFull()
     sell_notifications = Sell_Notification()
     inventory_window = InventoryWindow()
     toolbar = Toolbar()
     shop_window = ShopWindow()
     sell_menu = SellMenu()
+    gear_highlight = GearHighlight()
  #--------------------------------------------
 
        
@@ -1083,6 +1086,18 @@ def main():
             int(dt),
             player_data.inventory["toolbar_slots"],
             dragging_toolbar_index=dragging_toolbar_index
+            )
+
+        #Valid Gear slot Highlight
+
+        if inventory_open and inventory_window.active_tab == "Gear":
+            gear_highlight.draw(
+                screen,
+                inventory_window,
+                player_data.inventory,
+                dragging_inventory_index,
+                dragging_toolbar_index,
+                toolbar.slot_rects
             )
 
             
