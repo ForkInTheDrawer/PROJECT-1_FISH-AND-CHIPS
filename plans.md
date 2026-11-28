@@ -77,16 +77,23 @@ START HERE:
 
 
 ### Work In Progress:
-- Show "Waiting for fish..." During the waiting phase.
+
+- Shop Generation:
+    * Uses gear_item.json as a reference.
+    * Select a random gear to stock.
+    * Roll the randomized stats (upon purchase)
+
+- Shop Rotation:
+    * Rotates every 2 minutes
+    * Timer ticks down while your offline
+    * Display a countdown until the next rotation
 
 - Gear Tab:
     * Only shows Gears / Consumables
         *  Lets you equip gears that are equippable(such as hats, body, boots, etc)
     * Add a way to be able to see the stats of an item
 
-- Add some items in the gear.
-
-
+- Show "Waiting for fish..." During the waiting phase.
 
 ### Future Task:
 - Catch Fish Minigame
@@ -127,13 +134,6 @@ START HERE:
         4. Hat
         5. Ring
         6. Boots
-
-- Shop Generation:
-    * Uses gear_item.json as a reference.
-    * Randomized values for stats
-    - Shop Rotation:
-        * Rotates every 2 minutes
-        * Timer ticks down while your offline
 
 
 - Shop Contains this:

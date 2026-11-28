@@ -77,6 +77,28 @@
     },
 
 
-    "CONSUMABLES" : {},
+    "CONSUMABLES" : {
+        "Basic Bait" : {
+            "Description" : "A delicious snack for fishes! Just don't tell them it's plastic.",
+            "Rarity" : "Common",
+            "Stats" : {
+                "Luck" : 5
+            },
+            "Amount" : 5,
+            "Price" : 50
+        },
+
+        "Lucky Bait" : {
+            "Description" : "Looks like dinner is ready! Twice as delicious than the Basic Bait.",
+            "Rarity" : "Rare",
+            "Stats" : {
+                "Luck" : 10,
+                "Mutation Bonus" : 5
+            },
+            "Amount" : 3,
+            "Price" : 200
+
+        }
+    },
     "SPECIALS" : {}
 }
