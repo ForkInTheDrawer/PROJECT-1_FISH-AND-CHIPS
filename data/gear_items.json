@@ -37,7 +37,12 @@
                 "Description" : "A practical vest with lots of pockets.",
                 "Rarity" : "Rare",
                 "Stats" : {
-                    "WORK ON THIS"
+                    "Slot Increase" : "+5",
+                    "Luck" : {
+                        "Randomized" : true,
+                        "Min" : 1.5,
+                        "Max" : 2
+                    }
                 }
             }
         },

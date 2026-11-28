@@ -63,28 +63,45 @@ START HERE:
 - Fix manual selling mode
 - Toolbar (press 1-5 to equip.)
     * 1 is reserved for the fishing Rod, the rest is for gears and consumables
-
-
-- Gear Tab:
-    * The toolbar can still be seen, and wont be affected by screen darkening.
-
-### Work In Progress:
-- Catch Fish Minigame
-
-- Toolbar (press 1-5 to equip.)
-
     * Add "You must equip your fishing rod to fish!" when you try to fish without a rod.
 
     * Only shows Gears / Consumables
 
     * To arrange consumables, You can see the toolbars below the inventory panel, and you can directly drag and drop it there. 
 
+
+- Gear Tab:
+    * The toolbar can still be seen, and wont be affected by screen darkening.
+    * Drag to the correct equipment position (it will be highlighted as a yellow outline.) 
+
+
+
+### Work In Progress:
+- Catch Fish Minigame
+
 - Gear Tab:
     * Only shows Gears / Consumables
         *  Lets you equip gears that are equippable(such as hats, body, boots, etc)
-        * Drag to the correct equipment position (it will be highlighted as a yellow outline.) 
+
+
+
+
 
 ### Future Task:
+
+- Gears Possible Stats:
+    * Randomized Gear Rolls - Same item can have different drawbacks
+    
+    | Gear Type | Possible Stats | Possible Debuffs
+    | --- | --- | --- |
+    | HEAD | Luck, Mutation Bonus, Selling Value, Bite speed (Less wait time) | Walkspeed Debuff, Minus weight Bonus|
+    | BODY | Luck, Slot Increase, Mutation Bonus, Weight Bonus| Walkspeed Debuff, Minus Selling Value |
+    | RING | Luck, Mutation Bonus, Selling Value, Treasure Chance (Not implemented yet, since theres no treasures yet)| Smaller Green Zone, Minus Bite Speed |
+    | BOOTS | Walkspeed Increase (%)| Minus Bite speed, Minus Mutation Bonus|
+
+
+
+
 - Inventory Icon + Inventory Mechanic
     * Note that we can expand the inventory size VIA Buying new Backpacks (will implement scrolling if it happens.)
     * On a side panel, you can see your characters:
@@ -96,7 +113,9 @@ START HERE:
         5. Ring
         6. Boots
 
-- Shop Rework:
+
+
+- Shop Contains this:
     * BEGINNER ISLAND
     
     | Consumable Name | Description | Price |
@@ -113,12 +132,6 @@ START HERE:
     | "Large Backpack" | +15 slots| $900 |
     | "Ice Box" | +20 slots | $ 2500 |
 
-
-
-- Placeholder Fishing Rods:
-    * "Better Rod" - +10 stats on everything
-    * "Admin Rod" - +100 stats on everything
-
 - Other Islands
     * Implement a Boat system ($10,000 for boat access)
     * New fishes in the other island (named "Redwood")
@@ -126,6 +139,7 @@ START HERE:
 
 - Stats on Basic Rod
     * Make a new .py file named "rods"
+    * Note that you can change the parts in your rod.
         * Stats:
             - Weight (Higher Weight chance)
             - Durability (Higher Weight chance)
@@ -159,7 +173,7 @@ START HERE:
 
 - New Items:
     * Treasure Chest: It's a scrap, 1% of getting.
-        * You get to roll whats inside.
+        * It plays a rolling animation to show you what you'll get.
         * Items:
             1. 10% Luck
             2. Artifact (Stones)
