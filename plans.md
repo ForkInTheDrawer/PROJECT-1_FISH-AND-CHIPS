@@ -77,17 +77,32 @@ START HERE:
 
 
 ### Work In Progress:
-- Catch Fish Minigame
+- Show "Waiting for fish..." During the waiting phase.
 
 - Gear Tab:
     * Only shows Gears / Consumables
         *  Lets you equip gears that are equippable(such as hats, body, boots, etc)
+    * Add a way to be able to see the stats of an item
 
-
+- Add some items in the gear.
 
 
 
 ### Future Task:
+- Catch Fish Minigame
+    * I need ideas on what the minigame is.
+    * PHASE:
+        1. Character gets startled (the line bobs)
+        2. Minigame starts (No minigame idea yet.)
+            a. if Catched:
+                I. Fishing system Determines rarity
+                II. Go to step 3.
+                III. It Shows you the item
+            b. Got away: Fishing system stops, and you gain no fish.
+
+        3. If Legendary and above rarity: 
+
+            b. Cutscene Plays (Nothing yet in mind)
 
 - Gears Possible Stats:
     * Randomized Gear Rolls - Same item can have different drawbacks

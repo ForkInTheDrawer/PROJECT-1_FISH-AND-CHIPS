@@ -338,61 +338,48 @@ class GearWindow:
                 )
 
 
-    def draw_floating_card(self, screen, inventory, dragging_inventory_index, text_color):
-        if dragging_inventory_index is None:
+    def draw_floating_card(self, screen, dragged_item, text_color):
+        if dragged_item is None:
             return
-        items = inventory["plr_inv"]
 
-        if not 0 <= dragging_inventory_index < len(items):
-            return
-        dragged_item = items[dragging_inventory_index]
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
+        # The position where the floating card is in + its size
         card_rect = pygame.Rect(
             mouse_x + 12,
             mouse_y + 12,
             115,
-            45
+            54
         )
 
         pygame.draw.rect(
             screen,
-            (25,62,76),
+            (25, 62, 76),
             card_rect,
-            border_radius = 7
+            border_radius= 7
         )
 
         pygame.draw.rect(
             screen,
-            (255, 210, 90),
+            (61, 151, 225),
             card_rect,
             2,
-            border_radius = 7
+            border_radius= 7
         )
 
-        drag_font = pygame.font.Font(None, 21)
+        drag_font = pygame.font.Font(None, 15)
         item_name = str(dragged_item.get("name", "Unknown"))
 
-        while item_name and drag_font.size(item_name)[0] > card_rect.width-12:
-            item_name = item_name[:-1]
-
-        if item_name != dragged_item.get("name", "Unknown"):
+        while item_name and drag_font.size(item_name)[0] > card_rect.width - 12:
             item_name += "..."
-
-        drag_text = drag_font.render(
-            item_name,
-            True,
-            text_color
-        )
+        drag_text = drag_font.render(item_name, True, text_color)
 
         screen.blit(
             drag_text,
-            drag_text.get_rect(
-                center = card_rect.center
-            )
+            drag_text.get_rect(center = card_rect.center)
         )
-        # I just realized I made 2 functions that do the same thing lol, Remvoed the other one.
-        
+
+
     def get_slot_index_at_pos(self, mouse_pos, window_rect):
         slot_width = 76
         slot_height = 76
