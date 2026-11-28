@@ -30,7 +30,7 @@ from classes.ui_handling.sales.shop_window import ShopWindow
 from classes.ui_handling.sales.sell_notif import Sell_Notification
 from classes.ui_handling.sales.sell_menu import SellMenu
 from classes.ui_handling.sales.sell_confirmation import Sell_Confirmation
-
+from classes.ui_handling.sales.shop_stock import ShopStock
 
 from events import keyboard_events
 from events import mouse_events
@@ -228,7 +228,8 @@ def main():
     sell_notifications = Sell_Notification()
     inventory_window = InventoryWindow()
     toolbar = Toolbar()
-    shop_window = ShopWindow()
+    shop_stock = ShopStock()
+    shop_window = ShopWindow(shop_stock.generate_stock())
     sell_menu = SellMenu()
     gear_highlight = GearHighlight()
  #--------------------------------------------

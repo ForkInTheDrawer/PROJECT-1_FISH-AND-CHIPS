@@ -62,3 +62,21 @@ class ShopStock:
             "price": template.get("Price", 0),
             "quantity": 1            
          }
+
+    def generate_stock(self):
+        stock = []
+
+        #Generate all gear Items.
+
+        for category, items in self.gear_templates.items():
+            for item_name in items:
+                gear = self.generate_gear(category, item_name)
+                stock.append(gear)
+
+        #Generate all CONSUMABLE items:
+
+        for item_name in self.consumable_templates:
+            consumable = self.generate_consumable(item_name)
+            stock.append(consumable)
+
+        return stock

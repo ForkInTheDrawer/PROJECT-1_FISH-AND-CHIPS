@@ -6,37 +6,31 @@ from classes.ui_handling.button import Button
 
 
 class ShopWindow:
-    def __init__(self):
-        self.rect = pygame.Rect(200, 300, 800, 400)
+    def __init__(self, stock = None):
+
+        self.rect = pygame.Rect(200,300,800,400)
+        self.stock = stock or []
 
         self.title_font = pygame.font.Font(None, 48)
-        self.info_font = pygame.font.Font(None, 28)
+        self.info_font = pygame.font.Font(None, 25)
+        self.item_font = pygame.font.Font(None, 23)
+        self.small_font = pygame.font.Font(None, 19)
 
-        self.buttons = [
-            {
-                "button" : Button(
-                    "Basic Rod Upgrade - $25",
-                    (255,255,255),
-                    pygame.Rect(280,440,270,75),
-                    (49,132, 92),
-                    (70,160,110)
-                ),
-                "name" : "Basic Rod Upgrade",
-                "price" : 25
+        self.item_rects = []
 
-            },
-            {
-                "button" : Button(
-                    "Basic Luck - $100",
-                    (255,255,255),
-                    pygame.Rect(650,440,270,75),
-                    (49,132,92),
-                    (70,160,110)
-                ),
-                "name" : "Basic Luck Potion",
-                "price" : 100
-            }
-        ]
+        for index in range(len(self.stock)):
+            column = index % 3
+            row = index //3
+
+            item_rect = pygame.Rect(
+                220 + column * 250,
+                430 + row * 115,
+                230,
+                105
+            )
+
+            self.item_rects.append(item_rect)
+
     def draw(self, screen):
         pygame.draw.rect(screen, (90, 118, 125), self.rect)
         pygame.draw.rect(screen, (125, 97, 90), self.rect, 4)
@@ -49,27 +43,54 @@ class ShopWindow:
 
         screen.blit(
             title,
-            title.get_rect(
-                center = (self.rect.centerx, 355)
-            )
-            )
+            title.get_rect(center = (self.rect.centerx, self.rect.y +55))
+        )
 
         info = self.info_font.render(
-            "TEST PURCHASES",
+            "AVAILABLE ITEMS",
             True,
-            (230,230,230)
-            )
+            (230, 230, 230)
+        )
+
         screen.blit(
             info,
             info.get_rect(center = (self.rect.centerx, 400))
         )
 
-        for item in self.buttons:
-            item["button"].draw(screen)
+        for item, item_rect in zip(self.stock, self.item_rects):
+            pygame.draw.rect(screen, (49, 80, 85), item_rect)
+            pygame.draw.rect(screen, (180, 180, 180), item_rect, 2)
+
+            name = self.item_font.render(
+                item["name"], True, (255,255,255)
+            )
+
+            rarity = self.small_font.render(
+                item["rarity"], True, (230, 220, 150)
+            )
+
+            price = self.small_font.render(
+                f'${item["price"]}', True, (120, 255, 150)
+            )
+
+            screen.blit(name, (item_rect.x + 8, item_rect.y + 8))
+            screen.blit(rarity, (item_rect.x + 8, item_rect.y + 8))
+            screen.blit(price, (item_rect.x + 8, item_rect.y + 58))
+
+            stats_text = ", ". join (
+                f"{stat} : {value}"
+                for stat, value in item["stats"].items()
+            )
+
+            stats = self.small_font.render(
+            stats_text, 
+            True,
+            (220,220,220)
+            )
+
+            screen.blit(stats, (item_rect.x + 8, item_rect.y + 80))
 
     def handle_event(self, event):
-        for item in self.buttons:
-            if item["button"].is_clicked(event):
-                return item["name"], item["price"]
         return None
+
     
